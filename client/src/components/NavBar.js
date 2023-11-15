@@ -6,7 +6,7 @@ function NavBar() {
   return (
     <>  
       <div className="header">
-        <h1>The Forest</h1>
+        {/* <h1>The Forest</h1> */}
       </div>
       <div className = "topnav">
         <NavLink to="/" exact={true}>Home</NavLink>
