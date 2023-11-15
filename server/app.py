@@ -65,13 +65,13 @@ def save_files():
         return make_response(response, 200)
 
 @app.route('/save_files/<int:user_id>', methods=['GET', 'POST'])
-def save_files_by_user(user_id):
+def save_files_by_user_id(user_id):
     if request.method == 'GET':
-        save_files = SaveFile.query.filter_by(SaveFile.user_fk == user_id).all()
+        save_files = SaveFile.query.filter(SaveFile.user_fk == user_id).all()
         response = [save_file.to_dict() for save_file in save_files]
         return make_response(response, 200)
     elif request.method == 'POST':
-        form_data = request.get_json()
+        # form_data = request.get_json()
         try:
             new_save_file = SaveFile(
                 src = 'tbd', #need to change this to automatically happen without form data
