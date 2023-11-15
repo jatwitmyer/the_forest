@@ -30,7 +30,7 @@ def users():
                 400
             )
         return response
-    
+
 @app.route('/users/<int:id>', methods=['GET', 'PATCH', 'DELETE'])
 def users_by_id(id):
     user = User.query.filter(User.id == id).first()
@@ -56,7 +56,7 @@ def users_by_id(id):
     else:
         response = make_response({"error": "User not found"}, 404)
     return response
-    
+
 @app.route('/save_files', methods=['GET'])
 def save_files():
     if request.method == 'GET':
@@ -101,7 +101,6 @@ def save_files_by_id(id):
     else:
         response = make_response({"error": "Save file not found"}, 404)
     return response
-    
 
 # run python app.py
 if __name__ == '__main__':
