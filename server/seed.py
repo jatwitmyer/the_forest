@@ -70,6 +70,24 @@ def create_save_files():
   save_files = [sf1, sf2]
   return save_files
 
+def create_users_achievements():
+  ua1 = UserAchievement(
+    user_fk = 1,
+    achievement_fk = 1,
+    datetime_achieved = datetime.datetime(month=11, day=15, year=2023, hour=12, minute=10, second =0, microsecond=0, fold=0)
+  )
+  users_achievements = [ua1]
+  return users_achievements
+
+def create_achievements():
+  a1 = Achievement(
+    name = "Curiosity killed the cat",
+    summary = "Enter the portal.",
+    visibility = "false"
+    )
+  achievements = [a1]
+  return achievements
+
 if __name__ == '__main__':
 
   with app.app_context():
@@ -93,6 +111,16 @@ if __name__ == '__main__':
     print("Seeding save files...")
     save_files = create_save_files()
     db.session.add_all(save_files)
+    db.session.commit()
+
+    print("Seeding users achievements...")
+    users_achievements = create_users_achievements()
+    db.session.add_all(users_achievements)
+    db.session.commit()
+
+    print("Seeding achievements...")
+    achievements = create_achievements()
+    db.session.add_all(achievements)
     db.session.commit()
 
     # print("Seeding saves items joins...")

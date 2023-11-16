@@ -35,7 +35,9 @@ class User(db.Model, SerializerMixin):
     
   def __repr__(self):
     return f'<User {self.id}>'
-  
+
+
+
 class Character(db.Model, SerializerMixin):
   __tablename__ = 'characters'
   # serialize_rules = (,)
@@ -78,7 +80,7 @@ class SaveFile(db.Model, SerializerMixin):
   accepted_quest_village2_trader = db.Column(db.String)
   met_village1_trade_target = db.Column(db.String)
   negotiated_deal = db.Column(db.String)
-  
+
   wizard_is_home = db.Column(db.String)
   
   def __repr__(self):
@@ -121,6 +123,8 @@ class UserAchievement(db.Model, SerializerMixin):
   user_fk = db.Column(db.Integer, db.ForeignKey('users.id'))
   achievement_fk = db.Column(db.Integer, db.ForeignKey('achievements.id'))
 
+  datetime_achieved = db.Column(db.String)
+
   @validates('user_fk')
   def validates_user_fk(self, key, user_fk):
     if user_fk:
@@ -145,7 +149,10 @@ class Achievement(db.Model, SerializerMixin):
   # serialize_rules = 
 
   id = db.Column(db.Integer, primary_key=True)
+
   name = db.Column(db.String)
+  summary = db.Column(db.String)
+  visibility = db.Column(db.String)
 
   @validates('name')
   def validates_name(self, key, name):
