@@ -26,8 +26,11 @@ def create_characters():
   characters = [c1]
   return characters
 
+girls_item_locations = ["starting path", "spooky1", "spooky2", "village1", "village2"]
+
 def create_save_files():
-  sf1 = SaveFile(
+  c1_girls_item_location = rc(girls_item_locations)
+  c1sf1 = SaveFile(
     character_fk = 1,
 
     datetime_created = datetime.datetime(month=11, day=15, year=2023, hour=12, minute=5, second =0, microsecond=0, fold=0),
@@ -35,7 +38,7 @@ def create_save_files():
     has_entered_portal = "false",
     has_map = "false",
     met_girl = "false",
-    girls_item_location = "village2",
+    girls_item_location = c1_girls_item_location,
     found_girls_item = "false",
     has_visited_store = "false",
     gold_pieces = 0,
@@ -47,7 +50,7 @@ def create_save_files():
     negotiated_deal = "false",
     wizard_is_home = "false",
   )
-  sf2 = SaveFile(
+  c1sf2 = SaveFile(
     character_fk = 1,
 
     datetime_created = datetime.datetime(month=11, day=15, year=2023, hour=12, minute=20, second =0, microsecond=0, fold=0),
@@ -55,7 +58,7 @@ def create_save_files():
     has_entered_portal = "true",
     has_map = "true",
     met_girl = "true",
-    girls_item_location = "village2",
+    girls_item_location = c1_girls_item_location,
     found_girls_item = "false",
     has_visited_store = "true",
     gold_pieces = 50,
@@ -67,7 +70,7 @@ def create_save_files():
     negotiated_deal = "false",
     wizard_is_home = "false",
   )
-  save_files = [sf1, sf2]
+  save_files = [c1sf1, c1sf2]
   return save_files
 
 def create_users_achievements():
