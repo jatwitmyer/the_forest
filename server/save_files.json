@@ -1,0 +1,102 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "username": "username_value",
+      "characters": [
+        {
+          "id": 1,
+          "name": "character_name",
+          "date_created": "date",
+          "last_played": "datetime",
+          "saves": [
+            {
+              "id": 1,
+              "timestamp": "timestamp_value",
+              "location_on_save": "starting_location",
+              "has_entered_portal": false,
+              "met_old_man": false,
+              "met_girl": false,
+              "found_girls_item": false,
+              "girls_item_location": "random_location",
+              "mini_game_high_score": 0,
+              "has_visited_store": false,
+              "gold_pieces": 0,
+              "inventory": {},
+              "met_village2_trader": false,
+              "accepted_quest_village2_trader": false,
+              "met_village1_trade_target": false,
+              "negotiated_deal": false,
+              "wizard_is_home": false
+            }, 
+            {
+              "id": 2,
+              "timestamp": "timestamp_value",
+              "location_on_save": "location_on_save",
+              "has_entered_portal": false,
+              "met_old_man": false,
+              "met_girl": false,
+              "found_girls_item": false,
+              "girls_item_location": "item_location",
+              "mini_game_high_score": 0,
+              "has_visited_store": false,
+              "gold_pieces": 0,
+              "inventory": {},
+              "met_village2_trader": false,
+              "accepted_quest_village2_trader": false,
+              "met_village1_trade_target": false,
+              "negotiated_deal": false,
+              "wizard_is_home": false
+            }
+          ]
+        }, 
+        {
+          "id": 2,
+          "name": "character_name",
+          "date_created": "date",
+          "last_played": "datetime",
+          "saves": [
+            {
+              "id": 1,
+              "timestamp": "timestamp_value",
+              "location_on_save": "starting_location",
+              "has_entered_portal": false,
+              "met_old_man": false,
+              "met_girl": false,
+              "found_girls_item": false,
+              "girls_item_location": "random_location",
+              "mini_game_high_score": 0,
+              "has_visited_store": false,
+              "gold_pieces": 0,
+              "inventory": {},
+              "met_village2_trader": false,
+              "accepted_quest_village2_trader": false,
+              "met_village1_trade_target": false,
+              "negotiated_deal": false,
+              "wizard_is_home": false
+            }, 
+            {
+              "id": 2,
+              "timestamp": "timestamp_value",
+              "location_on_save": "location_on_save",
+              "has_entered_portal": false,
+              "met_old_man": false,
+              "met_girl": false,
+              "found_girls_item": false,
+              "girls_item_location": "item_location",
+              "mini_game_high_score": 0,
+              "has_visited_store": false,
+              "gold_pieces": 0,
+              "inventory": {},
+              "met_village2_trader": false,
+              "accepted_quest_village2_trader": false,
+              "met_village1_trade_target": false,
+              "negotiated_deal": false,
+              "wizard_is_home": false
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
