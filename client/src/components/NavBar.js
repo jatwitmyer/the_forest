@@ -1,25 +1,26 @@
-import React from "react";
+import React, { useState } from "react";
 import { NavLink } from 'react-router-dom';
 
 function NavBar() {
+  //check logged
+  const [loggedIn, setLoggedIn] = useState(false)
 
   return (
-    <>  
-      <div className="header">
-        {/* <h1>The Forest</h1> */}
-      </div>
-      <div className = "topnav">
-        <NavLink to="/" exact={true}>Home</NavLink>
-        <br/>
-        <NavLink to="/about">About</NavLink>
-        <br/>
-        <NavLink to="/settings">Settings</NavLink>
-        <br/>
-        <NavLink to="/login">Login</NavLink>
-        <br/>
-        <NavLink to="/account">Account</NavLink>
-      </div>
-    </>
+    <div className="unlogged-nav-bar">
+      <NavLink to="/settings" className="nav-icon settings"><i class="fa fa-cog" aria-hidden="true"></i></NavLink>
+      {loggedIn == false ? 
+        <>
+          <NavLink to="/signup" className="nav-button-filled">Signup</NavLink> 
+          <NavLink to="/login" className="nav-button-empty">Login</NavLink>
+        </> :
+        <>
+           <NavLink to="/logout" exact={true} className="nav-button-empty">Logout</NavLink> {/* redirect to home */}
+          <NavLink to="/account" className="nav-button-empty">Account</NavLink>
+        </>
+      }
+      <NavLink to="/about" className="nav-button-empty">About</NavLink>
+      <NavLink to="/" exact={true} className="nav-button-empty">Home</NavLink>
+    </div>
   )
 }
 

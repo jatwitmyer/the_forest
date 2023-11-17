@@ -6,7 +6,7 @@ import About from "./About";
 import Settings from "./Settings";
 import Login from "./Login";
 import Account from "./Account";
-import NavBar from "./NavBar";
+// import NavBar from "./NavBar";
 import Signup from "./Signup";
 import StartGame from "./StartGame";
 
@@ -27,7 +27,6 @@ function App() {
 
   return (
     <div className="App">
-      {/* <NavBar/> */}
       <Switch>
         <Route exact path="/">
           <Home/>

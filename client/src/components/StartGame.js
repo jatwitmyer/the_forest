@@ -1,8 +1,9 @@
 import React from "react";
+import NavBar from "./NavBar";
 
 function StartGame() {
   return (
-    <><p>Start Game</p></>
+    <><NavBar/></>
   )
 }
 
