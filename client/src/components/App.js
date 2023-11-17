@@ -7,12 +7,13 @@ import Settings from "./Settings";
 import Login from "./Login";
 import Account from "./Account";
 import NavBar from "./NavBar";
+import Signup from "./Signup";
+import StartGame from "./StartGame";
 
 
 function App() {
   const [users, setUsers] = useState([])
   console.log(users)
-  const userId = 1
 
   //get all users
   useEffect(() => {
@@ -24,19 +25,9 @@ function App() {
     })
   }, [])
 
-  //get all of a user's save files
-  useEffect(() => {
-    fetch(`/save_files/${userId}`)
-    .then(r => r.json())
-    .then(users => {
-      // console.log(users)
-      setUsers(users)
-    })
-  }, [])
-
   return (
     <div className="App">
-      <NavBar/>
+      {/* <NavBar/> */}
       <Switch>
         <Route exact path="/">
           <Home/>
@@ -50,10 +41,17 @@ function App() {
         <Route path="/login">
           <Login/>
         </Route>
+        <Route path="/signup">
+          <Signup/>
+        </Route>
         <Route path="/account">
           <Account/>
         </Route>
+        <Route path="/start">
+          <StartGame/>
+        </Route>
       </Switch>
+
     </div>
   );
 }

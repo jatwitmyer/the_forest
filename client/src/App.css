@@ -1,8 +1,8 @@
-.App {
+/* .App {
   text-align: center;
-}
+} */
 
-.App-header {
+/* .App-header {
   background-color: #282c34;
   min-height: 100vh;
   display: flex;
@@ -11,5 +11,70 @@
   justify-content: center;
   font-size: calc(10px + 2vmin);
   color: white;
+} */
+
+body{
+  background-image: url('/home/jessica/Development/code/phase-5/the_forest/client/public/assets/215595.gif');
+  background-size: cover;
+  
+  height: 100vh;
+  padding:0;
+  margin:0;
 }
 
+/* Add a black background color to the top navigation */
+.unlogged-nav-bar {
+  background-color: hsl(0, 0%, 0%, 70%);
+  overflow: hidden;
+}
+
+/* Style the links inside the navigation bar */
+.unlogged-nav-bar a {
+  float: right;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 14px 20px;
+  text-decoration: none;
+  font-size: 17px;
+}
+
+.unlogged-nav-bar a:hover {
+  background-color: #64CAAA;
+  color: black;
+  /* border-radius: 5px;
+  box-shadow: 0 0 5px #cc03f4,
+            0 0 15px #cc03f4,
+            0 0 20px #0363f4,
+            0 0 50px #03e9f4; */
+}
+
+.unlogged-nav-bar a.active {
+  background-color: #196095;
+  color: white;
+
+}
+
+/* Style the title nav link */
+.title-div a {
+  color: #7474A3;
+  padding: 14px 20px;
+  text-decoration: none;
+  font-size: 40px;
+}
+
+.title-div h1 {
+  /* margin: auto; */
+  width: 850px;
+  text-align: center;
+  background: black;
+  border: 90px solid black;
+}
+
+.title-div {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -ms-transform: translateX(-50%) translateY(-50%);
+  -webkit-transform: translate(-50%,-50%);
+  transform: translate(-50%,-50%);
+}

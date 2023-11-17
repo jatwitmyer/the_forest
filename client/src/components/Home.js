@@ -1,16 +1,18 @@
 import React from "react";
+import { NavLink } from 'react-router-dom';
 
 function Home() {
+
   return (
     <>
       <div className="unlogged-nav-bar">
-        <div className="nav-button empty"><button>Log In</button></div>
-        <div className="nav-button filled"><button>Sign Up</button></div>
-        <div className="nav-icon settings"><i class="fa fa-cog" aria-hidden="true"></i></div>
+        <NavLink to="/settings" className="nav-icon settings"><i class="fa fa-cog" aria-hidden="true"></i></NavLink>
+        <NavLink to="/signup" className="nav-button-filled">Signup</NavLink>
+        <NavLink to="/login" className="nav-button-empty">Login</NavLink>
+        <NavLink to="/about" className="nav-button-empty">About</NavLink>
+        <NavLink to="/" className="nav-button-empty">Home</NavLink>
       </div>
-      <h1>The Forest</h1>
-      <div className="nav-button empty"><button>About</button></div>
-      <div className="background-image home-trees"><img alt="trees" src=""/></div>
+      <div className="title-div"><NavLink to="/start"><h1 className="title">Enter The Forest</h1></NavLink></div>
     </>
   )
 }
