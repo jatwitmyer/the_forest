@@ -54,7 +54,7 @@ body{
   color: white;
 }
 
-/* Style the title nav link */
+/* Style the title & start nav link */
 .title-div a {
   text-decoration: none;
   text-align: center;
@@ -97,6 +97,18 @@ body{
                 1px -1px 0 #f2f2f2, 
                 -1px -1px 0 #f2f2f2;  */
 }
+
+.start-button:hover {
+  background-color: #196095;
+  color: #f2f2f2;
+  border: 3px solid #f2f2f2;
+}
+
+/* .start-button:hover {
+  background-color: #64CAAA;
+  color: black;
+  border: 3px solid black;
+} */
 
 .start-button-container {
   text-align: center;
