@@ -23,13 +23,22 @@ def create_characters():
     datetime_created = datetime.datetime(month=11, day=15, year=2023, hour=12, minute=0, second =0, microsecond=0, fold=0),
     datetime_last_played = datetime.datetime(month=11, day=15, year=2023, hour=12, minute=10, second =0, microsecond=0, fold=0)
   )
-  characters = [c1]
+  c2 = Character(
+    user_fk = 1,
+
+    name = "Rory",
+    datetime_created = datetime.datetime(month=11, day=16, year=2023, hour=12, minute=0, second =0, microsecond=0, fold=0),
+    datetime_last_played = datetime.datetime(month=11, day=16, year=2023, hour=12, minute=10, second =0, microsecond=0, fold=0)
+  )
+
+  characters = [c1, c2]
   return characters
 
 girls_item_locations = ["starting path", "spooky1", "spooky2", "village1", "village2"]
 
 def create_save_files():
   c1_girls_item_location = rc(girls_item_locations)
+  c2_girls_item_location = rc(girls_item_locations)
   c1sf1 = SaveFile(
     character_fk = 1,
 
@@ -70,7 +79,27 @@ def create_save_files():
     negotiated_deal = "false",
     wizard_is_home = "false",
   )
-  save_files = [c1sf1, c1sf2]
+  c2sf1 = SaveFile(
+    character_fk = 2,
+
+    datetime_created = datetime.datetime(month=11, day=15, year=2023, hour=12, minute=5, second =0, microsecond=0, fold=0),
+    location_on_save = "starting_path",
+    has_entered_portal = "false",
+    has_map = "false",
+    met_girl = "false",
+    girls_item_location = c2_girls_item_location,
+    found_girls_item = "false",
+    has_visited_store = "false",
+    gold_pieces = 0,
+    has_seeking_spell = "false",
+    mini_game_high_score = 0,
+    met_village2_trader = "false",
+    accepted_quest_village2_trader = "false",
+    met_village1_trade_target = "false",
+    negotiated_deal = "false",
+    wizard_is_home = "false",
+  )
+  save_files = [c1sf1, c1sf2, c2sf1]
   return save_files
 
 def create_users_achievements():

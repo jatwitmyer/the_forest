@@ -7,7 +7,7 @@ function NavBar() {
 
   return (
     <div className="unlogged-nav-bar">
-      <NavLink to="/settings" className="nav-icon settings"><i class="fa fa-cog" aria-hidden="true"></i></NavLink>
+      <NavLink to="/settings" className="nav-icon settings"><i className="fa fa-cog" aria-hidden="true"></i></NavLink>
       {loggedIn == false ? 
         <>
           <NavLink to="/signup" className="nav-button-filled">Signup</NavLink> 

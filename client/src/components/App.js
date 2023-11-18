@@ -12,18 +12,68 @@ import StartGame from "./StartGame";
 
 
 function App() {
-  const [users, setUsers] = useState([])
-  console.log(users)
-
-  //get all users
+  const [charactersByUser, setCharactersByUser] = useState([])
+  // console.log("charactersByUser", charactersByUser)
+  const [saveFilesByCharacter, setSaveFilesByCharacter] = useState([])
+  // console.log("saveFilesByCharacter", saveFilesByCharacter)
+  const [loadedSave, setLoadedSave] = useState({})
+  
+  //get user id after authentication
+  const user_id = 1 //temporary hard-coding
+  
+  //get all characters by user
   useEffect(() => {
-    fetch("/users")
+    fetch(`/characters_by_user/${user_id}`)
     .then(r => r.json())
-    .then(users => {
-      // console.log(users)
-      setUsers(users)
+    .then(characters_by_user => {
+      setCharactersByUser(characters_by_user)
     })
   }, [])
+  
+  //get all save files by character id
+  // const character_id = 1 //temporary hard-coding
+  // useEffect(() => {
+  //   fetch(`/save_files_by_character/${character_id}`)
+  //   .then(r => r.json())
+  //   .then(save_files_by_character => {
+  //     setSaveFilesByCharacter(save_files_by_character)
+  //   })
+  // }, [])
+
+  //get most recent save file by character id
+  const character_id = 1 //temporary hard-coding
+  useEffect(() => {
+    fetch(`/save_files_by_character/${character_id}`)
+    .then(r => r.json())
+    .then(save_files_by_character => {
+      setSaveFilesByCharacter(save_files_by_character)
+    })
+  }, [])
+  console.log("most recent save", saveFilesByCharacter[saveFilesByCharacter.length -1])
+
+  //declare starting path
+  const starting_path = {
+    src: "",
+    description: "",
+    characters: [],
+    items: [],
+    interactions: []
+  }
+  // console.log(starting_path)
+
+  //declare portal
+  const portal = {
+    src: "",
+    description: "",
+    backward: starting_path,
+    characters: [],
+    items: [],
+    interactions: []
+  }
+  // console.log(starting_path)
+
+  //connect locations declared previously to the portal
+  starting_path.forward = portal
 
   return (
     <div className="App">

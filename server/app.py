@@ -102,7 +102,7 @@ def characters_by_id(id):
         response = make_response({"error": "Character not found"}, 404)
     return response
 
-@app.route('/characters/<int:user_id>', methods=['GET', 'POST'])
+@app.route('/characters_by_user/<int:user_id>', methods=['GET', 'POST'])
 def characters_by_user_id(user_id):
     if request.method == 'GET':
         characters = Character.query.filter(Character.user_fk == user_id).all()
@@ -140,7 +140,7 @@ def save_files():
         response = [save_file.to_dict() for save_file in save_files]
         return make_response(response, 200)
 
-@app.route('/save_files/<int:character_id>', methods=['GET', 'POST'])
+@app.route('/save_files_by_character/<int:character_id>', methods=['GET', 'POST'])
 def save_files_by_character_id(character_id):
     if request.method == 'GET':
         save_files = SaveFile.query.filter(SaveFile.character_fk == character_id).all()
