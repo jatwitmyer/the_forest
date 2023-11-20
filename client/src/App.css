@@ -172,3 +172,8 @@ form {
   color: #f2f2f2;
   padding-top: 40px;
 }
+
+.location-image {
+  width: 100%; /* makes image the width of the div */
+  margin-left: 10px;
+}

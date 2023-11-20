@@ -9,6 +9,7 @@ import Account from "./Account";
 // import NavBar from "./NavBar";
 import Signup from "./Signup";
 import StartGame from "./StartGame";
+import NavBar from "./NavBar";
 
 
 function App() {
@@ -42,32 +43,10 @@ function App() {
       setSaveFilesByCharacter(save_files_by_character) //this returns all save files for the character
     })
   }, [])
-  const mostRecentSave = saveFilesByCharacter[saveFilesByCharacter.length -1]
-  console.log(mostRecentSave)
-
-  //declare starting path
-  const starting_path = {
-    src: "",
-    description: "",
-    characters: [],
-    items: [],
-    interactions: []
+  let mostRecentSave = "not fetched yet"
+  if (saveFilesByCharacter[saveFilesByCharacter.length -1] !== undefined) {
+    mostRecentSave = saveFilesByCharacter[saveFilesByCharacter.length -1]
   }
-  // console.log(starting_path)
-
-  //declare portal
-  const portal = {
-    src: "",
-    description: "",
-    backward: starting_path,
-    characters: [],
-    items: [],
-    interactions: []
-  }
-  // console.log(starting_path)
-
-  //connect locations declared previously to the portal
-  starting_path.forward = portal
 
   return (
     <div className="App">
@@ -91,7 +70,7 @@ function App() {
           <Account/>
         </Route>
         <Route path="/start">
-          <StartGame/>
+          <StartGame mostRecentSave={mostRecentSave}/>
         </Route>
       </Switch>
 
