@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import NavBar from "./NavBar";
-import { NavLink } from "react-router-dom";
 
 function Signup() {
   const [signupFormData, setSignupFormData] = useState({

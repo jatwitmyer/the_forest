@@ -9,7 +9,6 @@ import Account from "./Account";
 // import NavBar from "./NavBar";
 import Signup from "./Signup";
 import StartGame from "./StartGame";
-import NavBar from "./NavBar";
 
 
 function App() {
@@ -17,7 +16,6 @@ function App() {
   // console.log("charactersByUser", charactersByUser)
   const [saveFilesByCharacter, setSaveFilesByCharacter] = useState([])
   // console.log("saveFilesByCharacter", saveFilesByCharacter)
-  const [finishedFetches, setFinishedFetches] = useState(false)
   
   //get user id after authentication
   const user_id = 1 //temporary hard-coding
@@ -30,7 +28,6 @@ function App() {
       setCharactersByUser(characters_by_user)
     })
   }, [])
-
 
   //select a character
   const character_id = 1 //temporary hard-coding

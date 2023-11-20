@@ -175,5 +175,14 @@ form {
 
 .location-image {
   width: 100%; /* makes image the width of the div */
-  margin-left: 10px;
+  /* margin-left: 10px; */
+}
+
+.character-image {
+  width: 100%; /* makes image the width of the div */
+  /* margin-left: 10px; */
+}
+
+.character-name {
+  color: #7474A3;
 }
