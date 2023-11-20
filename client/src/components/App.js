@@ -16,7 +16,7 @@ function App() {
   // console.log("charactersByUser", charactersByUser)
   const [saveFilesByCharacter, setSaveFilesByCharacter] = useState([])
   // console.log("saveFilesByCharacter", saveFilesByCharacter)
-  const [loadedSave, setLoadedSave] = useState({})
+  const [finishedFetches, setFinishedFetches] = useState(false)
   
   //get user id after authentication
   const user_id = 1 //temporary hard-coding
@@ -29,27 +29,21 @@ function App() {
       setCharactersByUser(characters_by_user)
     })
   }, [])
-  
-  //get all save files by character id
-  // const character_id = 1 //temporary hard-coding
-  // useEffect(() => {
-  //   fetch(`/save_files_by_character/${character_id}`)
-  //   .then(r => r.json())
-  //   .then(save_files_by_character => {
-  //     setSaveFilesByCharacter(save_files_by_character)
-  //   })
-  // }, [])
+
+
+  //select a character
+  const character_id = 1 //temporary hard-coding
 
   //get most recent save file by character id
-  const character_id = 1 //temporary hard-coding
   useEffect(() => {
     fetch(`/save_files_by_character/${character_id}`)
     .then(r => r.json())
     .then(save_files_by_character => {
-      setSaveFilesByCharacter(save_files_by_character)
+      setSaveFilesByCharacter(save_files_by_character) //this returns all save files for the character
     })
   }, [])
-  console.log("most recent save", saveFilesByCharacter[saveFilesByCharacter.length -1])
+  const mostRecentSave = saveFilesByCharacter[saveFilesByCharacter.length -1]
+  console.log(mostRecentSave)
 
   //declare starting path
   const starting_path = {
