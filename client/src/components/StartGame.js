@@ -23,10 +23,33 @@ function StartGame( { mostRecentSave } ) {
 
 
   //---------------------------------------------------------------
+  //    all events
+  //---------------------------------------------------------------
+
+  const landslide = {
+    setup: "You've taken a walk on this trail many times before. It's your favorite for clearing your head. Today, you can't get the feeling that your sister's making a mistake out of your head. What will you say to her? How do you know it will reach her?\n\nYou're pulled out of your thoughts by the sound of the birds going silent. A chill goes up your spine. From the trail behind you, you hear a low rumble growing, but from what? Is it a rockslide or a moose?",
+    choices: [
+      {choice: "A. Leave the path to hide in the forest", setup: "You rush off the trail. Once you reach a hiding spot, you hear tree branches snapping in the distance. A rock slams into the road 50 feet away from you and breaks apart.", choices: [{choice: "A. Run into the forest away from the rock", closer:"You race into the trees. Behind you, rocks and broken trees begin to fill the path. You're blocked from the exit of the park. It will take hours for the way to be cleared. You sigh and continue forward into the forest. If you go straight, you know you'll reach the edge before sunset."}, {choice:"B. Go back to the road to run away faster.", closer:"You race down the trail. Behind you, rocks and broken trees begin to fill the path. You're blocked from the exit of the park. It will take hours for the way to be cleared. You sigh and turn to enter the forest. If you go straight, you know you'll reach the edge before sunset."}]},
+      {choice: "B. Bolt down the trail to put distance between you and the sound", closer: "You race down the trail. You lose your breath and turn back to check on the noise. You hear tree branches snapping in the distance. A rock slams into the road 80 feet away from you and breaks apart. You race down the trail. Behind you, rocks and broken trees begin to fill the path. You're blocked from the exit of the park. It will take hours for the way to be cleared. You sigh and turn to enter the forest. If you go straight, you know you'll reach the edge before sunset."},
+    ]
+  }
+  console.log(landslide)
+
+  const event = {
+    setup: "",
+    choices: [{choice: "", closer: ""}]
+  }
+  console.log(event)
+  
+  
+  
+  //---------------------------------------------------------------
   //    all locations and their connections
   //---------------------------------------------------------------
+
   const starting_path = {
     src: "assets/starting_path.JPG",
+    events: [landslide] 
   }
   const portal = {
     src: "assets/portal.jpeg",
@@ -109,7 +132,7 @@ function StartGame( { mostRecentSave } ) {
     }
   }
   function backward() {
-    console.log(currentLocation)
+    // console.log(currentLocation)
     if (currentLocation.backward) {
       setCurrentLocation(currentLocation.backward)
     }
@@ -118,7 +141,7 @@ function StartGame( { mostRecentSave } ) {
     }
   }
   function right() {
-    console.log(currentLocation)
+    // console.log(currentLocation)
     if (currentLocation.right) {
       setCurrentLocation(currentLocation.right)    }
     else {
@@ -140,13 +163,21 @@ function StartGame( { mostRecentSave } ) {
     }
   }
 
+  //---------------------------------------------------------------
+  //    render characters
+  //---------------------------------------------------------------
   function renderCharacters() {
     if (currentLocation.characters) {
-      console.log(currentLocation.characters)
+      // console.log(currentLocation.characters)
       const cards = currentLocation.characters.map(character => <CharacterCard character={character} key={character.id}/>)
       return cards
     }
   }
+
+  
+  //---------------------------------------------------------------
+  //    all descriptions
+  //---------------------------------------------------------------
 
   return (
     <>
