@@ -186,3 +186,17 @@ form {
 .character-name {
   color: #7474A3;
 }
+
+.event-div {
+  color: #7474A3;
+  background-color: black;
+  padding: 5px;
+  padding-left: 20px;
+  padding-right: 20px;
+  font-weight: bold;
+  font-size: 20px;
+}
+
+.event-div p {
+  white-space: pre-wrap;
+}

@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import NavBar from "./NavBar";
 import CharacterCard from "./CharacterCard";
+import EventCard from "./EventCard";
 
 function StartGame( { mostRecentSave } ) {
   // console.log(mostRecentSave)
@@ -25,22 +26,43 @@ function StartGame( { mostRecentSave } ) {
   //---------------------------------------------------------------
   //    all events
   //---------------------------------------------------------------
-
-  const landslide = {
-    setup: "You've taken a walk on this trail many times before. It's your favorite for clearing your head. Today, you can't get the feeling that your sister's making a mistake out of your head. What will you say to her? How do you know it will reach her?\n\nYou're pulled out of your thoughts by the sound of the birds going silent. A chill goes up your spine. From the trail behind you, you hear a low rumble growing, but from what? Is it a rockslide or a moose?",
-    choices: [
-      {choice: "A. Leave the path to hide in the forest", setup: "You rush off the trail. Once you reach a hiding spot, you hear tree branches snapping in the distance. A rock slams into the road 50 feet away from you and breaks apart.", choices: [{choice: "A. Run into the forest away from the rock", closer:"You race into the trees. Behind you, rocks and broken trees begin to fill the path. You're blocked from the exit of the park. It will take hours for the way to be cleared. You sigh and continue forward into the forest. If you go straight, you know you'll reach the edge before sunset."}, {choice:"B. Go back to the road to run away faster.", closer:"You race down the trail. Behind you, rocks and broken trees begin to fill the path. You're blocked from the exit of the park. It will take hours for the way to be cleared. You sigh and turn to enter the forest. If you go straight, you know you'll reach the edge before sunset."}]},
-      {choice: "B. Bolt down the trail to put distance between you and the sound", closer: "You race down the trail. You lose your breath and turn back to check on the noise. You hear tree branches snapping in the distance. A rock slams into the road 80 feet away from you and breaks apart. You race down the trail. Behind you, rocks and broken trees begin to fill the path. You're blocked from the exit of the park. It will take hours for the way to be cleared. You sigh and turn to enter the forest. If you go straight, you know you'll reach the edge before sunset."},
-    ]
-  }
-  console.log(landslide)
-
+  
   const event = {
     setup: "",
-    choices: [{choice: "", closer: ""}]
+    choices: [
+      {choice: "", closer: ""},
+      {choice: "", setup: "", choices: [
+        {choice: "", closer: ""},
+        {choice: "", closer: ""}
+      ]}]
   }
-  console.log(event)
+  // console.log(event)
+
+  const landslide = {
+    setup: "You've walked on this trail many times before. It's your favorite for clearing your thoughts. Today, you can't get the feeling that your sister's making a mistake out of your head. What will you say to her? How do you know it will reach her?\n\nYou're pulled to the present by the sound of the birds going silent. A chill goes up your spine. From the trail behind you, you hear a low rumble growing, but from what? Is it a rockslide or a moose?",
+    choices: [
+      {id: "A", selection: "Leave the path to hide in the forest", setup: "You rush off the trail. Once you reach a hiding spot, you hear tree branches snapping in the distance. A rock slams into the road 50 feet away from you and breaks apart.", choices: [
+        {id: "A", selection: "Run into the forest away from the rock", closer:"You race into the trees. Behind you, rocks and broken trees begin to fill the path. You're blocked from the exit of the park. It will take hours for the way to be cleared. You sigh and continue forward into the forest. If you go straight, you know you'll reach the edge before sunset."},
+        {id: "B", selection:"Go back to the road to run away faster", closer:"You race down the trail. Behind you, rocks and broken trees begin to fill the path. You're blocked from the exit of the park. It will take hours for the way to be cleared. You sigh and turn to enter the forest. If you go straight, you know you'll reach the edge before sunset."}
+      ]},
+      {id: "B", selection: "Bolt down the trail to put distance between you and the sound", closer: "You race down the trail. You lose your breath and turn back to check on the noise. You hear tree branches snapping in the distance. A rock slams into the road 80 feet away from you and breaks apart. You race down the trail. Behind you, rocks and broken trees begin to fill the path. You're blocked from the exit of the park. It will take hours for the way to be cleared. You sigh and turn to enter the forest. If you go straight, you know you'll reach the edge before sunset."},
+    ],
+    completed: false
+  }
+  // console.log(landslide) //achievement: lived to tell the tale
   
+  const findPortal = {
+    setup: "You're slowly making your way through the forest when you hear something ahead of you. It sounds like a windchime. ",
+    choices: [
+      {choice: "", closer: ""},
+      {choice: "", setup: "", choices: [
+        {choice: "", closer: ""},
+        {choice: "", closer: ""}
+      ]}]
+  }
+  // console.log(findPortal)
+
+
   
   
   //---------------------------------------------------------------
@@ -111,7 +133,8 @@ function StartGame( { mostRecentSave } ) {
   
   const [currentLocation, setCurrentLocation] = useState({
     src: "assets/starting_path.JPG",
-    forward: portal
+    forward: portal,
+    events: [landslide] 
   })
 
   function left() {
@@ -178,6 +201,14 @@ function StartGame( { mostRecentSave } ) {
   //---------------------------------------------------------------
   //    all descriptions
   //---------------------------------------------------------------
+  function renderEvents() {
+    // console.log(currentLocation.events)
+    if (currentLocation.events) {
+      const currentEvent = currentLocation.events.find(event => event.completed === false) //returns the first that matches. i want to find the first event that has not been triggered yet
+      const eventCard = <EventCard currentEvent={currentEvent}/>
+      return eventCard
+    }
+  }
 
   return (
     <>
@@ -195,6 +226,9 @@ function StartGame( { mostRecentSave } ) {
         </div>
         <div className="col-6">
           {renderCharacters()}
+        </div>
+        <div className="col-12">
+          {renderEvents()}
         </div>
       </div>
     </>
