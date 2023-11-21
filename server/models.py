@@ -1,23 +1,36 @@
-from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy import MetaData
 from sqlalchemy.orm import validates
 from sqlalchemy.ext.associationproxy import association_proxy
+from sqlalchemy.ext.hybrid import hybrid_property
 from sqlalchemy_serializer import SerializerMixin
-
-convention = {"fk": "fk_%(table_name)s_%(column_0_name)s_%(referred_table_name)s"}
-metadata = MetaData(naming_convention=convention)
-db = SQLAlchemy(metadata=metadata)
-
-
+from config import bcrypt, db
 
 class User(db.Model, SerializerMixin):
   __tablename__ = 'users'
-  # serialize_rules = (,)
+  serialize_rules = ('-characters.user', '-_password_hash')
 
   id = db.Column(db.Integer, primary_key=True)
 
   username = db.Column(db.String, unique=True)
-  password = db.Column(db.String)
+  _password_hash = db.Column(db.String)
+
+  characters = db.relationship('Character', backref='user')
+
+  # add password_hash property and authenticate instance methods here
+  @hybrid_property
+  def password_hash(self):
+    # ensures user does not have access to password
+    raise AttributeError("You don't have permission to view the password!")
+  
+  @password_hash.setter
+  def password_hash(self, password):
+    # generates hashed version of password
+    new_hashed_password = bcrypt.generate_password_hash(password.encode('utf-8'))
+
+    self._password_hash = new_hashed_password.decode('utf-8')
+
+  def authenticate(self, password):
+    # check if inputted password matches user's password
+    return bcrypt.check_password_hash(self._password_hash, password.encode('utf-8'))
 
   @validates('username')
   def validates_username(self, key, username):

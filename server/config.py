@@ -1,17 +1,24 @@
-from flask import Flask, make_response, request
-from models import db, User, UserAchievement, Achievement, SaveFile
+from flask import Flask
 from flask_migrate import Migrate
-
+from flask_bcrypt import Bcrypt
+from flask_restful import Api
+from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy import MetaData
 
 app = Flask(__name__)
-
-# make the connection to the DB through SQLAlchemy
+app.secret_key = b'Y\xf1Xz\x00\xad|eQ\x80t \xca\x1a\x10K'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///forest.db'
-
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+app.json.compact = False
 
-# create our migration using our db
+metadata = MetaData(naming_convention={
+    "fk": "fk_%(table_name)s_%(column_0_name)s_%(referred_table_name)s",
+})
+db = SQLAlchemy(metadata=metadata)
+
 migrate = Migrate(app, db)
-
-# initialize the flask app
 db.init_app(app)
+
+bcrypt = Bcrypt(app)
+
+api = Api(app)

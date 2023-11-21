@@ -1,23 +1,32 @@
 import React, { useState } from "react";
 import NavBar from "./NavBar";
 import { NavLink } from "react-router-dom";
+// import { Button, Error } from "src/styles";
 
-function Login() {
-  const [loginFormData, setloginFormData] = useState({
-    username: "",
-    password: ""
-  });
+function Login( { onLogin } ) {
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [errors, setErrors] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
-  function handleChange(e) {
-    setloginFormData({
-        ...loginFormData,
-        [e.target.name]: e.target.value
-    })
-    }
-  
-  console.log(loginFormData)
-
-  function handleLogin() {}
+  function handleLogin(e) {
+    e.preventDefault();
+    setIsLoading(true);
+    fetch("/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ username, password }),
+    }).then((r) => {
+      setIsLoading(false);
+      if (r.ok) {
+        r.json().then((user) => onLogin(user));
+      } else {
+        r.json().then((err) => setErrors(err.errors));
+      }
+    });
+  }
 
   return (
     <>
@@ -31,8 +40,8 @@ function Login() {
               <input 
                 type="text"
                 name="username"
-                value={loginFormData.username}
-                onChange={handleChange}
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
               />
             </label>
             <br/>
@@ -40,12 +49,18 @@ function Login() {
               <input 
                 type="text"
                 name="password"
-                value={loginFormData.password}
-                onChange={handleChange}
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
               />
             </label>
             <br/>
-            <input type="submit" value="Log In"/>
+            {/* <Button variant="fill" color="primary" type="submit">
+              {isLoading ? "Loading..." : "Login"}
+            </Button> */}
+            <br/>
+            {/* {errors.map((err) => (
+              <Error key={err}>{err}</Error>
+            ))} */}
             <br/>
             <NavLink to="/signup">Sign Up</NavLink>
           </form>

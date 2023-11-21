@@ -7,11 +7,11 @@ from models import db, User, Character, SaveFile, UserAchievement, Achievement
 
 def create_users():
   u1 = User(
-    username = "jess",
-    password = "1234")
+    username = "jess")
+  u1.password_hash = "1234"
   u2 = User(
-    username = "rho",
-    password = "1234")
+    username = "rho")
+  u2.password_hash = "1234"
   users = [u1, u2]
   return users
 
