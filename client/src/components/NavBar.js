@@ -1,8 +1,9 @@
 import React, { useState } from "react";
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 
 function NavBar( {user, setUser} ) {
   // console.log(user)
+  const navigate = useNavigate()
 
   function logout() {
     fetch("/logout", {
@@ -12,7 +13,10 @@ function NavBar( {user, setUser} ) {
       },
       body: {}
     })
-    .then(setUser(null))
+    .then(data => {
+      setUser(null)
+      navigate('/')
+    })
   }
 
   return (

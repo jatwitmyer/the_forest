@@ -1,21 +1,26 @@
 import React, { useState } from "react";
 
-function EventCard( { currentEvent } ) {
+function EventCard( { currentEvent, currentLocation, event_id } ) {
   const [setup, setSetup] = useState(currentEvent.setup)
   const [choices, setChoices] = useState(currentEvent.choices)
-  console.log("setup", setup)
-  console.log("choices", choices)
+  // console.log("setup", setup)
+  // console.log("choices", choices)
   
   function handleChoice(choice) {
-    console.log(choice)
+    // console.log(choice)
     if (choice.setup) {
       setSetup(choice.setup)
       setChoices(choice.choices)
+      console.log(currentLocation)
     }
     else {
       setSetup(choice.closer)
       setChoices([])
-      currentEvent.completed = true
+      console.log(currentEvent)
+      // console.log(event_id)
+      console.log(currentLocation)
+      currentLocation.events.find(event => event.id === event_id).completed = true
+      // currentLocation..completed = true
     }
   }
 

@@ -227,8 +227,16 @@ form {
   white-space: pre-wrap;
 }
 
+.account {
+  color: #7474A3;
+  background-color: black;
+  margin: 100px;
+  padding-left: 15px;
+}
 
 .user-character-card-div {
   color: #7474A3;
   background-color: black;
+  border: 1px;
+  border-color: #7474A3;
 }

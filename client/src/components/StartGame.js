@@ -1,10 +1,14 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import NavBar from "./NavBar";
 import CharacterCard from "./CharacterCard";
 import EventCard from "./EventCard";
 
-function StartGame( { mostRecentSave } ) {
-  // console.log(mostRecentSave)
+function StartGame( { selectedCharacter, selectedSaveFile } ) {
+  const [canProgress, setCanProgress] = useState(false)
+
+
+
+
 
   //---------------------------------------------------------------
   //    all characters
@@ -39,6 +43,7 @@ function StartGame( { mostRecentSave } ) {
   // console.log(event)
 
   const landslide = {
+    id: 1,
     setup: "You've walked on this trail many times before. It's your favorite for clearing your thoughts. Today, you can't get the feeling that your sister's making a mistake out of your head. What will you say to her? How do you know it will reach her?\n\nYou're pulled to the present by the sound of the birds going silent. A chill goes up your spine. From the trail behind you, you hear a low rumble growing, but from what? Is it a rockslide or a moose?",
     choices: [
       {id: "A", selection: "Leave the path to hide in the forest", setup: "You rush off the trail. Once you reach a hiding spot, you hear tree branches snapping in the distance. A rock slams into the road 50 feet away from you and breaks apart.", choices: [
@@ -52,18 +57,33 @@ function StartGame( { mostRecentSave } ) {
   // console.log(landslide) //achievement: lived to tell the tale
   
   const findPortal = {
+    id: 2,
     setup: "You're slowly making your way through the forest when you hear something ahead of you. It sounds like a windchime. ",
     choices: [
       {choice: "", closer: ""},
       {choice: "", setup: "", choices: [
         {choice: "", closer: ""},
         {choice: "", closer: ""}
-      ]}]
+      ]}],
+    completed: false
   }
   // console.log(findPortal)
-
-
   
+  //set events in state so that they can be updated as completed
+  const [events, setEvents] = useState({
+    starting_path: [landslide],
+    portal: [findPortal],
+    spooky1: [],
+    swamp1: [],
+    swamp_village: [],
+    fork: [],
+    cave: [],
+    waterfall_village: [],
+    stairs: [],
+    tree_village: [],
+    shop: [],
+  })
+
   
   //---------------------------------------------------------------
   //    all locations and their connections
@@ -71,52 +91,63 @@ function StartGame( { mostRecentSave } ) {
 
   const starting_path = {
     src: "assets/starting_path.JPG",
-    events: [landslide] 
+    events: [landslide]
   }
   const portal = {
     src: "assets/portal.jpeg",
-    backward: starting_path
+    backward: starting_path,
+    events: [findPortal],
   }
   const spooky1 = {
-    src: "assets/spooky1.jpg"
+    src: "assets/spooky1.jpg",
+    events: [],
   }
   const spooky2 = {
     src: "assets/spooky2.jpg",
     backward: spooky1,
-    characters: [wizard]
+    characters: [wizard],
+    events: [],
   }
   const swamp1 = {
     src: "assets/swamp1.jpg",
-    backward: spooky2
+    backward: spooky2,
+    events: [],
   }
   const swamp_village = {
     src: "assets/swamp_village.jpg",
-    backward: swamp1
+    backward: swamp1,
+    events: [],
   }
   const fork = {
     src: "assets/fork.jpg",
-    backward: spooky2
+    backward: spooky2,
+    events: [],
   }
   const cave = {
     src: "assets/cave.jpeg",
     backward: fork,
-    characters: [girl]
+    characters: [girl],
+    events: [],
   }
   const waterfall_village = {
     src: "assets/waterfall_village.jpg",
-    backward: cave
+    backward: cave,
+    events: [],
   }
   const stairs = {
     src: "assets/stairs.png",
-    backward: fork
+    backward: fork,
+    events: [],
   }
   const tree_village = {
     src: "assets/tree_village.jpg",
-    backward: stairs
+    backward: stairs,
+    events: [],
   }
   const shop = {
     src: "assets/shop.jpeg",
-    exit: tree_village
+    exit: tree_village,
+    events: [],
   }
     
   starting_path.forward = portal
@@ -134,8 +165,10 @@ function StartGame( { mostRecentSave } ) {
   const [currentLocation, setCurrentLocation] = useState({
     src: "assets/starting_path.JPG",
     forward: portal,
-    events: [landslide] 
+    events: [landslide]
   })
+
+  const [locations, setLocations] = useState()
 
   function left() {
     console.log(currentLocation)
@@ -203,12 +236,21 @@ function StartGame( { mostRecentSave } ) {
   //---------------------------------------------------------------
   function renderEvents() {
     // console.log(currentLocation.events)
-    if (currentLocation.events) {
+    if (currentLocation.events.length > 0) { //can't be an if is re-rendering itself
       const currentEvent = currentLocation.events.find(event => event.completed === false) //returns the first that matches. i want to find the first event that has not been triggered yet
-      const eventCard = <EventCard currentEvent={currentEvent}/>
-      return eventCard
+      if (currentEvent) {
+        const event_id = currentEvent.id
+        const eventCard = <EventCard currentEvent={currentEvent} currentLocation={currentLocation} event_id={event_id}/>
+        return eventCard
+      }
     }
   }
+
+  console.log(landslide.completed)
+  if (landslide.completed === true) {
+    setCanProgress(true)
+  }
+
 
   return (
     <>
