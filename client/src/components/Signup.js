@@ -20,7 +20,6 @@ function Signup() {
 
   return (
     <>
-      <NavBar/>
       <div className="row"> {/* make this add to 12 */}
         <div className="col-3"></div>
         <div className="col-6 form-div">

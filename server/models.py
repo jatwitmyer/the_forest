@@ -53,7 +53,7 @@ class User(db.Model, SerializerMixin):
 
 class Character(db.Model, SerializerMixin):
   __tablename__ = 'characters'
-  # serialize_rules = (,)
+  serialize_rules = ('-save_files.character',)
 
   id = db.Column(db.Integer, primary_key=True)
   user_fk = db.Column(db.Integer, db.ForeignKey('users.id'))
@@ -61,6 +61,8 @@ class Character(db.Model, SerializerMixin):
   name = db.Column(db.String)
   datetime_created = db.Column(db.String)
   datetime_last_played = db.Column(db.String)
+
+  save_files = db.relationship('SaveFile', backref='character')
 
   def __repr__(self):
       return f'<Character {self.id}>'

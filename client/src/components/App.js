@@ -6,10 +6,10 @@ import About from "./About";
 import Settings from "./Settings";
 import Login from "./Login";
 import Account from "./Account";
-// import NavBar from "./NavBar";
 import Signup from "./Signup";
-// import StartGame from "./StartGame";
-import UserAuthentication from "./UserAuthentication";
+import StartGame from "./StartGame";
+import NavBar from "./NavBar";
+import Logout from "./Logout"
 
 
 function App() {
@@ -24,7 +24,35 @@ function App() {
     });
   }, []);
 
-  if (!user) return <UserAuthentication onLogin={setUser} />;
+
+
+  if (!user) {
+    return (
+    <div className="App">
+      <NavBar user={user}/>
+      <Switch>
+        <Route exact path="/">
+          <Home user={user}/>
+        </Route>
+        <Route path="/about">
+          <About/>
+        </Route>
+        <Route path="/settings">
+          <Settings/>
+        </Route>
+        <Route path="/login">
+          <Login onLogin={setUser}/>
+        </Route>
+        <Route path="/signup">
+          <Signup onLogin={setUser}/>
+        </Route>
+      </Switch>
+
+    </div>
+  );}
+
+
+    
 
 
 //commented all of this out ->
@@ -65,9 +93,10 @@ function App() {
 
   return (
     <div className="App">
+      <NavBar user={user} setUser={setUser}/>
       <Switch>
         <Route exact path="/">
-          <Home/>
+          <Home user={user}/>
         </Route>
         <Route path="/about">
           <About/>
@@ -75,14 +104,14 @@ function App() {
         <Route path="/settings">
           <Settings/>
         </Route>
-        <Route path="/login">
-          <Login/>
-        </Route>
-        <Route path="/signup">
-          <Signup/>
+        <Route path="/logout">
+          <Logout setUser={setUser} user={user}/>
         </Route>
         <Route path="/account">
-          <Account/>
+          <Account user={user}/>
+        </Route>
+        <Route path="/start">
+          <StartGame/>
         </Route>
         {/* <Route path="/start">
           <StartGame mostRecentSave={mostRecentSave}/>

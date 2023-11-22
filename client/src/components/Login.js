@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import NavBar from "./NavBar";
 import { NavLink } from "react-router-dom";
-// import { Button, Error } from "src/styles";
+import Button from "../styles/Button";
+import Error from "../styles/Error";
 
 function Login( { onLogin } ) {
   const [username, setUsername] = useState("");
@@ -30,7 +30,7 @@ function Login( { onLogin } ) {
 
   return (
     <>
-      <NavBar/>
+      {/* <NavBar/> */}
       <div className="row"> {/* make this add to 12 */}
         <div className="col-3"></div>
         <div className="col-6 form-div">
@@ -54,13 +54,13 @@ function Login( { onLogin } ) {
               />
             </label>
             <br/>
-            {/* <Button variant="fill" color="primary" type="submit">
+            <Button variant="fill" color="primary" type="submit">
               {isLoading ? "Loading..." : "Login"}
-            </Button> */}
+            </Button>
             <br/>
-            {/* {errors.map((err) => (
+            {errors.map((err) => (
               <Error key={err}>{err}</Error>
-            ))} */}
+            ))}
             <br/>
             <NavLink to="/signup">Sign Up</NavLink>
           </form>

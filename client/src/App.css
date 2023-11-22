@@ -39,6 +39,17 @@ body{
   font-size: 17px;
 }
 
+.unlogged-nav-bar button {
+  float: right;
+  color: #f2f2f2;
+  background-color: Transparent;
+  text-align: center;
+  padding: 14px 20px;
+  text-decoration: none;
+  font-size: 17px;
+  border-style: solid;
+}
+
 .unlogged-nav-bar a:hover {
   background-color: #64CAAA;
   color: black;
@@ -50,6 +61,21 @@ body{
 }
 
 .unlogged-nav-bar a.active {
+  background-color: #196095;
+  color: white;
+}
+
+.unlogged-nav-bar button:hover {
+  background-color: #64CAAA;
+  color: black;
+  /* border-radius: 5px;
+  box-shadow: 0 0 5px #cc03f4,
+            0 0 15px #cc03f4,
+            0 0 20px #0363f4,
+            0 0 50px #03e9f4; */
+}
+
+.unlogged-nav-bar button.active {
   background-color: #196095;
   color: white;
 }
@@ -199,4 +225,10 @@ form {
 
 .event-div p {
   white-space: pre-wrap;
+}
+
+
+.user-character-card-div {
+  color: #7474A3;
+  background-color: black;
 }

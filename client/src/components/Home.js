@@ -2,15 +2,14 @@ import React from "react";
 import { NavLink } from 'react-router-dom';
 import NavBar from "./NavBar";
 
-function Home() {
+function Home( { user } ) {
 
   return (
     <>
-      <NavBar/>
       <div className="title-div">
         <h1 className="title">Welcome to The Forest</h1>
         <div className="start-button-container">
-          <NavLink className="start-button" to="/start">START GAME</NavLink>
+          {user? <NavLink className="start-button" to="/start">START GAME</NavLink> : <></> }
         </div>
       </div>
     </>

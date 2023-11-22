@@ -212,7 +212,6 @@ function StartGame( { mostRecentSave } ) {
 
   return (
     <>
-      <NavBar/>
       <div className="row"> {/* make this add to 12 */}
         <div className="col-6">
           {/* <img className="location-image" src={currentLocation.src} alt="location"/> */}
