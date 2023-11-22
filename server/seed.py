@@ -108,16 +108,26 @@ def create_users_achievements():
     achievement_fk = 1,
     datetime_achieved = datetime.datetime(month=11, day=15, year=2023, hour=12, minute=10, second =0, microsecond=0, fold=0)
   )
-  users_achievements = [ua1]
+  ua2 = UserAchievement(
+    user_fk = 1,
+    achievement_fk = 2,
+    datetime_achieved = datetime.datetime(month=11, day=15, year=2023, hour=12, minute=15, second =0, microsecond=0, fold=0)
+  )
+  users_achievements = [ua1, ua2]
   return users_achievements
 
 def create_achievements():
   a1 = Achievement(
+    name = "Live to Tell the Tale",
+    summary = "Escape the landslide.",
+    visibility = "false"
+    )
+  a2 = Achievement(
     name = "Curiosity killed the cat",
     summary = "Enter the portal.",
     visibility = "false"
     )
-  achievements = [a1]
+  achievements = [a1, a2]
   return achievements
 
 if __name__ == '__main__':

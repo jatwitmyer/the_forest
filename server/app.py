@@ -14,15 +14,15 @@ import datetime
 ### USERS ###
 #--------------------------------------
 
-@app.before_request
-def check_if_logged_in():
-    open_access_list = [
-        'signup',
-        'login',
-        'check_session'
-    ]
-    if (request.endpoint) not in open_access_list and (not session.get('user_id')):
-        return {'error': '401 Unauthorized'}, 401
+# @app.before_request
+# def check_if_logged_in():
+#     open_access_list = [
+#         'signup',
+#         'login',
+#         'check_session',
+#     ]
+#     if (request.endpoint) not in open_access_list and (not session.get('user_id')):
+#         return {'error': '401 Unauthorized'}, 401
     
 class Signup(Resource):
     def post(self):
@@ -286,7 +286,7 @@ def users_achievements_by_id(id):
         response = make_response({"error": "UserAchievement not found"}, 404)
     return response
 
-@app.route('/users_achievements/<int:user_id>', methods=['GET', 'POST'])
+@app.route('/users_achievements_by_user/<int:user_id>', methods=['GET', 'POST'])
 def users_achievements_by_user_id(user_id):
     if request.method == 'GET':
         users_achievements = UserAchievement.query.filter(UserAchievement.user_fk == user_id).all()
