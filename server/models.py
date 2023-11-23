@@ -6,14 +6,15 @@ from config import bcrypt, db
 
 class User(db.Model, SerializerMixin):
   __tablename__ = 'users'
-  serialize_rules = ('-characters.user', '-_password_hash')
+  serialize_rules = ('-characters.user', '-_password_hash', '-users_achievements.user')
 
   id = db.Column(db.Integer, primary_key=True)
 
   username = db.Column(db.String, unique=True)
   _password_hash = db.Column(db.String)
 
-  characters = db.relationship('Character', backref='user')
+  characters = db.relationship('Character', backref='user', cascade="all, delete-orphan")
+  users_achievements = db.relationship('UserAchievement', back_populates="user", cascade="all, delete-orphan")
 
   # add password_hash property and authenticate instance methods here
   @hybrid_property
@@ -62,7 +63,7 @@ class Character(db.Model, SerializerMixin):
   datetime_created = db.Column(db.String)
   datetime_last_played = db.Column(db.String)
 
-  save_files = db.relationship('SaveFile', backref='character')
+  save_files = db.relationship('SaveFile', backref='character', cascade="all, delete-orphan")
 
   def __repr__(self):
       return f'<Character {self.id}>'
@@ -100,45 +101,18 @@ class SaveFile(db.Model, SerializerMixin):
   
   def __repr__(self):
     return f'<SaveFile {self.id}>'
-  
-
-
-# class SaveItemJoin(db.Model, SerializerMixin):
-#   __tablename__ = 'saves_items_joins'
-#   # serialize_rules = (,)
-
-#   id = db.Column(db.Integer, primary_key=True)
-
-#   save_file_fk = db.Column(db.Integer, db.ForeignKey('save_files.id'))
-#   inventory_item_fk = db.Column(db.Integer, db.ForeignKey('inventory_items.id'))
-
-#   def __repr__(self):
-#       return f'<Character {self.id}>'
-  
-
-
-# class InventoryItem(db.Model, SerializerMixin):
-#   __tablename__ = 'inventory_items'
-#   # serialize_rules = (,)
-
-#   id = db.Column(db.Integer, primary_key=True)
-
-#   item_name = db.Column(db.String)
-
-#   def __repr__(self):
-#       return f'<Character {self.id}>'
-
-
 
 class UserAchievement(db.Model, SerializerMixin):
   __tablename__ = 'users_achievements'
-  # serialize_rules = 
+  serialize_rules = ('-user.users_achievements',)
 
   id = db.Column(db.Integer, primary_key=True)
   user_fk = db.Column(db.Integer, db.ForeignKey('users.id'))
   achievement_fk = db.Column(db.Integer, db.ForeignKey('achievements.id'))
 
   datetime_achieved = db.Column(db.String)
+  
+  user = db.relationship("User", back_populates="users_achievements")
 
   @validates('user_fk')
   def validates_user_fk(self, key, user_fk):

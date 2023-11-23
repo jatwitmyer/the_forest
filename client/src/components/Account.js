@@ -5,9 +5,10 @@ import { useNavigate } from "react-router-dom";
 function Account( {user, setUser} ) {
   const [allAchievements, setAllAchievements] = useState([])
   const [achievementFks, setAchievementFks] = useState([])
-  const [showEditForm, setShowEditForm] = useState(false)
+  const [showEditUsernameForm, setShowEditUsernameForm] = useState(false)
+  const [showEditPasswordForm, setShowEditPasswordForm] = useState(false)
   const [newUsername, setNewUsername] = useState("")
-  // const [newPassword, setNewPassword] = useState("")
+  const [newPassword, setNewPassword] = useState("")
   const [showDeleteVerification, setShowDeleteVerification] = useState(false)
 
   const navigate = useNavigate()
@@ -32,20 +33,34 @@ function Account( {user, setUser} ) {
 
   const renderedAchievements = yourAchievements.map(a => <div key={a.id}><p>{a.id}. {a.name}</p><p>{a.summary}</p></div>)
 
-  function handleEditUser(e) {
+  function handleEditUsername(e) {
     e.preventDefault()
     console.log("submitted form")
     fetch(`/users/${user.id}`, {
       method: 'PATCH',
       headers: {'Content-type': 'application/json; charset=UTF-8'},
       body: JSON.stringify({
-        username: newUsername,
-        // password: newPassword
+        username: newUsername
       })
     })
     .then(r => r.json())
     .then(data => setUser(data))
-    setShowEditForm(false)
+    setShowEditUsernameForm(false)
+  }
+
+  function handleEditPassword(e) {
+    e.preventDefault()
+    console.log("submitted form")
+    fetch(`/users/${user.id}`, {
+      method: 'PATCH',
+      headers: {'Content-type': 'application/json; charset=UTF-8'},
+      body: JSON.stringify({
+        password_hash: newPassword
+      })
+    })
+    .then(r => r.json())
+    .then(data => setUser(data))
+    setShowEditPasswordForm(false)
   }
 
   // console.log(newUsername)
@@ -73,9 +88,9 @@ function Account( {user, setUser} ) {
         <button onClick={() => setShowDeleteVerification(false)}>Cancel</button>
       </div> : <></>}
       <p>Username: {user.username}</p>
-      {showEditForm ? 
+      {showEditUsernameForm ? 
         <div>
-          <form onSubmit={handleEditUser}>
+          <form onSubmit={handleEditUsername}>
             <label>Username</label>
             <input
               type="text"
@@ -87,7 +102,22 @@ function Account( {user, setUser} ) {
             <input type="submit" value="Submit"/>
           </form>
         </div> : <></>}
-      <button onClick={() => setShowEditForm(true)}>Edit Username</button>
+      {showEditPasswordForm ? 
+        <div>
+          <form onSubmit={handleEditPassword}>
+            <label>Password</label>
+            <input
+              type="text"
+              name="newPassword"
+              value={newPassword}
+              onChange={(e) => setNewPassword(e.target.value)}
+            ></input>
+            <br/>
+            <input type="submit" value="Submit"/>
+          </form>
+        </div> : <></>}
+      <button onClick={() => setShowEditUsernameForm(true)}>Edit Username</button>
+      <button onClick={() => setShowEditPasswordForm(true)}>Edit Password</button>
       <button onClick={() => setShowDeleteVerification(true)}>Delete Account</button>
       <h3>Your Achievements: </h3>
       {renderedAchievements}
