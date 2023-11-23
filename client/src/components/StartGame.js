@@ -6,23 +6,45 @@ import EventCard from "./EventCard";
 function StartGame( { selectedCharacter, selectedSaveFile } ) {
   const [canProgress, setCanProgress] = useState(false)
 
+  const tempSaveFile = {
+    accepted_quest_village2_trader: "false",
+    character_fk: 1,
+    datetime_created: "2023-11-15 12:20:00",
+    found_girls_item: "false",
+    girls_item_location: "village1",
+    gold_pieces: 50,
+    has_entered_portal: "true",
+    has_map: "true",
+    has_seeking_spell: "false",
+    has_visited_store: "true",
+    id: 2,
+    location_on_save: "village1",
+    met_girl: "true",
+    met_village1_trade_target: "false",
+    met_village2_trader: "false",
+    mini_game_high_score: 10,
+    negotiated_deal: "false",
+    wizard_is_home: "false"
+  }
 
-
-
+  // console.log(tempSaveFile)
+  // console.log(tempSaveFile.location_on_save)
 
   //---------------------------------------------------------------
   //    all characters
   //---------------------------------------------------------------
   const wizard = {
     id: 1,
+    name: 'wizard',
     src: "assets/wizard.jpg",
-    name: "Friendly old man",
+    displayName: "Friendly old man",
     interactions: []
   }
   const girl = {
     id: 2,
+    const: 'girl',
     src: "assets/girl_crying.jpeg",
-    name: "Girl",
+    displayName: "Girl",
     interactions: []
   }
 
@@ -91,61 +113,73 @@ function StartGame( { selectedCharacter, selectedSaveFile } ) {
 
   const starting_path = {
     src: "assets/starting_path.JPG",
+    name: "starting_path",
     events: [landslide]
   }
   const portal = {
     src: "assets/portal.jpeg",
+    name: 'portal',
     backward: starting_path,
     events: [findPortal],
   }
   const spooky1 = {
     src: "assets/spooky1.jpg",
+    name: 'spook1',
     events: [],
   }
   const spooky2 = {
     src: "assets/spooky2.jpg",
+    name: 'spooky2',
     backward: spooky1,
     characters: [wizard],
     events: [],
   }
   const swamp1 = {
     src: "assets/swamp1.jpg",
+    name: 'swamp1',
     backward: spooky2,
     events: [],
   }
   const swamp_village = {
     src: "assets/swamp_village.jpg",
+    name: 'swamp_village',
     backward: swamp1,
     events: [],
   }
   const fork = {
     src: "assets/fork.jpg",
+    name: 'fork',
     backward: spooky2,
     events: [],
   }
   const cave = {
     src: "assets/cave.jpeg",
+    name: 'cave',
     backward: fork,
     characters: [girl],
     events: [],
   }
   const waterfall_village = {
     src: "assets/waterfall_village.jpg",
+    name: 'waterfall_village',
     backward: cave,
     events: [],
   }
   const stairs = {
     src: "assets/stairs.png",
+    name: 'stairs',
     backward: fork,
     events: [],
   }
   const tree_village = {
     src: "assets/tree_village.jpg",
+    name: 'tree_village',
     backward: stairs,
     events: [],
   }
   const shop = {
     src: "assets/shop.jpeg",
+    name: 'shop',
     exit: tree_village,
     events: [],
   }
@@ -162,18 +196,14 @@ function StartGame( { selectedCharacter, selectedSaveFile } ) {
   stairs.forward = tree_village
   tree_village.shop = shop
   
-  const [currentLocation, setCurrentLocation] = useState({
-    src: "assets/starting_path.JPG",
-    forward: portal,
-    events: [landslide]
-  })
-
-  const [locations, setLocations] = useState()
+  const locations = [starting_path, portal, spooky1, spooky2, swamp1, swamp_village, fork, cave, waterfall_village, stairs, tree_village, shop]
+  const [currentLocation, setCurrentLocation] = useState(locations[0])
+  console.log(currentLocation)
 
   function left() {
     console.log(currentLocation)
     if (currentLocation.left) {
-      setCurrentLocation(currentLocation.left)
+      setCurrentLocation(locations.find(location => location.name === currentLocation.left.name))
     }
     else {
       console.log("You cannot move left from here")
@@ -181,7 +211,7 @@ function StartGame( { selectedCharacter, selectedSaveFile } ) {
   }
   function forward() {
     if (currentLocation.forward) {
-      setCurrentLocation(currentLocation.forward)
+      setCurrentLocation(locations.find(location => location.name === currentLocation.forward.name))
     }
     else {
       console.log("You cannot move forward from here")
@@ -190,7 +220,7 @@ function StartGame( { selectedCharacter, selectedSaveFile } ) {
   function backward() {
     // console.log(currentLocation)
     if (currentLocation.backward) {
-      setCurrentLocation(currentLocation.backward)
+      setCurrentLocation(locations.find(location => location.name === currentLocation.backward.name))
     }
     else {
       console.log("You cannot move backward from here")
@@ -199,21 +229,21 @@ function StartGame( { selectedCharacter, selectedSaveFile } ) {
   function right() {
     // console.log(currentLocation)
     if (currentLocation.right) {
-      setCurrentLocation(currentLocation.right)    }
+      setCurrentLocation(locations.find(location => location.name === currentLocation.right.name))    }
     else {
       console.log("You cannot move right from here")
     }
   }
   function enter_shop() {
     if (currentLocation.shop) {
-      setCurrentLocation(currentLocation.shop)    }
+      setCurrentLocation(locations.find(location => location.name === currentLocation.shop.name))    }
     else {
       console.log("You cannot enter_shop from here")
     }
   }
   function exit() {
     if (currentLocation.exit) {
-      setCurrentLocation(currentLocation.exit)    }
+      setCurrentLocation(locations.find(location => location.name === currentLocation.exit.name))    }
     else {
       console.log("You cannot exit from here")
     }
@@ -246,10 +276,10 @@ function StartGame( { selectedCharacter, selectedSaveFile } ) {
     }
   }
 
-  console.log(landslide.completed)
-  if (landslide.completed === true) {
-    setCanProgress(true)
-  }
+  // console.log(landslide.completed)
+  // if (landslide.completed === true) {
+  //   setCanProgress(true)
+  // }
 
 
   return (

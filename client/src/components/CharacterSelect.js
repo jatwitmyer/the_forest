@@ -68,7 +68,7 @@ function CharacterSelect( {user, characters, setCharacters, setSelectedCharacter
           })
           .then((resp) => {
           if (resp.ok) {
-            resp.json().then((new_save) => console.log(new_save))}
+            resp.json().then((new_save) => setSelectedSaveFile(new_save))}
           else {
               resp.json().then((err) => setErrors(err.errors));
             }})
