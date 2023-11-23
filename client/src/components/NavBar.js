@@ -33,7 +33,7 @@ function NavBar( {user, setUser} ) {
         </>
       }
       <NavLink to="/about" className="nav-button-empty">About</NavLink>
-      <NavLink to="/" exact={true} className="nav-button-empty">Home</NavLink>
+      <NavLink end to="/" className="nav-button-empty">Home</NavLink>
     </div>
   )
 }

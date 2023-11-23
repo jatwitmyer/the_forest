@@ -14,7 +14,7 @@
 } */
 
 body{
-  background-image: url('/home/jessica/Development/code/phase-5/the_forest/client/public/assets/215595.gif');
+  background-image: url('../public/assets/215595.gif');
   background-size: cover;
   
   height: 100vh;

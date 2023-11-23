@@ -1,22 +1,35 @@
 import React, { useState } from "react";
 import NavBar from "./NavBar";
+import { useNavigate } from "react-router-dom";
 
-function Signup() {
-  const [signupFormData, setSignupFormData] = useState({
-    username: "",
-    password: ""
-  });
+function Signup( {setUser} ) {
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [errors, setErrors] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const navigate = useNavigate()
 
-  function handleChange(e) {
-    setSignupFormData({
-        ...signupFormData,
-        [e.target.name]: e.target.value
-    })
-    }
-  
-  console.log(signupFormData)
-
-  function handleSignup() {}
+  function handleSignup(e) {
+    e.preventDefault();
+    setIsLoading(true);
+    fetch("/signup", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ username, password }),
+    }).then((r) => {
+      setIsLoading(false);
+      if (r.ok) {
+        r.json().then((user) => {
+          setUser(null)
+          navigate('/login')
+        });
+      } else {
+        r.json().then((err) => setErrors(err.errors));
+      }
+    });
+  }
 
   return (
     <>
@@ -29,8 +42,8 @@ function Signup() {
               <input 
                 type="text"
                 name="username"
-                value={signupFormData.username}
-                onChange={handleChange}
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
               />
             </label>
             <br/>
@@ -38,8 +51,8 @@ function Signup() {
               <input 
                 type="text"
                 name="password"
-                value={signupFormData.password}
-                onChange={handleChange}
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
               />
             </label>
             <br/>
