@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { NavLink, useNavigate } from 'react-router-dom';
 
-function NavBar( {user, setUser} ) {
+function NavBar( {user, setUser, inGame, setInGame} ) {
   // console.log(user)
   const navigate = useNavigate()
 
@@ -14,10 +14,17 @@ function NavBar( {user, setUser} ) {
       body: {}
     })
     .then(data => {
+      setInGame(false)
       setUser(null)
       navigate('/')
     })
   }
+
+  if (inGame) return (
+    <div className="unlogged-nav-bar">
+      <button to="/" className="nav-button-logout" onClick={logout}>Logout</button>
+    </div>
+  )
 
   return (
     <div className="unlogged-nav-bar">
@@ -28,7 +35,7 @@ function NavBar( {user, setUser} ) {
           <NavLink to="/login" className="nav-button-empty">Login</NavLink>
         </> :
         <>
-          <button to="/" className="nav-button-logout" onClick={logout}>Logout</button> {/* redirect to home */}
+          <button to="/" className="nav-button-logout" onClick={logout}>Logout</button>
           <NavLink to="/account" className="nav-button-empty">Account</NavLink>
         </>
       }

@@ -66,27 +66,6 @@ class Logout(Resource):
         session['user_id'] = None
         print(session)
         return {}, 204
-
-# class CharacterIndex(Resource):
-#     def get(self):
-#         # print(session['user_id'])
-#         print(session)
-#         user = User.query.filter(User.id == session['user_id']).first()
-#         return [character.to_dict() for character in user.characters], 200
-#     def post(self):
-#         form_data = request.get_json()
-#         try:
-#             new_character = Character(
-#                 name = form_data['name'],
-#                 datetime_created = datetime.datetime.utcnow(),
-#                 datetime_last_played = datetime.datetime.utcnow(),
-#                 user_fk = session['user_id'],
-#             )
-#             db.session.add(new_character)
-#             db.session.commit()
-#             return new_character.to_dict(), 201
-#         except IntegrityError:
-#             return {'error': '422 Unprocessable Entity'}, 422
         
 class CharacterIndex(Resource):
     def get(self):

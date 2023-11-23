@@ -50,9 +50,9 @@ function App() {
 
   return (
     <div className="App">
-      {!inGame ? <NavBar user={user} setUser={setUser}/> : <></>}
+      <NavBar user={user} setUser={setUser} inGame={inGame} setInGame={setInGame}/>
       <Routes>
-        <Route exact path="/" element={<Home user={user}/>} />
+        <Route exact path="/" element={<Home user={user} setInGame={setInGame} characters={characters} setCharacters={setCharacters} setSelectedCharacter={setSelectedCharacter} setSelectedSaveFile={setSelectedSaveFile}/>} />
         <Route path="/about" element={<About/>} />
         <Route path="/settings" element={<Settings/>} />
         <Route path="/account" element={<Account user={user} setUser={setUser}/>} />
