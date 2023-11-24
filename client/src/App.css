@@ -240,3 +240,8 @@ form {
   border: 1px;
   border-color: #7474A3;
 }
+
+.events {
+  color: #7474A3;
+  background-color: black;
+}

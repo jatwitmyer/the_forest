@@ -91,97 +91,117 @@ function StartGame( { selectedCharacter, selectedSaveFile } ) {
   }
   // console.log(findPortal)
   
-  //set events in state so that they can be updated as completed
-  const [events, setEvents] = useState({
-    starting_path: [landslide],
-    portal: [findPortal],
-    spooky1: [],
-    swamp1: [],
-    swamp_village: [],
-    fork: [],
-    cave: [],
-    waterfall_village: [],
-    stairs: [],
-    tree_village: [],
-    shop: [],
-  })
 
-  
   //---------------------------------------------------------------
   //    all locations and their connections
   //---------------------------------------------------------------
-
   const starting_path = {
     src: "assets/starting_path.JPG",
     name: "starting_path",
-    events: [landslide]
+    incomplete_events: [landslide],
+    hidden_events: [],
+    completed_events: [],
+    was_visited: false
   }
   const portal = {
     src: "assets/portal.jpeg",
     name: 'portal',
     backward: starting_path,
-    events: [findPortal],
+    incomplete_events: [findPortal],
+    hidden_events: [],
+    completed_events: [],
+    was_visited: false
   }
   const spooky1 = {
     src: "assets/spooky1.jpg",
     name: 'spook1',
-    events: [],
+    incomplete_events: [],
+    hidden_events: [],
+    completed_events: [],
+    was_visited: false
   }
   const spooky2 = {
     src: "assets/spooky2.jpg",
     name: 'spooky2',
     backward: spooky1,
     characters: [wizard],
-    events: [],
+    incomplete_events: [],
+    hidden_events: [],
+    completed_events: [],
+    was_visited: false
   }
   const swamp1 = {
     src: "assets/swamp1.jpg",
     name: 'swamp1',
     backward: spooky2,
-    events: [],
+    incomplete_events: [],
+    hidden_events: [],
+    completed_events: [],
+    was_visited: false
   }
   const swamp_village = {
     src: "assets/swamp_village.jpg",
     name: 'swamp_village',
     backward: swamp1,
-    events: [],
+    incomplete_events: [],
+    hidden_events: [],
+    completed_events: [],
+    was_visited: false
   }
   const fork = {
     src: "assets/fork.jpg",
     name: 'fork',
     backward: spooky2,
-    events: [],
+    incomplete_events: [],
+    hidden_events: [],
+    completed_events: [],
+    was_visited: false
   }
   const cave = {
     src: "assets/cave.jpeg",
     name: 'cave',
     backward: fork,
     characters: [girl],
-    events: [],
+    incomplete_events: [],
+    hidden_events: [],
+    completed_events: [],
+    was_visited: false
   }
   const waterfall_village = {
     src: "assets/waterfall_village.jpg",
     name: 'waterfall_village',
     backward: cave,
-    events: [],
+    incomplete_events: [],
+    hidden_events: [],
+    completed_events: [],
+    was_visited: false
   }
   const stairs = {
     src: "assets/stairs.png",
     name: 'stairs',
     backward: fork,
-    events: [],
+    incomplete_events: [],
+    hidden_events: [],
+    completed_events: [],
+    was_visited: false
   }
   const tree_village = {
     src: "assets/tree_village.jpg",
     name: 'tree_village',
     backward: stairs,
-    events: [],
+    incomplete_events: [],
+    hidden_events: [],
+    completed_events: [],
+    was_visited: false
   }
   const shop = {
     src: "assets/shop.jpeg",
     name: 'shop',
     exit: tree_village,
-    events: [],
+    incomplete_events: [],
+    hidden_events: [],
+    completed_events: [],
+    was_visited: false
   }
     
   starting_path.forward = portal
@@ -200,6 +220,10 @@ function StartGame( { selectedCharacter, selectedSaveFile } ) {
   const [currentLocation, setCurrentLocation] = useState(locations[0])
   console.log(currentLocation)
 
+
+  //---------------------------------------------------------------
+  //    movement functions
+  //---------------------------------------------------------------
   function left() {
     console.log(currentLocation)
     if (currentLocation.left) {
@@ -262,24 +286,42 @@ function StartGame( { selectedCharacter, selectedSaveFile } ) {
 
   
   //---------------------------------------------------------------
-  //    all descriptions
+  //    render events
   //---------------------------------------------------------------
   function renderEvents() {
-    // console.log(currentLocation.events)
-    if (currentLocation.events.length > 0) { //can't be an if is re-rendering itself
-      const currentEvent = currentLocation.events.find(event => event.completed === false) //returns the first that matches. i want to find the first event that has not been triggered yet
-      if (currentEvent) {
-        const event_id = currentEvent.id
-        const eventCard = <EventCard currentEvent={currentEvent} currentLocation={currentLocation} event_id={event_id}/>
-        return eventCard
-      }
-    }
+    console.log("render events called", currentLocation)
+    console.log(currentLocation.events)
+    // if (currentLocation.events.length > 0) { //can't be an if is re-rendering itself
+    //   const currentEvent = currentLocation.events.find(event => event.completed === false) //returns the first that matches. i want to find the first event that has not been triggered yet
+    //   if (currentEvent) {
+    //     const event_id = currentEvent.id
+    //     const eventCard = <EventCard currentEvent={currentEvent} currentLocation={currentLocation} event_id={event_id}/>
+    //     return eventCard
+    //   }
+    // }
   }
 
-  // console.log(landslide.completed)
-  // if (landslide.completed === true) {
-  //   setCanProgress(true)
-  // }
+
+
+  console.log("global of start", currentLocation)
+
+  const [currentEvent, setCurrentEvent]= useState({})
+  useEffect(() => {
+    if (currentLocation.incomplete_events) {
+      setCurrentEvent(currentLocation.incomplete_events[0])
+      console.log("use effect triggered")
+    }
+  }, [currentLocation])
+
+  console.log(currentEvent)
+
+  function handleSelection(data) {
+    console.log(data)
+    if (data.choices) {
+      setCurrentEvent(data)
+    }
+    else {}
+  }
 
 
   return (
@@ -298,8 +340,14 @@ function StartGame( { selectedCharacter, selectedSaveFile } ) {
         <div className="col-6">
           {renderCharacters()}
         </div>
-        <div className="col-12">
-          {renderEvents()}
+        <div className="col-12 events">
+          {currentEvent.setup ? <p>{currentEvent.setup}</p> : <></>}
+          {currentEvent.closer ? <p>{currentEvent.closer}</p>: <></>}
+          {currentEvent.choices && currentEvent.choices[0] ? <><button onClick={() => handleSelection(currentEvent.choices[0])}>A</button><span> {currentEvent.choices[0].selection}</span></> : <></>}
+          {currentEvent.choices && currentEvent.choices[1] ? <><br/><button>B</button><span> {currentEvent.choices[1].selection}</span></> : <></>}
+          {currentEvent.choices && currentEvent.choices[2] ? <><br/><button>C</button><span> {currentEvent.choices[2].selection}</span></> : <></>}
+          {currentEvent.choices && currentEvent.choices[3] ? <><br/><button>D</button><span> {currentEvent.choices[3].selection}</span></> : <></>}
+          {currentEvent.choices && currentEvent.choices[4] ? <><br/><button>E</button><span> {currentEvent.choices[4].selection}</span></> : <></>}
         </div>
       </div>
     </>
