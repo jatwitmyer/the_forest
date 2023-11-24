@@ -4,7 +4,8 @@ import CharacterCard from "./CharacterCard";
 import EventCard from "./EventCard";
 
 function StartGame( { selectedCharacter, selectedSaveFile } ) {
-  const [canProgress, setCanProgress] = useState(false)
+  const [canProgress, setCanProgress] = useState(true)
+  const [showContinueButton, setShowContinueButton] = useState(false)
 
   const tempSaveFile = {
     accepted_quest_village2_trader: "false",
@@ -69,10 +70,10 @@ function StartGame( { selectedCharacter, selectedSaveFile } ) {
     setup: "You've walked on this trail many times before. It's your favorite for clearing your thoughts. Today, you can't get the feeling that your sister's making a mistake out of your head. What will you say to her? How do you know it will reach her?\n\nYou're pulled to the present by the sound of the birds going silent. A chill goes up your spine. From the trail behind you, you hear a low rumble growing, but from what? Is it a rockslide or a moose?",
     choices: [
       {id: "A", selection: "Leave the path to hide in the forest", setup: "You rush off the trail. Once you reach a hiding spot, you hear tree branches snapping in the distance. A rock slams into the road 50 feet away from you and breaks apart.", choices: [
-        {id: "A", selection: "Run into the forest away from the rock", closer:"You race into the trees. Behind you, rocks and broken trees begin to fill the path. You're blocked from the exit of the park. It will take hours for the way to be cleared. You sigh and continue forward into the forest. If you go straight, you know you'll reach the edge before sunset."},
-        {id: "B", selection:"Go back to the road to run away faster", closer:"You race down the trail. Behind you, rocks and broken trees begin to fill the path. You're blocked from the exit of the park. It will take hours for the way to be cleared. You sigh and turn to enter the forest. If you go straight, you know you'll reach the edge before sunset."}
+        {id: "A", selection: "Run into the forest away from the rock", closer:"You race into the trees. Behind you, rocks and broken trees begin to fill the path. You're blocked from the exit of the park. It will take hours for the way to be cleared. You sigh and continue forward into the forest. If you go straight, you know you'll reach the edge before sunset.", eventId: 1},
+        {id: "B", selection:"Go back to the road to run away faster", closer:"You race down the trail. Behind you, rocks and broken trees begin to fill the path. You're blocked from the exit of the park. It will take hours for the way to be cleared. You sigh and turn to enter the forest. If you go straight, you know you'll reach the edge before sunset.", eventId: 1}
       ]},
-      {id: "B", selection: "Bolt down the trail to put distance between you and the sound", closer: "You race down the trail. You lose your breath and turn back to check on the noise. You hear tree branches snapping in the distance. A rock slams into the road 80 feet away from you and breaks apart. You race down the trail. Behind you, rocks and broken trees begin to fill the path. You're blocked from the exit of the park. It will take hours for the way to be cleared. You sigh and turn to enter the forest. If you go straight, you know you'll reach the edge before sunset."},
+      {id: "B", selection: "Bolt down the trail to put distance between you and the sound", closer: "You race down the trail. You lose your breath and turn back to check on the noise. You hear tree branches snapping in the distance. Behind you, rocks and broken trees begin to fill the path. You're blocked from the exit of the park. It will take hours for the way to be cleared. You sigh and turn to enter the forest. If you go straight, you know you'll reach the edge before sunset.", eventId: 1},
     ],
     completed: false
   }
@@ -96,6 +97,7 @@ function StartGame( { selectedCharacter, selectedSaveFile } ) {
   //    all locations and their connections
   //---------------------------------------------------------------
   const starting_path = {
+    index: 0,
     src: "assets/starting_path.JPG",
     name: "starting_path",
     incomplete_events: [landslide],
@@ -104,6 +106,7 @@ function StartGame( { selectedCharacter, selectedSaveFile } ) {
     was_visited: false
   }
   const portal = {
+    index: 1,
     src: "assets/portal.jpeg",
     name: 'portal',
     backward: starting_path,
@@ -113,6 +116,7 @@ function StartGame( { selectedCharacter, selectedSaveFile } ) {
     was_visited: false
   }
   const spooky1 = {
+    index: 2,
     src: "assets/spooky1.jpg",
     name: 'spook1',
     incomplete_events: [],
@@ -121,6 +125,7 @@ function StartGame( { selectedCharacter, selectedSaveFile } ) {
     was_visited: false
   }
   const spooky2 = {
+    index: 3,
     src: "assets/spooky2.jpg",
     name: 'spooky2',
     backward: spooky1,
@@ -131,6 +136,7 @@ function StartGame( { selectedCharacter, selectedSaveFile } ) {
     was_visited: false
   }
   const swamp1 = {
+    index: 4,
     src: "assets/swamp1.jpg",
     name: 'swamp1',
     backward: spooky2,
@@ -140,6 +146,7 @@ function StartGame( { selectedCharacter, selectedSaveFile } ) {
     was_visited: false
   }
   const swamp_village = {
+    index: 5,
     src: "assets/swamp_village.jpg",
     name: 'swamp_village',
     backward: swamp1,
@@ -149,6 +156,7 @@ function StartGame( { selectedCharacter, selectedSaveFile } ) {
     was_visited: false
   }
   const fork = {
+    index: 6,
     src: "assets/fork.jpg",
     name: 'fork',
     backward: spooky2,
@@ -158,6 +166,7 @@ function StartGame( { selectedCharacter, selectedSaveFile } ) {
     was_visited: false
   }
   const cave = {
+    index: 7,
     src: "assets/cave.jpeg",
     name: 'cave',
     backward: fork,
@@ -168,6 +177,7 @@ function StartGame( { selectedCharacter, selectedSaveFile } ) {
     was_visited: false
   }
   const waterfall_village = {
+    index: 8,
     src: "assets/waterfall_village.jpg",
     name: 'waterfall_village',
     backward: cave,
@@ -177,6 +187,7 @@ function StartGame( { selectedCharacter, selectedSaveFile } ) {
     was_visited: false
   }
   const stairs = {
+    index: 9,
     src: "assets/stairs.png",
     name: 'stairs',
     backward: fork,
@@ -186,6 +197,7 @@ function StartGame( { selectedCharacter, selectedSaveFile } ) {
     was_visited: false
   }
   const tree_village = {
+    index: 10,
     src: "assets/tree_village.jpg",
     name: 'tree_village',
     backward: stairs,
@@ -195,6 +207,7 @@ function StartGame( { selectedCharacter, selectedSaveFile } ) {
     was_visited: false
   }
   const shop = {
+    index: 11,
     src: "assets/shop.jpeg",
     name: 'shop',
     exit: tree_village,
@@ -218,8 +231,6 @@ function StartGame( { selectedCharacter, selectedSaveFile } ) {
   
   const locations = [starting_path, portal, spooky1, spooky2, swamp1, swamp_village, fork, cave, waterfall_village, stairs, tree_village, shop]
   const [currentLocation, setCurrentLocation] = useState(locations[0])
-  console.log(currentLocation)
-
 
   //---------------------------------------------------------------
   //    movement functions
@@ -288,66 +299,113 @@ function StartGame( { selectedCharacter, selectedSaveFile } ) {
   //---------------------------------------------------------------
   //    render events
   //---------------------------------------------------------------
-  function renderEvents() {
-    console.log("render events called", currentLocation)
-    console.log(currentLocation.events)
-    // if (currentLocation.events.length > 0) { //can't be an if is re-rendering itself
-    //   const currentEvent = currentLocation.events.find(event => event.completed === false) //returns the first that matches. i want to find the first event that has not been triggered yet
-    //   if (currentEvent) {
-    //     const event_id = currentEvent.id
-    //     const eventCard = <EventCard currentEvent={currentEvent} currentLocation={currentLocation} event_id={event_id}/>
-    //     return eventCard
-    //   }
-    // }
-  }
-
-
-
-  console.log("global of start", currentLocation)
-
+  
+  const [setup, setSetup] = useState("")
+  const [choices, setChoices] = useState([])
+  const [closer, setCloser] = useState("")
   const [currentEvent, setCurrentEvent]= useState({})
+
+  console.log(currentLocation.incomplete_events)
+
   useEffect(() => {
-    if (currentLocation.incomplete_events) {
+    if (currentLocation.incomplete_events.length > 0) {
+      setCanProgress(false)
       setCurrentEvent(currentLocation.incomplete_events[0])
+      if (currentLocation.incomplete_events[0].setup) {
+        setSetup(currentLocation.incomplete_events[0].setup)
+      }
+      else {
+        setSetup("")
+      }
+      if (currentLocation.incomplete_events[0].closer) {
+        setCloser(currentLocation.incomplete_events[0].closer)
+        setShowContinueButton(true)
+      }
+      else {
+        setCloser("")
+      }
+      if (currentLocation.incomplete_events[0].choices) {
+        setChoices(currentLocation.incomplete_events[0].choices)
+      }
+      else {
+        setChoices([])
+      }
       console.log("use effect triggered")
+    }
+    else {
+      setCurrentEvent({})
     }
   }, [currentLocation])
 
-  console.log(currentEvent)
-
-  function handleSelection(data) {
-    console.log(data)
-    if (data.choices) {
-      setCurrentEvent(data)
+  function handleSelection(selection) {
+    // console.log(currentEvent)
+    console.log(selection)
+      if (selection.setup) {
+        setSetup(selection.setup)
+      }
+      else {
+        setSetup("")
+      }
+      if (selection.closer) {
+        setCloser(selection.closer)
+        setShowContinueButton(true)
+      }
+      else {
+        setCloser("")
+      }
+      if (selection.choices) {
+        setChoices(selection.choices)
+      }
+      else {
+        setChoices([])
     }
-    else {}
   }
 
+  // console.log(setup)
+  // console.log(closer)
+  // console.log(choices)
+  
+  function completeCurrentEvent() {
+    const new_incomplete_events = locations[currentLocation.index].incomplete_events.filter(event => event.id !== currentEvent.id)
+    locations[currentLocation.index].completed_events.push(currentEvent)
+    locations[currentLocation.index].incomplete_events = new_incomplete_events
+    console.log(starting_path)
+    setCurrentLocation(locations[currentLocation.index])
+    setShowContinueButton(false)
+    setCanProgress(true)
+    setSetup("")
+    setCloser("")
+    setChoices([])
+  }
+
+  console.log("current location from state", currentLocation)
+  
 
   return (
     <>
       <div className="row"> {/* make this add to 12 */}
         <div className="col-6">
           {/* <img className="location-image" src={currentLocation.src} alt="location"/> */}
-          {currentLocation.left ? <button onClick={left}>Left</button> : <></>}
-          {currentLocation.forward ? <button onClick={forward}>Forward</button> : <></>}
-          {currentLocation.backward ? <button onClick={backward}>Backward</button> : <></>}
-          {currentLocation.right ? <button onClick={right}>Right</button> : <></>}
-          {currentLocation.shop ? <button onClick={enter_shop}>Enter Shop</button> : <></>}
-          {currentLocation.exit ? <button onClick={exit}>Exit</button> : <></>}
+          {canProgress && currentLocation.left ? <button onClick={left}>Left</button> : <></>}
+          {canProgress && currentLocation.forward ? <button onClick={forward}>Forward</button> : <></>}
+          {canProgress && currentLocation.backward ? <button onClick={backward}>Backward</button> : <></>}
+          {canProgress && currentLocation.right ? <button onClick={right}>Right</button> : <></>}
+          {canProgress && currentLocation.shop ? <button onClick={enter_shop}>Enter Shop</button> : <></>}
+          {canProgress && currentLocation.exit ? <button onClick={exit}>Exit</button> : <></>}
           <img className="location-image" src={currentLocation.src} alt="location"/>
         </div>
         <div className="col-6">
           {renderCharacters()}
         </div>
         <div className="col-12 events">
-          {currentEvent.setup ? <p>{currentEvent.setup}</p> : <></>}
-          {currentEvent.closer ? <p>{currentEvent.closer}</p>: <></>}
-          {currentEvent.choices && currentEvent.choices[0] ? <><button onClick={() => handleSelection(currentEvent.choices[0])}>A</button><span> {currentEvent.choices[0].selection}</span></> : <></>}
-          {currentEvent.choices && currentEvent.choices[1] ? <><br/><button>B</button><span> {currentEvent.choices[1].selection}</span></> : <></>}
-          {currentEvent.choices && currentEvent.choices[2] ? <><br/><button>C</button><span> {currentEvent.choices[2].selection}</span></> : <></>}
-          {currentEvent.choices && currentEvent.choices[3] ? <><br/><button>D</button><span> {currentEvent.choices[3].selection}</span></> : <></>}
-          {currentEvent.choices && currentEvent.choices[4] ? <><br/><button>E</button><span> {currentEvent.choices[4].selection}</span></> : <></>}
+          {setup ? <p>{setup}</p> : <></>}
+          {closer ? <p>{closer}</p>: <></>}
+          {choices && choices[0] ? <><button onClick={() => handleSelection(choices[0])}>A</button><span> {choices[0].selection}</span></> : <></>}
+          {choices && choices[1] ? <><br/><button onClick={() => handleSelection(choices[1])}>B</button><span> {choices[1].selection}</span></> : <></>}
+          {choices && choices[2] ? <><br/><button onClick={() => handleSelection(choices[2])}>C</button><span> {choices[2].selection}</span></> : <></>}
+          {choices && choices[3] ? <><br/><button onClick={() => handleSelection(choices[3])}>D</button><span> {choices[3].selection}</span></> : <></>}
+          {choices && choices[4] ? <><br/><button onClick={() => handleSelection(choices[4])}>E</button><span> {choices[4].selection}</span></> : <></>}
+          {showContinueButton ? <button onClick={completeCurrentEvent}>Continue</button> : <></>}
         </div>
       </div>
     </>
