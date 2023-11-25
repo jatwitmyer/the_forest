@@ -34,7 +34,7 @@ def create_characters():
   characters = [c1, c2]
   return characters
 
-girls_item_locations = ["starting path", "spooky1", "spooky2", "village1", "village2"]
+girls_item_locations = ['spooky1', 'spooky2', 'swamp1', 'swamp_village', 'fork', 'cave', 'waterfall_village', 'stairs', 'tree_village', 'shop']
 
 def create_save_files():
   c1_girls_item_location = rc(girls_item_locations)
@@ -43,7 +43,7 @@ def create_save_files():
     character_fk = 1,
 
     datetime_created = datetime.datetime(month=11, day=15, year=2023, hour=12, minute=5, second =0, microsecond=0, fold=0),
-    location_on_save = "starting_path",
+    location_on_save = 0,
     has_entered_portal = "false",
     has_map = "false",
     met_girl = "false",
@@ -63,7 +63,7 @@ def create_save_files():
     character_fk = 1,
 
     datetime_created = datetime.datetime(month=11, day=15, year=2023, hour=12, minute=20, second =0, microsecond=0, fold=0),
-    location_on_save = "village1",
+    location_on_save = 7,
     has_entered_portal = "true",
     has_map = "true",
     met_girl = "true",
@@ -83,7 +83,7 @@ def create_save_files():
     character_fk = 2,
 
     datetime_created = datetime.datetime(month=11, day=15, year=2023, hour=12, minute=5, second =0, microsecond=0, fold=0),
-    location_on_save = "starting_path",
+    location_on_save = 0,
     has_entered_portal = "false",
     has_map = "false",
     met_girl = "false",
