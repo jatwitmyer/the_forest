@@ -49,7 +49,7 @@ function CharacterSelect( {user, characters, setCharacters, setSelectedCharacter
               "Content-Type": "application/json",
             },
             body: JSON.stringify({
-              location_on_save: "starting_path",
+              location_on_save: 0,
               has_entered_portal: "false",
               has_map: "false",
               met_girl: "false",
@@ -64,7 +64,7 @@ function CharacterSelect( {user, characters, setCharacters, setSelectedCharacter
               met_village1_trade_target: "false",
               negotiated_deal: "false",
               wizard_is_home: "false"
-             })  
+            })  
           })
           .then((resp) => {
           if (resp.ok) {

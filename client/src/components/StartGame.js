@@ -8,18 +8,7 @@ function StartGame( { selectedCharacter, selectedSaveFile } ) {
   const [choices, setChoices] = useState([])
   const [closer, setCloser] = useState("")
   const [currentEvent, setCurrentEvent]= useState({})
-  
-  //  !!!!  each event must have storage and id properties to function !!!!
-  // const event = {
-  //   setup: "",
-  //   choices: [
-  //     {choice: "", closer: ""},
-  //     {choice: "", setup: "", choices: [
-  //       {choice: "", closer: ""},
-  //       {choice: "", closer: ""}
-  //     ]}]
-  // }
-
+  const [currentLocationIndex, setCurrentLocationIndex] = useState(0)
   const [locations, setLocations] = useState([
     {
       index: 0,
@@ -27,20 +16,20 @@ function StartGame( { selectedCharacter, selectedSaveFile } ) {
       src: "assets/starting_path.JPG",
       forward: 1,
       incomplete_events: [
-        {
-          storage: "incomplete_events",
-          id: 1,
-          name: "landslide",
-          setup: "You've walked on this trail many times before. It's your favorite for clearing your thoughts. Today, you can't get the feeling that your sister's making a mistake out of your head. What will you say to her? How do you know it will reach her?\n\nYou're pulled to the present by the sound of the birds going silent. A chill goes up your spine. From the trail behind you, you hear a low rumble growing, but from what? Is it a rockslide or a moose?",
-          choices: [
-            {id: "A", selection: "Leave the path to hide in the forest", setup: "You rush off the trail. Once you reach a hiding spot, you hear tree branches snapping in the distance. A rock slams into the road 50 feet away from you and breaks apart.", choices: [
-              {id: "A", selection: "Run into the forest away from the rock", closer:"You race into the trees. Behind you, rocks and broken trees begin to fill the path. You're blocked from the exit of the park. It will take hours for the way to be cleared. You sigh and continue forward into the forest. If you go straight, you know you'll reach the edge before sunset."},
-              {id: "B", selection:"Go back to the road to run away faster", closer:"You race down the trail. Behind you, rocks and broken trees begin to fill the path. You're blocked from the exit of the park. It will take hours for the way to be cleared. You sigh and turn to enter the forest. If you go straight, you know you'll reach the edge before sunset."}
-            ]},
-            {id: "B", selection: "Bolt down the trail to put distance between you and the sound", closer: "You race down the trail. You lose your breath and turn back to check on the noise. You hear tree branches snapping in the distance. Behind you, rocks and broken trees begin to fill the path. You're blocked from the exit of the park. It will take hours for the way to be cleared. You sigh and turn to enter the forest. If you go straight, you know you'll reach the edge before sunset."},
-          ],
-          achievementId: 1
-        }
+        // {
+        //   storage: "incomplete_events",
+        //   id: 1,
+        //   name: "landslide",
+        //   setup: "You've walked on this trail many times before. It's your favorite for clearing your thoughts. Today, you can't get the feeling that your sister's making a mistake out of your head. What will you say to her? How do you know it will reach her?\n\nYou're pulled to the present by the sound of the birds going silent. A chill goes up your spine. From the trail behind you, you hear a low rumble growing, but from what? Is it a rockslide or a moose?",
+        //   choices: [
+        //     {id: "A", selection: "Leave the path to hide in the forest", setup: "You rush off the trail. Once you reach a hiding spot, you hear tree branches snapping in the distance. A rock slams into the road 50 feet away from you and breaks apart.", choices: [
+        //       {id: "A", selection: "Run into the forest away from the rock", closer:"You race into the trees. Behind you, rocks and broken trees begin to fill the path. You're blocked from the exit of the park. It will take hours for the way to be cleared. You sigh and continue forward into the forest. If you go straight, you know you'll reach the edge before sunset."},
+        //       {id: "B", selection:"Go back to the road to run away faster", closer:"You race down the trail. Behind you, rocks and broken trees begin to fill the path. You're blocked from the exit of the park. It will take hours for the way to be cleared. You sigh and turn to enter the forest. If you go straight, you know you'll reach the edge before sunset."}
+        //     ]},
+        //     {id: "B", selection: "Bolt down the trail to put distance between you and the sound", closer: "You race down the trail. You lose your breath and turn back to check on the noise. You hear tree branches snapping in the distance. Behind you, rocks and broken trees begin to fill the path. You're blocked from the exit of the park. It will take hours for the way to be cleared. You sigh and turn to enter the forest. If you go straight, you know you'll reach the edge before sunset."},
+        //   ],
+        //   achievementId: 1
+        // }
       ],
       hidden_events: [],
       completed_events: [],
@@ -48,20 +37,32 @@ function StartGame( { selectedCharacter, selectedSaveFile } ) {
       index: 1,
       src: "assets/portal.jpeg",
       name: 'portal',
-      backward: 0,
       forward: 2,
-      incomplete_events: [{
-        storage: "incomplete_events",
-        id: 2,
-        setup: "You're slowly making your way through the forest when you hear something ahead of you. It sounds like a windchime. ",
-        choices: [
-          {choice: "text", closer: "text"},
-          {choice: "text", setup: "text", choices: [
-            {choice: "text", closer: "text"},
-            {choice: "text", closer: "text"}
-          ]}],
-        achievementId: 2
-      }],
+      incomplete_events: [
+      //   {
+      //   achievementId: 2,
+      //   storage: "incomplete_events",
+      //   name: "find_portal",
+      //   setup: "What...is this? Such a strange structure... You can faintly hear the sound of a windchime emanating from it.",
+      //   choices: [
+      //     {selection: "Walk closer.", setup: "As you get close to the stone circle, your mouth falls open. It's the most beautiful thing you've ever seen.", 
+      //       choices: [
+      //         {selection:"Step into the circle.", closer: "As you step into the circle, all you can hear is your heartbeat in your ears and your vision goes dark."}
+      //       ]
+      //     },
+      //     {selection: "Walk around it.", setup: "As you get close to the stone circle, your mouth falls open. It's the most beautiful thing you've ever seen.", 
+      //     choices: [
+      //       {selection:"Step into the circle.", closer: "As you step into the circle, all you can hear is your heartbeat in your ears and your vision goes dark."}
+      //     ]
+      //   },
+      //   {selection: "Walk the other way.", setup: "You turn to leave, but your body is as solid as the stone in front of you. You can't take your eyes away from it.",
+      //   choices: [
+      //     {selection:"Walk toward the stone circle.", setup: "As you get close, your mouth falls open. It's the most beautiful thing you've ever seen.", 
+      //   choices: [
+      //     {selection:"Step into the circle.", closer: "As you step into the circle, all you can hear is your heartbeat in your ears and your vision goes dark."}
+      //   ]}]}
+      // ]}
+    ],
       hidden_events: [],
       completed_events: []
     }, {
@@ -69,7 +70,12 @@ function StartGame( { selectedCharacter, selectedSaveFile } ) {
       src: "assets/spooky1.jpg",
       name: 'spooky1',
       forward: 3,
-      incomplete_events: [],
+      incomplete_events: [
+      //   {
+      //   storage: "incomplete_events",
+      //   closer: "What is this place? How did you get here? There's nothing but dark forest everywhere you look."
+      // }
+    ],
       hidden_events: [],
       completed_events: [],
     }, {
@@ -86,7 +92,25 @@ function StartGame( { selectedCharacter, selectedSaveFile } ) {
         displayName: "Friendly old man",
         interactions: []
       }],
-      incomplete_events: [],
+      incomplete_events: [
+      //   {
+      //     name: "meet_the_old_man",
+      //     achievementId: null,
+      //     storage: "incomplete_events",
+      //     setup: "There's a man on the trail ahead of you! He bows his head slightly and raises his hand in greeting. Perhaps he's very friendly or perhaps he can see the worry in your face. He asks if there's anything he can do for you.",
+      //     choices: [
+      //     {selection: "Where am I?", setup: "Why you're on the edge of the swamp in the Gil'Warren Forest", choices: [
+      //       {selection: "Who are you?", setup: "The name's Orin. Pleased to meet you. Now I need to be on my way, but I have something that might be more useful to you than it is to me. Orin hands you a rolled up paper. You unroll it and see a map of Gil'Warren.", choices: [
+      //         {selection: "Thank you!", closer:"Good luck to you. Be sure to stick to the paths."},
+      //       ]} 
+      //     ]},
+      //     {selection: "Who are you?", setup: "The name's Orin. Pleased to meet you.", choices: [
+      //       {selection: "Where am I?", setup: "Why you're on the edge of the swamp in the Gil'Warren Forest. Now I need to be on my way, but I have something that might be more useful to you than it is to me. Orin hands you a rolled up paper. You unroll it and see a map of Gil'Warren.", choices: [
+      //         {selection: "Thank you!", closer:"Good luck to you. Be sure to stick to the paths"}
+      //       ]} 
+      //     ]}
+      // ]}
+      ],
       hidden_events: [],
       completed_events: []
     }, {
@@ -171,18 +195,14 @@ function StartGame( { selectedCharacter, selectedSaveFile } ) {
     }
   ])
 
-  const [currentLocationIndex, setCurrentLocationIndex] = useState(0)
-  console.log(locations)
+  // console.log(locations)
 
-  console.log(selectedSaveFile)
-  //set current location on startup to the location where the player was during the save
-  // console.log(selectedSaveFile.location_on_save)
-  // console.log(locations.find(location => location.name === selectedSaveFile.location_on_save).index)
-
+  // console.log(selectedSaveFile)
+  console.log(currentEvent)
 
   useEffect(() => {
     setCurrentLocationIndex(selectedSaveFile.location_on_save)
-  }, [])
+  }, [selectedSaveFile])
 
   useEffect(() => {
     if (locations[currentLocationIndex].incomplete_events.length > 0) {
@@ -195,43 +215,39 @@ function StartGame( { selectedCharacter, selectedSaveFile } ) {
       setCloser("")
       setChoices([])
     }
-  }, [currentLocationIndex])
+  }, [locations, currentLocationIndex])
     
   useEffect(() => {
-    // if (locations) {
-      if (locations[currentLocationIndex].incomplete_events.length > 0) { 
-        if (locations[currentLocationIndex].incomplete_events[0].setup) {
-          setSetup(locations[currentLocationIndex].incomplete_events[0].setup)
-        } else {
-          setSetup("")
-        }
-        
-        if (locations[currentLocationIndex].incomplete_events[0].closer) {
-          setCloser(locations[currentLocationIndex].incomplete_events[0].closer)
-          setShowContinueButton(true)
-        } else {
-          setCloser("")
-        }
-    
-        if (locations[currentLocationIndex].incomplete_events[0].choices) {
-          setChoices(locations[currentLocationIndex].incomplete_events[0].choices)
-        } else {
-        setChoices([])
-        }
-      } else {
-        console.log("there are no incomplete events at this location")
-      }
-    // }
-  }, [currentEvent, currentLocationIndex])
-  
-  console.log(currentLocationIndex)
+    console.log(currentEvent)
+    if (currentEvent.setup) {
+      setSetup(currentEvent.setup)
+    }
+    if (!currentEvent.setup) {
+      setSetup("")
+    }
+    if (currentEvent.closer) {
+      setCloser(currentEvent.closer)
+      setShowContinueButton(true)
+    }
+    if (!currentEvent.closer) {
+      setCloser("")
+    }
+    if (currentEvent.choices) {
+      setChoices(currentEvent.choices)
+    }
+    if (!currentEvent.choices) {
+      setChoices("")
+    }
+  }, [currentEvent])
 
+  
+  // console.log(currentLocationIndex)
 
   //---------------------------------------------------------------
   //    movement functions
   //---------------------------------------------------------------
   function left() {
-    console.log(currentLocationIndex)
+    // console.log(currentLocationIndex)
     if (locations[currentLocationIndex].left) {
       setCurrentLocationIndex(locations[currentLocationIndex].left)
     }
@@ -240,7 +256,7 @@ function StartGame( { selectedCharacter, selectedSaveFile } ) {
     }
   }
   function forward() {
-    console.log(currentLocationIndex)
+    // console.log(currentLocationIndex)
     if (locations[currentLocationIndex].forward) {
       setCurrentLocationIndex(locations[currentLocationIndex].forward)
     }
@@ -249,7 +265,7 @@ function StartGame( { selectedCharacter, selectedSaveFile } ) {
     }
   }
   function right() {
-    console.log(currentLocationIndex)
+    // console.log(currentLocationIndex)
     if (locations[currentLocationIndex].right) {
       setCurrentLocationIndex(locations[currentLocationIndex].right)
     }
@@ -258,8 +274,8 @@ function StartGame( { selectedCharacter, selectedSaveFile } ) {
     }
   }
   function backward() {
-    console.log(currentLocationIndex)
-    if (locations[currentLocationIndex].backward) {
+    // console.log(currentLocationIndex)
+    if (locations[currentLocationIndex].backward !== undefined) {
       setCurrentLocationIndex(locations[currentLocationIndex].backward)
     }
     else {
@@ -267,7 +283,7 @@ function StartGame( { selectedCharacter, selectedSaveFile } ) {
     }
   }
   function enter_shop() {
-    console.log(currentLocationIndex)
+    // console.log(currentLocationIndex)
     if (locations[currentLocationIndex].shop) {
       setCurrentLocationIndex(locations[currentLocationIndex].shop)
     }
@@ -276,7 +292,7 @@ function StartGame( { selectedCharacter, selectedSaveFile } ) {
     }
   }
   function exit() {
-    console.log(currentLocationIndex)
+    // console.log(currentLocationIndex)
     if (locations[currentLocationIndex].exit) {
       setCurrentLocationIndex(locations[currentLocationIndex].exit)
     }
@@ -296,29 +312,27 @@ function StartGame( { selectedCharacter, selectedSaveFile } ) {
     }
   }
 
-
-
   function handleSelection(selection) {
     // console.log(currentEvent)
-    console.log(selection)
-      if (selection.setup) {
-        setSetup(selection.setup)
-      }
-      else {
-        setSetup("")
-      }
-      if (selection.closer) {
-        setCloser(selection.closer)
-        setShowContinueButton(true)
-      }
-      else {
-        setCloser("")
-      }
-      if (selection.choices) {
-        setChoices(selection.choices)
-      }
-      else {
-        setChoices([])
+    // console.log(selection)
+    if (selection.setup) {
+      setSetup(selection.setup)
+    }
+    else {
+      setSetup("")
+    }
+    if (selection.closer) {
+      setCloser(selection.closer)
+      setShowContinueButton(true)
+    }
+    else {
+      setCloser("")
+    }
+    if (selection.choices) {
+      setChoices(selection.choices)
+    }
+    else {
+      setChoices([])
     }
   }
 
@@ -327,11 +341,26 @@ function StartGame( { selectedCharacter, selectedSaveFile } ) {
   // console.log(choices)
   
   function completeCurrentEvent() {
-    // const new_incomplete_events = locations[locations[currentLocationIndex].index].incomplete_events.filter(event => event.id !== currentEvent.id)
-    // locations[locations[currentLocationIndex].index].completed_events.push(currentEvent)
-    // locations[locations[currentLocationIndex].index].incomplete_events = new_incomplete_events
-    // console.log(starting_path)
-    // setlocations[currentLocationIndex](locations[locations[currentLocationIndex].index])
+    // console.log(currentEvent)
+    const editing_locations = [...locations]
+    console.log(editing_locations)
+    if (currentEvent.storage === "incomplete_events") {
+      console.log("current event is stored in incomplete events")
+      const index = editing_locations[currentLocationIndex].incomplete_events.indexOf(currentEvent)
+      const completed_event = editing_locations[currentLocationIndex].incomplete_events.splice(index, index+1)
+      // console.log(completed_event)
+      // console.log(editing_locations[currentLocationIndex].incomplete_events)
+      editing_locations[currentLocationIndex].completed_events.push(completed_event[0])
+      setLocations(editing_locations)
+    } else if (currentEvent.storage === "hidden_events") {
+      // console.log("current event is stored in hidden events")
+      const index = editing_locations[currentLocationIndex].hidden_events.indexOf(currentEvent)
+      const completed_event = editing_locations[currentLocationIndex].hidden_events.splice(index, index+1)
+      // console.log(completed_event)
+      // console.log(editing_locations[currentLocationIndex].hidden_events)
+      editing_locations[currentLocationIndex].completed_events.push(completed_event[0])
+      setLocations(editing_locations)
+    }
     setShowContinueButton(false)
     setCanProgress(true)
     setSetup("")
@@ -339,28 +368,41 @@ function StartGame( { selectedCharacter, selectedSaveFile } ) {
     setChoices([])
   }
 
-  // console.log("current location from state", locations[currentLocationIndex])
-
-  const tempSaveFile = {
-    accepted_quest_village2_trader: "false",
-    character_fk: 1,
-    datetime_created: "2023-11-15 12:20:00",
-    found_girls_item: "false",
-    girls_item_location: "village1",
-    gold_pieces: 50,
-    has_entered_portal: "true",
-    has_map: "true",
-    has_seeking_spell: "false",
-    has_visited_store: "true",
-    id: 2,
-    location_on_save: "village1",
-    met_girl: "true",
-    met_village1_trade_target: "false",
-    met_village2_trader: "false",
-    mini_game_high_score: 10,
-    negotiated_deal: "false",
-    wizard_is_home: "false"
+  //  !!!!  each event must have a storage property to function !!!!
+  const event = {
+    storage: "",
+    name: "",
+    setup: "",
+    choices: [
+      {choice: "", closer: ""},
+      {choice: "", setup: "", choices: [
+        {choice: "", closer: ""},
+        {choice: "", closer: ""}
+      ]}]
   }
+  const find_portal = {
+    storage: "incomplete_events",
+    name: "find_portal",
+    setup: "What...is this? Such a strange structure... You can faintly hear the sound of a windchime emanating from it.",
+    choices: [
+      {choice: "Walk closer.", setup: "As you get close to the stone circle, your mouth falls open. It's the most beautiful thing you've ever seen.", 
+        choices: [
+          {choice:"Step into the circle.", closer: "As you step into the circle, all you can hear is your heartbeat in your ears and your vision goes dark."}
+        ]
+      },
+      {choice: "Walk around it.", setup: "As you get close to the stone circle, your mouth falls open. It's the most beautiful thing you've ever seen.", 
+      choices: [
+        {choice:"Step into the circle.", closer: "As you step into the circle, all you can hear is your heartbeat in your ears and your vision goes dark."}
+      ]
+    },
+    {choice: "Walk the other way.", setup: "You turn to leave, but your body is as solid as the stone in front of you. You can't take yours eyes away from it",
+    choices: [
+      {choice:"Walk toward the stone circle.", setup: "As you get close, your mouth falls open. It's the most beautiful thing you've ever seen.", 
+    choices: [
+      {choice:"Step into the circle.", closer: "As you step into the circle, all you can hear is your heartbeat in your ears and your vision goes dark."}
+    ]}]}
+  ]}
+
 
   const find_girls_item = {
     id: 3,
@@ -368,25 +410,14 @@ function StartGame( { selectedCharacter, selectedSaveFile } ) {
     closer: "As you're walking, something catches your eye. Is that...? It is!! You have found Arya's necklace. She will be so grateful. Better put that someplace safe."
   }
 
-  useEffect(() => {
-    // setCurrentLocation(selectedSaveFile.location_on_save)
-    // console.log()
-  }, [])
-  
-  console.log(currentLocationIndex)
-  if (locations[currentLocationIndex].backward) {
-    console.log("you can go backward")
-  } else {
-    console.log("can't go back")
-  }
-  
+
   return (
     <>
       <div className="row"> {/* make this add to 12 */}
         <div className="col-6">
           {canProgress && locations[currentLocationIndex].left ? <button onClick={left}>Left</button> : <></>}
           {canProgress && locations[currentLocationIndex].forward ? <button onClick={forward}>Forward</button> : <></>}
-          {canProgress && locations[currentLocationIndex].backward ? <button onClick={backward}>Backward</button> : <></>}
+          {canProgress && locations[currentLocationIndex].backward !== undefined ? <button onClick={backward}>Backward</button> : <></>}
           {canProgress && locations[currentLocationIndex].right ? <button onClick={right}>Right</button> : <></>}
           {canProgress && locations[currentLocationIndex].shop ? <button onClick={enter_shop}>Enter Shop</button> : <></>}
           {canProgress && locations[currentLocationIndex].exit ? <button onClick={exit}>Exit</button> : <></>}
