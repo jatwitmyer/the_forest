@@ -16,7 +16,7 @@ function CharacterSelect( {user, characters, setCharacters, setSelectedCharacter
   // console.log(user.characters)
   const userCharacterCards = (user.characters.map(character => <UserCharacterCard key={character.id} character={character} setInGame={setInGame} setSelectedCharacter={setSelectedCharacter} setSelectedSaveFile={setSelectedSaveFile}/>))
 
-  const girls_item_location_choices = ['spooky1', 'spooky2', 'swamp1', 'swamp_village', 'fork', 'cave', 'waterfall_village', 'stairs', 'tree_village', 'shop']
+  const girls_item_location_choices = ['spooky1', 'spooky2', 'swamp1', 'swamp_village', 'fork', 'waterfall_village', 'stairs', 'tree_village', 'shop']
 
   function randomChoice(arr) {
     return arr[Math.floor(arr.length * Math.random())];

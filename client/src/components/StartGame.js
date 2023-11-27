@@ -9,13 +9,14 @@ function StartGame( { selectedCharacter, selectedSaveFile, setSelectedSaveFile }
   const [closer, setCloser] = useState("")
   const [currentEvent, setCurrentEvent]= useState({})
   const [currentLocationIndex, setCurrentLocationIndex] = useState(0)
-  // setSelectedSaveFile({
-  //   girls_item_location: "cave",
-  //   location_on_save: "7"
-  // })
-  // console.log(selectedSaveFile)
-
-  const [locations, setLocations] = useState([
+  const [hasMap, setHasMap] = useState(false)
+  const [foundGirlsItem, setFoundGirlsItem] = useState(false)
+  const [showNecklace, setShowNecklace] = useState(false)
+  const [showPortal, setShowPortal] = useState(false)
+  const [oldManIsThere, setOldManIsThere] = useState(true)
+  const [aryaIsThere, setAryaIsThere] = useState(true)
+  const [finished, setFinished] = useState(false)
+  const [locations, setLocations] = useState([   //  !!!!  each event must have a storage property to function !!!!
     {
       index: 0,
       name: "starting_path",
@@ -189,28 +190,28 @@ function StartGame( { selectedCharacter, selectedSaveFile, setSelectedSaveFile }
           choices: [
             {selection: "Hey, what's wrong?", setup: `She looks up at you, startled, and wipes a tear from her face. "I've lost my mother's necklace. I have to find it or she'll be devastated."`, choices: [
               {selection: "Where's the last place you had it?", setup: "I was wearing it this morning when I left the house, but it could be anywhere by now. I've been making deliveries for the shopkeeper in Ardua all day. I couldn't possibly look everywhere by sundown.", choices:[
-                {selection: "I'll help you find it", closer: "Oh thank you! It's a greenish blue stone wrapped in copper wire."},
-                {selection: "I'll let you know if I see it, but I'm in a hurry to get home to my sister.", closer: "I understand. Good luck! If you do get the chance to look, it's a greenish blue stone wrapped in copper wire."}
+                {selection: "I'll help you find it", closer: "Oh thank you! It's a greenish blue stone wrapped in copper wire. My name is Arya, by the way. Thank you again."},
+                {selection: "I'll let you know if I see it, but I'm in a hurry to get home to my sister.", closer: "I understand. Good luck! If you do get the chance to look, it's a greenish blue stone wrapped in copper wire. My name is Arya, by the way."}
               ]},
               {selection: "Do you need some help?", setup:"Oh please. I was wearing it this morning when I left the house, but it could be anywhere by now. I've been making deliveries for the shopkeeper in Ardua all day. I couldn't possibly look everywhere by sundown.", choices:[
-                {selection: "I'll help you find it", closer: "Oh thank you! It's a greenish blue stone wrapped in copper wire."},
-                {selection: "I'll let you know if I see it, but I'm in a hurry to get home to my sister.", closer: "I understand. Good luck! If you do get the chance to look, it's a greenish blue stone wrapped in copper wire."}
+                {selection: "I'll help you find it", closer: "Oh thank you! It's a greenish blue stone wrapped in copper wire. My name is Arya, by the way. Thank you again."},
+                {selection: "I'll let you know if I see it, but I'm in a hurry to get home to my sister.", closer: "I understand. Good luck! If you do get the chance to look, it's a greenish blue stone wrapped in copper wire. My name is Arya, by the way."}
               ]},
             ]},
             {selection: 'Are you okay?', setup: `She looks up at you, startled, and wipes a tear from her face. "No...I'm not. I've lost my mother's necklace. I have to find it or she'll be devastated."`, choices: [
               {selection: "Where's the last place you had it?", setup: "I was wearing it this morning when I left the house, but it could be anywhere by now. I've been making deliveries for the shopkeeper in Ardua all day. I couldn't possibly look everywhere by sundown.", choices:[
-                {selection: "I'll help you find it", closer: "Oh thank you! It's a greenish blue stone wrapped in copper wire."},
-                {selection: "I'll let you know if I see it, but I'm in a hurry to get home to my sister.", closer: "I understand. Good luck! If you do get the chance to look, it's a greenish blue stone wrapped in copper wire."}
+                {selection: "I'll help you find it", closer: "Oh thank you! It's a greenish blue stone wrapped in copper wire. My name is Arya, by the way. Thank you again."},
+                {selection: "I'll let you know if I see it, but I'm in a hurry to get home to my sister.", closer: "I understand. Good luck! If you do get the chance to look, it's a greenish blue stone wrapped in copper wire. My name is Arya, by the way."}
               ]},
               {selection: "Do you need some help?", setup:"Oh please. I was wearing it this morning when I left the house, but it could be anywhere by now. I've been making deliveries for the shopkeeper in Ardua all day. I couldn't possibly look everywhere by sundown.", choices:[
-                {selection: "I'll help you find it", closer: "Oh thank you! It's a greenish blue stone wrapped in copper wire."},
-                {selection: "I'll let you know if I see it, but I'm in a hurry to get home to my sister.", closer: "I understand. Good luck! If you do get the chance to look, it's a greenish blue stone wrapped in copper wire."}
+                {selection: "I'll help you find it", closer: "Oh thank you! It's a greenish blue stone wrapped in copper wire. My name is Arya, by the way. Thank you again."},
+                {selection: "I'll let you know if I see it, but I'm in a hurry to get home to my sister.", closer: "I understand. Good luck! If you do get the chance to look, it's a greenish blue stone wrapped in copper wire. My name is Arya, by the way."}
               ]},
             ] },
             {selection: "Do you need some help?", setup: `She looks up at you, startled, and wipes a tear from her face. "Yes! Please. I've lost my mother's necklace. I have to find it or she'll be devastated."`, choices: [
               {selection: "Where's the last place you had it?", setup: "I was wearing it this morning when I left the house, but it could be anywhere by now. I've been making deliveries for the shopkeeper in Ardua all day. I couldn't possibly look everywhere by sundown.", choices:[
-                {selection: "I'll help you find it", closer: "Oh thank you! It's a greenish blue stone wrapped in copper wire."},
-                {selection: "I'll let you know if I see it, but I'm in a hurry to get home to my sister.", closer: "I understand. Good luck! If you do get the chance to look, it's a greenish blue stone wrapped in copper wire."}
+                {selection: "I'll help you find it", closer: "Oh thank you! It's a greenish blue stone wrapped in copper wire. My name is Arya, by the way. Thank you again."},
+                {selection: "I'll let you know if I see it, but I'm in a hurry to get home to my sister.", closer: "I understand. Good luck! If you do get the chance to look, it's a greenish blue stone wrapped in copper wire. My name is Arya, by the way."}
               ]},
             ]},
           ]
@@ -283,11 +284,6 @@ function StartGame( { selectedCharacter, selectedSaveFile, setSelectedSaveFile }
     }
   ])
 
-  // console.log(locations)
-
-  // console.log(selectedSaveFile)
-  console.log(currentEvent)
-
   useEffect(() => {
     setCurrentLocationIndex(selectedSaveFile.location_on_save)
   }, [selectedSaveFile])
@@ -306,7 +302,6 @@ function StartGame( { selectedCharacter, selectedSaveFile, setSelectedSaveFile }
   }, [locations, currentLocationIndex])
     
   useEffect(() => {
-    console.log(currentEvent)
     if (currentEvent.setup) {
       setSetup(currentEvent.setup)
     }
@@ -329,13 +324,10 @@ function StartGame( { selectedCharacter, selectedSaveFile, setSelectedSaveFile }
   }, [currentEvent])
 
   
-  // console.log(currentLocationIndex)
-
   //---------------------------------------------------------------
   //    movement functions
   //---------------------------------------------------------------
   function left() {
-    // console.log(currentLocationIndex)
     if (locations[currentLocationIndex].left) {
       setCurrentLocationIndex(locations[currentLocationIndex].left)
     }
@@ -344,7 +336,6 @@ function StartGame( { selectedCharacter, selectedSaveFile, setSelectedSaveFile }
     }
   }
   function forward() {
-    // console.log(currentLocationIndex)
     if (locations[currentLocationIndex].forward) {
       setCurrentLocationIndex(locations[currentLocationIndex].forward)
     }
@@ -353,7 +344,6 @@ function StartGame( { selectedCharacter, selectedSaveFile, setSelectedSaveFile }
     }
   }
   function right() {
-    // console.log(currentLocationIndex)
     if (locations[currentLocationIndex].right) {
       setCurrentLocationIndex(locations[currentLocationIndex].right)
     }
@@ -362,7 +352,6 @@ function StartGame( { selectedCharacter, selectedSaveFile, setSelectedSaveFile }
     }
   }
   function backward() {
-    // console.log(currentLocationIndex)
     if (locations[currentLocationIndex].backward !== undefined) {
       setCurrentLocationIndex(locations[currentLocationIndex].backward)
     }
@@ -371,7 +360,6 @@ function StartGame( { selectedCharacter, selectedSaveFile, setSelectedSaveFile }
     }
   }
   function enter_shop() {
-    // console.log(currentLocationIndex)
     if (locations[currentLocationIndex].shop) {
       setCurrentLocationIndex(locations[currentLocationIndex].shop)
     }
@@ -380,7 +368,6 @@ function StartGame( { selectedCharacter, selectedSaveFile, setSelectedSaveFile }
     }
   }
   function exit() {
-    // console.log(currentLocationIndex)
     if (locations[currentLocationIndex].exit) {
       setCurrentLocationIndex(locations[currentLocationIndex].exit)
     }
@@ -389,20 +376,36 @@ function StartGame( { selectedCharacter, selectedSaveFile, setSelectedSaveFile }
     }
   }
 
+  function hideOldMan() {
+    const editing_locations = [...locations]
+    editing_locations[3].characters = []
+    setLocations(editing_locations)
+  }
+
+  function hideArya() {
+    const editing_locations = [...locations]
+    editing_locations[7].characters = []
+    setLocations(editing_locations)
+  }
+  
+
   //---------------------------------------------------------------
   //    render characters
   //---------------------------------------------------------------
   function renderCharacters() {
+    // if (currentLocationIndex !== 3 && hasMap === true && locations[3].characters) {
+    //   hideOldMan()
+    // }
+    // else if (currentLocationIndex !== 7 && showPortal === true && locations[7].characters) {
+    //   hideArya()
+    // }
     if (locations[currentLocationIndex].characters) {
-  //     // console.log(locations[currentLocationIndex].characters)
       const cards = locations[currentLocationIndex].characters.map(character => <CharacterCard character={character} key={character.id}/>)
       return cards
     }
   }
 
   function handleSelection(selection) {
-    // console.log(currentEvent)
-    // console.log(selection)
     if (selection.setup) {
       setSetup(selection.setup)
     }
@@ -424,30 +427,25 @@ function StartGame( { selectedCharacter, selectedSaveFile, setSelectedSaveFile }
     }
   }
 
-  // console.log(setup)
-  // console.log(closer)
-  // console.log(choices)
-  
   function completeCurrentEvent() {
-    // console.log(currentEvent)
+    if (currentEvent.name === "meet_the_old_man") {
+      setHasMap(true)
+    }
     const editing_locations = [...locations]
-    console.log(editing_locations)
+    // console.log(editing_locations)
     if (currentEvent.storage === "incomplete_events") {
-      console.log("current event is stored in incomplete events")
+      // console.log("current event is stored in incomplete events")
       const index = editing_locations[currentLocationIndex].incomplete_events.indexOf(currentEvent)
       const completed_event = editing_locations[currentLocationIndex].incomplete_events.splice(index, index+1)
-      // console.log(completed_event)
-      // console.log(editing_locations[currentLocationIndex].incomplete_events)
       editing_locations[currentLocationIndex].completed_events.push(completed_event[0])
       setLocations(editing_locations)
     } else if (currentEvent.storage === "hidden_events") {
-      // console.log("current event is stored in hidden events")
       const index = editing_locations[currentLocationIndex].hidden_events.indexOf(currentEvent)
       const completed_event = editing_locations[currentLocationIndex].hidden_events.splice(index, index+1)
-      // console.log(completed_event)
-      // console.log(editing_locations[currentLocationIndex].hidden_events)
       editing_locations[currentLocationIndex].completed_events.push(completed_event[0])
       setLocations(editing_locations)
+    } else if (currentEvent.storage === null) {
+      setCurrentEvent({})
     }
     setShowContinueButton(false)
     setCanProgress(true)
@@ -456,63 +454,102 @@ function StartGame( { selectedCharacter, selectedSaveFile, setSelectedSaveFile }
     setChoices([])
   }
 
-  //  !!!!  each event must have a storage property to function !!!!
-  const event = {
-    storage: "",
-    name: "",
-    setup: "",
-    choices: [
-      {choice: "", closer: ""},
-      {choice: "", setup: "", choices: [
-        {choice: "", closer: ""},
-        {choice: "", closer: ""}
-      ]}]
+  function search() {
+    setCanProgress(false)
+    if (selectedSaveFile.girls_item_location === locations[currentLocationIndex].name) {
+      setCurrentEvent({
+        name: "ya_found_it",
+        storage: null,
+        achievementId: null,
+        closer: "Something catches your eye. Is that...? It is!! You have found Arya's necklace. She will be so grateful. Better put that someplace safe."
+      })
+      setShowNecklace(true)
+      setFoundGirlsItem(true)
+    }
+    else if (selectedSaveFile.girls_item_location !== locations[currentLocationIndex].name) {
+      setCurrentEvent({
+        name: "not_here",
+        storage: null,
+        achievementId: null,
+        closer: "You look, but you can't find Arya's necklace around here."
+      })
+    console.log(currentEvent)
+    }
   }
-  const find_portal = {
-    storage: "incomplete_events",
-    name: "find_portal",
-    setup: "What...is this? Such a strange structure... You can faintly hear the sound of a windchime emanating from it.",
-    choices: [
-      {choice: "Walk closer.", setup: "As you get close to the stone circle, your mouth falls open. It's the most beautiful thing you've ever seen.", 
-        choices: [
-          {choice:"Step into the circle.", closer: "As you step into the circle, all you can hear is your heartbeat in your ears and your vision goes dark."}
-        ]
-      },
-      {choice: "Walk around it.", setup: "As you get close to the stone circle, your mouth falls open. It's the most beautiful thing you've ever seen.", 
+
+  function give() {
+    console.log("give necklace to arya")
+    setShowNecklace(false)
+    const editing_locations = [...locations]
+    editing_locations[7].characters[0].src = "assets/girl_smiling.jpg"
+    editing_locations[7].incomplete_events.push({
+      name: "arya_thanks_you",
+      achievementId: null,
+      storage: "incomplete_events",
+      setup: "Thank you! Thank you! Thank you!!! Please let me pay you for your help. You don't know how much this means to me.",
       choices: [
-        {choice:"Step into the circle.", closer: "As you step into the circle, all you can hear is your heartbeat in your ears and your vision goes dark."}
+          {selection: "That's very kind of you, but all I want is to find my way home. A portal brought me here and I don't know how I'll ever get home.", setup: "That's awful. If you can bring me to where this portal left you, there should be enough of a trace for me know how to send you back.", choices: [
+            {selection: "Really?", closer: "Of course. It's the least I can do."}
+          ]},
       ]
-    },
-    {choice: "Walk the other way.", setup: "You turn to leave, but your body is as solid as the stone in front of you. You can't take yours eyes away from it",
-    choices: [
-      {choice:"Walk toward the stone circle.", setup: "As you get close, your mouth falls open. It's the most beautiful thing you've ever seen.", 
-    choices: [
-      {choice:"Step into the circle.", closer: "As you step into the circle, all you can hear is your heartbeat in your ears and your vision goes dark."}
-    ]}]}
-  ]}
-
-
-  const find_girls_item = {
-    id: 3,
-    storage: "search_events",
-    closer: "As you're walking, something catches your eye. Is that...? It is!! You have found Arya's necklace. She will be so grateful. Better put that someplace safe."
+    })
+    editing_locations[2].incomplete_events.push({
+      name: "arya_sends_you_home",
+      achievementId: null,
+      storage: "incomplete_events",
+      setup: `You bring Arya to where you first appeared in Gil'Warren. She holds her hands out and closes her eyes, scanning the air for remnants of the portal that brought you here. Arya wraps her mother's necklace around her palm and steps forward. As she whispers under her breath, light springs forth from her palm. Arya traces out a doorway with her hand and turns to smile at you. "This will take you home," she says.`,
+      choices: [
+        {selection: "Thank you! I can't wait to see my sister again.", closer: `"You're very welcome. Good luck to you.", says Arya.`},
+        {selection: "I'm not ready to go just yet.", closer:`Take your time. This will be here waiting for you when you're ready. Now I'm going to return home. Good luck to you.`}
+      ]
+    })
+    setLocations(editing_locations)
+    setShowPortal(true)
+    // setCurrentEvent()
+    console.log()
   }
 
+  if (currentEvent.name === "arya_sends_you_home" && aryaIsThere === true) {
+    setAryaIsThere(false)
+  }
 
+  if (currentLocationIndex !== 3 && hasMap === true && oldManIsThere === true) {
+    setOldManIsThere(false)
+  }
+
+  function goHome() {
+    console.log("time to go home")
+    const editing_locations = [...locations]
+    editing_locations[1].incomplete_events.push({
+      name: "no_more_portals",
+      achievementId: null,
+      storage: "incomplete_events",
+      closer: "Whatever drew you into that portal seems to be gone...for now. I don't think this will be the path to clear your thoughts from now on. You'll certainly never forget today. Now it's time to go see your sister."
+    })
+    editing_locations[1].forward = undefined
+    setLocations(editing_locations)
+    setCurrentLocationIndex(1)
+    setFinished(true)
+  }
+  
   return (
     <>
       <div className="row"> {/* make this add to 12 */}
         <div className="col-6">
           <img className="location-image" src={locations[currentLocationIndex].src} alt="location"/>
           {canProgress && locations[currentLocationIndex].left ? <button onClick={left}>Left</button> : <></>}
-          {canProgress && locations[currentLocationIndex].forward ? <button onClick={forward}>Forward</button> : <></>}
+          {canProgress && locations[currentLocationIndex].forward !== undefined ? <button onClick={forward}>Forward</button> : <></>}
           {canProgress && locations[currentLocationIndex].backward !== undefined ? <button onClick={backward}>Backward</button> : <></>}
           {canProgress && locations[currentLocationIndex].right ? <button onClick={right}>Right</button> : <></>}
           {canProgress && locations[currentLocationIndex].shop ? <button onClick={enter_shop}>Enter Shop</button> : <></>}
           {canProgress && locations[currentLocationIndex].exit ? <button onClick={exit}>Exit</button> : <></>}
+          {canProgress && locations[7].completed_events.find(event => event.name === "meet_arya") && !foundGirlsItem ? <button onClick={search}>Search</button> : <></>}
+          {canProgress && showNecklace && currentLocationIndex === 7? <button onClick={give}>Give Necklace to Arya</button> : <></>}
+          {canProgress && showPortal && currentLocationIndex === 2? <button onClick={goHome}>Enter the Portal</button> : <></>}
         </div>
         <div className="col-6">
-          {renderCharacters()}
+          {currentLocationIndex === 3 && oldManIsThere? <img className="character-image" src="assets/wizard.jpg" alt="friendly old man"/> : <></>}
+          {currentLocationIndex === 7 && aryaIsThere? <img className="character-image" src={locations[7].characters[0].src} alt="Arya"/> : <></>}
         </div>
         <div className="col-12 events">
           {setup ? <p>{setup}</p> : <></>}
@@ -522,7 +559,13 @@ function StartGame( { selectedCharacter, selectedSaveFile, setSelectedSaveFile }
           {choices && choices[2] ? <><br/><button onClick={() => handleSelection(choices[2])}>C</button><span> {choices[2].selection}</span></> : <></>}
           {choices && choices[3] ? <><br/><button onClick={() => handleSelection(choices[3])}>D</button><span> {choices[3].selection}</span></> : <></>}
           {choices && choices[4] ? <><br/><button onClick={() => handleSelection(choices[4])}>E</button><span> {choices[4].selection}</span></> : <></>}
-          {showContinueButton ? <button onClick={completeCurrentEvent}>Continue</button> : <></>}
+          {showContinueButton && !finished ? <button onClick={completeCurrentEvent}>Continue</button> : <></>}
+          {/* {showContinueButton && finished ? <button onClick={endGame}>Continue</button> : <></>} */}
+        </div>
+        <div className="col-12 events">
+          <h4>Inventory</h4>
+          {hasMap ? <p>map goes here</p> : <></>}
+          {showNecklace? <img className="map-image" src="assets/fantasy_necklace_by_artarina_ddm785r-pre.jpg" alt="Leather necklace with a blue-green stone ornamented with copper wire."/> : <></>}
         </div>
       </div>
     </>

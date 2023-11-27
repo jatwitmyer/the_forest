@@ -34,7 +34,7 @@ def create_characters():
   characters = [c1, c2]
   return characters
 
-girls_item_locations = ['spooky1', 'spooky2', 'swamp1', 'swamp_village', 'fork', 'cave', 'waterfall_village', 'stairs', 'tree_village', 'shop']
+girls_item_locations = ['spooky1', 'spooky2', 'swamp1', 'swamp_village', 'fork', 'waterfall_village', 'stairs', 'tree_village', 'shop']
 
 def create_save_files():
   c1_girls_item_location = rc(girls_item_locations)
