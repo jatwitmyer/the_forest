@@ -28,7 +28,7 @@ function NavBar( {user, setUser, inGame, setInGame} ) {
 
   return (
     <div className="unlogged-nav-bar">
-      <NavLink to="/settings" className="nav-icon settings"><i className="fa fa-cog" aria-hidden="true"></i></NavLink>
+      {/* <NavLink to="/settings" className="nav-icon settings"><i className="fa fa-cog" aria-hidden="true"></i></NavLink> */}
       {!user ? 
         <>
           <NavLink to="/signup" className="nav-button-filled">Signup</NavLink> 

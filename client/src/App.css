@@ -141,7 +141,7 @@ body{
 }
 
 /* testing out responsive grid view on login page */
-* {
+/* * {
   box-sizing: border-box;
 }
 
@@ -168,7 +168,7 @@ body{
   content: "";
   clear: both;
   display: table;
-}
+} */
 
 html {
   font-family: "Lucida Sans", sans-serif;
@@ -199,14 +199,17 @@ form {
   padding-top: 40px;
 }
 
-.location-image {
+/* .location-image {
+  width: 100%; /* makes image the width of the div */
+  /* margin-left: 10px; */
+
+.character-image {
   width: 100%; /* makes image the width of the div */
   /* margin-left: 10px; */
 }
 
 .character-image {
-  width: 100%; /* makes image the width of the div */
-  /* margin-left: 10px; */
+  filter: hue-rotate(-5deg) brightness(85%) grayscale(30%);
 }
 
 .character-name {
@@ -244,4 +247,63 @@ form {
 .events {
   color: #7474A3;
   background-color: black;
+  height: 60vh;
+  width: 30%;
+  position: fixed;
+  left: 68%;
+  background: rgba(0, 2, 1, 0.842);
+  border: 3px solid black;
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px;
+}
+
+.inventory {
+  color: #7474A3;
+  background-color: black;
+  height: 20vh;
+  width: 30%;
+  position: fixed;
+  top: 68vh;
+  left: 68%;
+  background: rgba(0, 2, 1, 0.842);
+  border: 3px solid black;
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px;
+}
+
+.location-div {
+  width: fit-content;
+  width: 67%;
+  height: 92vh;
+  float: left;
+  /* border: 1px solid rgb(48, 163, 134); */
+  margin: 15px;
+  margin-top: 0px
+}
+
+.location-image {
+  object-fit: contain;
+  /* text-align: center; */
+  width: 97%;
+  max-width: 97%;
+  max-height: 93%;
+  /* max-height: 80%; */
+  /* margin-left: 10px;
+  margin-right: 10px; */
+  display: block;
+  margin: auto;
+  /* text-align: center; */
+  background: rgba(0, 2, 1, 0.842);
+  border: 3px solid black;
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px;
+}
+
+.character-image {
+  object-fit: contain;
+  width: 15%;
+  margin-left: 10px;
+  margin-right: 10px;
+  position: absolute;
+  top: 90px;
+  left: 45px;
+  border: 3px solid black;
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px;
 }

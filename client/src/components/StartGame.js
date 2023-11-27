@@ -186,7 +186,7 @@ function StartGame( { selectedCharacter, selectedSaveFile, setSelectedSaveFile }
           name:"meet_arya",
           storage: "incomplete_events",
           achievementId: null,
-          setup: "As you approach this cave, you hear the sound of water being kicked up by footseps. You see a girl with tears on her face looking down into the water as she wades through it. What do you say to her?",
+          setup: "As you approach the cave, you hear the sound of water being kicked up by footseps. You see a girl with tears on her face looking down into the water as she wades through it. What do you say to her?",
           choices: [
             {selection: "Hey, what's wrong?", setup: `She looks up at you, startled, and wipes a tear from her face. "I've lost my mother's necklace. I have to find it or she'll be devastated."`, choices: [
               {selection: "Where's the last place you had it?", setup: "I was wearing it this morning when I left the house, but it could be anywhere by now. I've been making deliveries for the shopkeeper in Ardua all day. I couldn't possibly look everywhere by sundown.", choices:[
@@ -535,8 +535,21 @@ function StartGame( { selectedCharacter, selectedSaveFile, setSelectedSaveFile }
   return (
     <>
       <div className="row"> {/* make this add to 12 */}
-        <div className="col-6">
+        <div className="col-6 location-div">
           <img className="location-image" src={locations[currentLocationIndex].src} alt="location"/>
+          {currentLocationIndex === 3 && oldManIsThere? <img className="character-image man" src="assets/wizard.jpg" alt="friendly old man"/> : <></>}
+          {currentLocationIndex === 7 && aryaIsThere? <img className="character-image arya" src={locations[7].characters[0].src} alt="Arya"/> : <></>}
+        </div>
+        <div className="col-12 events">
+          <div></div>
+          {setup ? <p>{setup}</p> : <></>}
+          {closer ? <p>{closer}</p>: <></>}
+          {choices && choices[0] ? <><button onClick={() => handleSelection(choices[0])}>A</button><span> {choices[0].selection}</span></> : <></>}
+          {choices && choices[1] ? <><br/><button onClick={() => handleSelection(choices[1])}>B</button><span> {choices[1].selection}</span></> : <></>}
+          {choices && choices[2] ? <><br/><button onClick={() => handleSelection(choices[2])}>C</button><span> {choices[2].selection}</span></> : <></>}
+          {choices && choices[3] ? <><br/><button onClick={() => handleSelection(choices[3])}>D</button><span> {choices[3].selection}</span></> : <></>}
+          {choices && choices[4] ? <><br/><button onClick={() => handleSelection(choices[4])}>E</button><span> {choices[4].selection}</span></> : <></>}
+          {showContinueButton && !finished ? <button onClick={completeCurrentEvent}>Continue</button> : <></>}
           {canProgress && locations[currentLocationIndex].left ? <button onClick={left}>Left</button> : <></>}
           {canProgress && locations[currentLocationIndex].forward !== undefined ? <button onClick={forward}>Forward</button> : <></>}
           {canProgress && locations[currentLocationIndex].backward !== undefined ? <button onClick={backward}>Backward</button> : <></>}
@@ -546,23 +559,9 @@ function StartGame( { selectedCharacter, selectedSaveFile, setSelectedSaveFile }
           {canProgress && locations[7].completed_events.find(event => event.name === "meet_arya") && !foundGirlsItem ? <button onClick={search}>Search</button> : <></>}
           {canProgress && showNecklace && currentLocationIndex === 7? <button onClick={give}>Give Necklace to Arya</button> : <></>}
           {canProgress && showPortal && currentLocationIndex === 2? <button onClick={goHome}>Enter the Portal</button> : <></>}
-        </div>
-        <div className="col-6">
-          {currentLocationIndex === 3 && oldManIsThere? <img className="character-image" src="assets/wizard.jpg" alt="friendly old man"/> : <></>}
-          {currentLocationIndex === 7 && aryaIsThere? <img className="character-image" src={locations[7].characters[0].src} alt="Arya"/> : <></>}
-        </div>
-        <div className="col-12 events">
-          {setup ? <p>{setup}</p> : <></>}
-          {closer ? <p>{closer}</p>: <></>}
-          {choices && choices[0] ? <><button onClick={() => handleSelection(choices[0])}>A</button><span> {choices[0].selection}</span></> : <></>}
-          {choices && choices[1] ? <><br/><button onClick={() => handleSelection(choices[1])}>B</button><span> {choices[1].selection}</span></> : <></>}
-          {choices && choices[2] ? <><br/><button onClick={() => handleSelection(choices[2])}>C</button><span> {choices[2].selection}</span></> : <></>}
-          {choices && choices[3] ? <><br/><button onClick={() => handleSelection(choices[3])}>D</button><span> {choices[3].selection}</span></> : <></>}
-          {choices && choices[4] ? <><br/><button onClick={() => handleSelection(choices[4])}>E</button><span> {choices[4].selection}</span></> : <></>}
-          {showContinueButton && !finished ? <button onClick={completeCurrentEvent}>Continue</button> : <></>}
           {/* {showContinueButton && finished ? <button onClick={endGame}>Continue</button> : <></>} */}
         </div>
-        <div className="col-12 events">
+        <div className="col-12 inventory">
           <h4>Inventory</h4>
           {hasMap ? <p>map goes here</p> : <></>}
           {showNecklace? <img className="map-image" src="assets/fantasy_necklace_by_artarina_ddm785r-pre.jpg" alt="Leather necklace with a blue-green stone ornamented with copper wire."/> : <></>}
