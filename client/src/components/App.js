@@ -57,7 +57,7 @@ function App() {
         <Route path="/settings" element={<Settings/>} />
         <Route path="/account" element={<Account user={user} setUser={setUser}/>} />
         <Route path="/character_select" element={<CharacterSelect  user={user} setInGame={setInGame} characters={characters} setCharacters={setCharacters} setSelectedCharacter={setSelectedCharacter} setSelectedSaveFile={setSelectedSaveFile}/>} />
-        <Route path="/start" element={<StartGame selectedCharacter={selectedCharacter} selectedSaveFile={selectedSaveFile}/>} />
+        <Route path="/start" element={<StartGame selectedCharacter={selectedCharacter} selectedSaveFile={selectedSaveFile} setSelectedSaveFile={setSelectedSaveFile}/>} />
       </Routes>
     </div>
   );

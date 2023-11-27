@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import CharacterCard from "./CharacterCard";
 
-function StartGame( { selectedCharacter, selectedSaveFile } ) {
+function StartGame( { selectedCharacter, selectedSaveFile, setSelectedSaveFile } ) {
   const [canProgress, setCanProgress] = useState(true)
   const [showContinueButton, setShowContinueButton] = useState(false)
   const [setup, setSetup] = useState("")
@@ -9,6 +9,12 @@ function StartGame( { selectedCharacter, selectedSaveFile } ) {
   const [closer, setCloser] = useState("")
   const [currentEvent, setCurrentEvent]= useState({})
   const [currentLocationIndex, setCurrentLocationIndex] = useState(0)
+  // setSelectedSaveFile({
+  //   girls_item_location: "cave",
+  //   location_on_save: "7"
+  // })
+  // console.log(selectedSaveFile)
+
   const [locations, setLocations] = useState([
     {
       index: 0,
@@ -16,20 +22,20 @@ function StartGame( { selectedCharacter, selectedSaveFile } ) {
       src: "assets/starting_path.JPG",
       forward: 1,
       incomplete_events: [
-        // {
-        //   storage: "incomplete_events",
-        //   id: 1,
-        //   name: "landslide",
-        //   setup: "You've walked on this trail many times before. It's your favorite for clearing your thoughts. Today, you can't get the feeling that your sister's making a mistake out of your head. What will you say to her? How do you know it will reach her?\n\nYou're pulled to the present by the sound of the birds going silent. A chill goes up your spine. From the trail behind you, you hear a low rumble growing, but from what? Is it a rockslide or a moose?",
-        //   choices: [
-        //     {id: "A", selection: "Leave the path to hide in the forest", setup: "You rush off the trail. Once you reach a hiding spot, you hear tree branches snapping in the distance. A rock slams into the road 50 feet away from you and breaks apart.", choices: [
-        //       {id: "A", selection: "Run into the forest away from the rock", closer:"You race into the trees. Behind you, rocks and broken trees begin to fill the path. You're blocked from the exit of the park. It will take hours for the way to be cleared. You sigh and continue forward into the forest. If you go straight, you know you'll reach the edge before sunset."},
-        //       {id: "B", selection:"Go back to the road to run away faster", closer:"You race down the trail. Behind you, rocks and broken trees begin to fill the path. You're blocked from the exit of the park. It will take hours for the way to be cleared. You sigh and turn to enter the forest. If you go straight, you know you'll reach the edge before sunset."}
-        //     ]},
-        //     {id: "B", selection: "Bolt down the trail to put distance between you and the sound", closer: "You race down the trail. You lose your breath and turn back to check on the noise. You hear tree branches snapping in the distance. Behind you, rocks and broken trees begin to fill the path. You're blocked from the exit of the park. It will take hours for the way to be cleared. You sigh and turn to enter the forest. If you go straight, you know you'll reach the edge before sunset."},
-        //   ],
-        //   achievementId: 1
-        // }
+        {
+          storage: "incomplete_events",
+          id: 1,
+          name: "landslide",
+          setup: "You've walked on this trail many times before. It's your favorite for clearing your thoughts. Today, you can't get the feeling that your sister's making a mistake out of your head. What will you say to her? How do you know it will reach her?\n\nYou're pulled to the present by the sound of the birds going silent. A chill goes up your spine. From the trail behind you, you hear a low rumble growing, but from what? Is it a rockslide or a moose?",
+          choices: [
+            {id: "A", selection: "Leave the path to hide in the forest", setup: "You rush off the trail. Once you reach a hiding spot, you hear tree branches snapping in the distance. A rock slams into the road 50 feet away from you and breaks apart.", choices: [
+              {id: "A", selection: "Run into the forest away from the rock", closer:"You race into the trees. Behind you, rocks and broken trees begin to fill the path. You're blocked from the exit of the park. It will take hours for the way to be cleared. You sigh and continue forward into the forest. If you go straight, you know you'll reach the edge before sunset."},
+              {id: "B", selection:"Go back to the road to run away faster", closer:"You race down the trail. Behind you, rocks and broken trees begin to fill the path. You're blocked from the exit of the park. It will take hours for the way to be cleared. You sigh and turn to enter the forest. If you go straight, you know you'll reach the edge before sunset."}
+            ]},
+            {id: "B", selection: "Bolt down the trail to put distance between you and the sound", closer: "You race down the trail. You lose your breath and turn back to check on the noise. You hear tree branches snapping in the distance. Behind you, rocks and broken trees begin to fill the path. You're blocked from the exit of the park. It will take hours for the way to be cleared. You sigh and turn to enter the forest. If you go straight, you know you'll reach the edge before sunset."},
+          ],
+          achievementId: 1
+        }
       ],
       hidden_events: [],
       completed_events: [],
@@ -39,29 +45,29 @@ function StartGame( { selectedCharacter, selectedSaveFile } ) {
       name: 'portal',
       forward: 2,
       incomplete_events: [
-      //   {
-      //   achievementId: 2,
-      //   storage: "incomplete_events",
-      //   name: "find_portal",
-      //   setup: "What...is this? Such a strange structure... You can faintly hear the sound of a windchime emanating from it.",
-      //   choices: [
-      //     {selection: "Walk closer.", setup: "As you get close to the stone circle, your mouth falls open. It's the most beautiful thing you've ever seen.", 
-      //       choices: [
-      //         {selection:"Step into the circle.", closer: "As you step into the circle, all you can hear is your heartbeat in your ears and your vision goes dark."}
-      //       ]
-      //     },
-      //     {selection: "Walk around it.", setup: "As you get close to the stone circle, your mouth falls open. It's the most beautiful thing you've ever seen.", 
-      //     choices: [
-      //       {selection:"Step into the circle.", closer: "As you step into the circle, all you can hear is your heartbeat in your ears and your vision goes dark."}
-      //     ]
-      //   },
-      //   {selection: "Walk the other way.", setup: "You turn to leave, but your body is as solid as the stone in front of you. You can't take your eyes away from it.",
-      //   choices: [
-      //     {selection:"Walk toward the stone circle.", setup: "As you get close, your mouth falls open. It's the most beautiful thing you've ever seen.", 
-      //   choices: [
-      //     {selection:"Step into the circle.", closer: "As you step into the circle, all you can hear is your heartbeat in your ears and your vision goes dark."}
-      //   ]}]}
-      // ]}
+        {
+        achievementId: 2,
+        storage: "incomplete_events",
+        name: "find_portal",
+        setup: "What...is this? Such a strange structure... You can faintly hear the sound of a windchime emanating from it.",
+        choices: [
+          {selection: "Walk closer.", setup: "As you get close to the stone circle, your mouth falls open. It's the most beautiful thing you've ever seen.", 
+            choices: [
+              {selection:"Step into the circle.", closer: "As you step into the circle, all you can hear is your heartbeat in your ears and your vision goes dark."}
+            ]
+          },
+          {selection: "Walk around it.", setup: "As you get close to the stone circle, your mouth falls open. It's the most beautiful thing you've ever seen.", 
+          choices: [
+            {selection:"Step into the circle.", closer: "As you step into the circle, all you can hear is your heartbeat in your ears and your vision goes dark."}
+          ]
+        },
+        {selection: "Walk the other way.", setup: "You turn to leave, but your body is as solid as the stone in front of you. You can't take your eyes away from it.",
+        choices: [
+          {selection:"Walk toward the stone circle.", setup: "As you get close, your mouth falls open. It's the most beautiful thing you've ever seen.", 
+        choices: [
+          {selection:"Step into the circle.", closer: "As you step into the circle, all you can hear is your heartbeat in your ears and your vision goes dark."}
+        ]}]}
+      ]}
     ],
       hidden_events: [],
       completed_events: []
@@ -71,10 +77,10 @@ function StartGame( { selectedCharacter, selectedSaveFile } ) {
       name: 'spooky1',
       forward: 3,
       incomplete_events: [
-      //   {
-      //   storage: "incomplete_events",
-      //   closer: "What is this place? How did you get here? There's nothing but dark forest everywhere you look."
-      // }
+        {
+        storage: "incomplete_events",
+        closer: "What is this place? How did you get here? There's nothing but dark forest everywhere you look."
+      }
     ],
       hidden_events: [],
       completed_events: [],
@@ -93,23 +99,23 @@ function StartGame( { selectedCharacter, selectedSaveFile } ) {
         interactions: []
       }],
       incomplete_events: [
-      //   {
-      //     name: "meet_the_old_man",
-      //     achievementId: null,
-      //     storage: "incomplete_events",
-      //     setup: "There's a man on the trail ahead of you! He bows his head slightly and raises his hand in greeting. Perhaps he's very friendly or perhaps he can see the worry in your face. He asks if there's anything he can do for you.",
-      //     choices: [
-      //     {selection: "Where am I?", setup: "Why you're on the edge of the swamp in the Gil'Warren Forest", choices: [
-      //       {selection: "Who are you?", setup: "The name's Orin. Pleased to meet you. Now I need to be on my way, but I have something that might be more useful to you than it is to me. Orin hands you a rolled up paper. You unroll it and see a map of Gil'Warren.", choices: [
-      //         {selection: "Thank you!", closer:"Good luck to you. Be sure to stick to the paths."},
-      //       ]} 
-      //     ]},
-      //     {selection: "Who are you?", setup: "The name's Orin. Pleased to meet you.", choices: [
-      //       {selection: "Where am I?", setup: "Why you're on the edge of the swamp in the Gil'Warren Forest. Now I need to be on my way, but I have something that might be more useful to you than it is to me. Orin hands you a rolled up paper. You unroll it and see a map of Gil'Warren.", choices: [
-      //         {selection: "Thank you!", closer:"Good luck to you. Be sure to stick to the paths"}
-      //       ]} 
-      //     ]}
-      // ]}
+        {
+          name: "meet_the_old_man",
+          achievementId: null,
+          storage: "incomplete_events",
+          setup: "There's a man on the trail ahead of you! He bows his head slightly and raises his hand in greeting. Perhaps he's very friendly or perhaps he can see the worry in your face. He asks if there's anything he can do for you.",
+          choices: [
+          {selection: "Where am I?", setup: "Why you're on the edge of the swamp in the Gil'Warren Forest", choices: [
+            {selection: "Who are you?", setup: "The name's Orin. Pleased to meet you. Now I need to be on my way, but I have something that might be more useful to you than it is to me. Orin hands you a rolled up paper. You unroll it and see a map of Gil'Warren.", choices: [
+              {selection: "Thank you!", closer:"Good luck to you. Be sure to stick to the paths."},
+            ]} 
+          ]},
+          {selection: "Who are you?", setup: "The name's Orin. Pleased to meet you.", choices: [
+            {selection: "Where am I?", setup: "Why you're on the edge of the swamp in the Gil'Warren Forest. Now I need to be on my way, but I have something that might be more useful to you than it is to me. Orin hands you a rolled up paper. You unroll it and see a map of Gil'Warren.", choices: [
+              {selection: "Thank you!", closer:"Good luck to you. Be sure to stick to the paths"}
+            ]} 
+          ]}
+      ]}
       ],
       hidden_events: [],
       completed_events: []
@@ -119,7 +125,14 @@ function StartGame( { selectedCharacter, selectedSaveFile } ) {
       name: 'swamp1',
       backward: 3,
       forward: 5,
-      incomplete_events: [],
+      incomplete_events: [
+        {
+          name: "boardwalk",
+          storage: "incomplete_events",
+          achievementId: null,
+          closer: "A boardwalk stretches in front of you through the swamp. To your left, an alligator comes up for air and stares from afar as you pass."
+        }
+      ],
       hidden_events: [],
       completed_events: [],
     }, {
@@ -127,7 +140,13 @@ function StartGame( { selectedCharacter, selectedSaveFile } ) {
       src: "assets/swamp_village.jpg",
       name: 'swamp_village',
       backward: 4,
-      incomplete_events: [],
+      incomplete_events: [
+        {
+          storage: "incomplete_events",
+          achievementId: null, 
+          closer: "You can hear music coming from inside the houses and no one outside on the paths. You wonder if this is a regular occurence."
+        }
+      ],
       hidden_events: [],
       completed_events: []
     }, {
@@ -137,7 +156,13 @@ function StartGame( { selectedCharacter, selectedSaveFile } ) {
       backward: 3,
       left: 7,
       right: 9,
-      incomplete_events: [],
+      incomplete_events: [
+        {
+          storage: "incomplete_events",
+          achievementId: null,
+          closer: "You're so grateful to feel the sun on your face again. This stream must be the source of the water that's been on the path behind you. The main trail continues off to your right and a smaller one follows the river. Which way should you go?"
+        }
+      ],
       hidden_events: [],
       completed_events: []
     }, {
@@ -155,7 +180,42 @@ function StartGame( { selectedCharacter, selectedSaveFile } ) {
           interactions: []
         }
       ],
-      incomplete_events: [],
+      incomplete_events: [
+        {
+          name:"meet_arya",
+          storage: "incomplete_events",
+          achievementId: null,
+          setup: "As you approach this cave, you hear the sound of water being kicked up by footseps. You see a girl with tears on her face looking down into the water as she wades through it. What do you say to her?",
+          choices: [
+            {selection: "Hey, what's wrong?", setup: `She looks up at you, startled, and wipes a tear from her face. "I've lost my mother's necklace. I have to find it or she'll be devastated."`, choices: [
+              {selection: "Where's the last place you had it?", setup: "I was wearing it this morning when I left the house, but it could be anywhere by now. I've been making deliveries for the shopkeeper in Ardua all day. I couldn't possibly look everywhere by sundown.", choices:[
+                {selection: "I'll help you find it", closer: "Oh thank you! It's a greenish blue stone wrapped in copper wire."},
+                {selection: "I'll let you know if I see it, but I'm in a hurry to get home to my sister.", closer: "I understand. Good luck! If you do get the chance to look, it's a greenish blue stone wrapped in copper wire."}
+              ]},
+              {selection: "Do you need some help?", setup:"Oh please. I was wearing it this morning when I left the house, but it could be anywhere by now. I've been making deliveries for the shopkeeper in Ardua all day. I couldn't possibly look everywhere by sundown.", choices:[
+                {selection: "I'll help you find it", closer: "Oh thank you! It's a greenish blue stone wrapped in copper wire."},
+                {selection: "I'll let you know if I see it, but I'm in a hurry to get home to my sister.", closer: "I understand. Good luck! If you do get the chance to look, it's a greenish blue stone wrapped in copper wire."}
+              ]},
+            ]},
+            {selection: 'Are you okay?', setup: `She looks up at you, startled, and wipes a tear from her face. "No...I'm not. I've lost my mother's necklace. I have to find it or she'll be devastated."`, choices: [
+              {selection: "Where's the last place you had it?", setup: "I was wearing it this morning when I left the house, but it could be anywhere by now. I've been making deliveries for the shopkeeper in Ardua all day. I couldn't possibly look everywhere by sundown.", choices:[
+                {selection: "I'll help you find it", closer: "Oh thank you! It's a greenish blue stone wrapped in copper wire."},
+                {selection: "I'll let you know if I see it, but I'm in a hurry to get home to my sister.", closer: "I understand. Good luck! If you do get the chance to look, it's a greenish blue stone wrapped in copper wire."}
+              ]},
+              {selection: "Do you need some help?", setup:"Oh please. I was wearing it this morning when I left the house, but it could be anywhere by now. I've been making deliveries for the shopkeeper in Ardua all day. I couldn't possibly look everywhere by sundown.", choices:[
+                {selection: "I'll help you find it", closer: "Oh thank you! It's a greenish blue stone wrapped in copper wire."},
+                {selection: "I'll let you know if I see it, but I'm in a hurry to get home to my sister.", closer: "I understand. Good luck! If you do get the chance to look, it's a greenish blue stone wrapped in copper wire."}
+              ]},
+            ] },
+            {selection: "Do you need some help?", setup: `She looks up at you, startled, and wipes a tear from her face. "Yes! Please. I've lost my mother's necklace. I have to find it or she'll be devastated."`, choices: [
+              {selection: "Where's the last place you had it?", setup: "I was wearing it this morning when I left the house, but it could be anywhere by now. I've been making deliveries for the shopkeeper in Ardua all day. I couldn't possibly look everywhere by sundown.", choices:[
+                {selection: "I'll help you find it", closer: "Oh thank you! It's a greenish blue stone wrapped in copper wire."},
+                {selection: "I'll let you know if I see it, but I'm in a hurry to get home to my sister.", closer: "I understand. Good luck! If you do get the chance to look, it's a greenish blue stone wrapped in copper wire."}
+              ]},
+            ]},
+          ]
+        }
+      ],
       hidden_events: [],
       completed_events: []
     }, {
@@ -163,7 +223,14 @@ function StartGame( { selectedCharacter, selectedSaveFile } ) {
       src: "assets/waterfall_village.jpg",
       name: 'waterfall_village',
       backward: 7,
-      incomplete_events: [],
+      incomplete_events: [
+        {
+          name:"see_waterfall_village",
+          storage: "incomplete_events",
+          achievementId: null,
+          closer: "Spray from the waterfall lingers in the air here, and birds call to each other from their roosts atop houses." 
+        }
+      ],
       hidden_events: [],
       completed_events: []
     }, {
@@ -172,7 +239,14 @@ function StartGame( { selectedCharacter, selectedSaveFile } ) {
       name: 'stairs',
       backward: 6,
       forward: 10,
-      incomplete_events: [],
+      incomplete_events: [
+        {
+          name: "find_stairs",
+          storage: "incomplete_events",
+          achievementId: null,
+          closer: "The steps are wet, so you climb them carefully. The chatter of the forest blends together around you." 
+        }
+      ],
       hidden_events: [],
       completed_events: []
     }, {
@@ -181,7 +255,14 @@ function StartGame( { selectedCharacter, selectedSaveFile } ) {
       name: 'tree_village',
       backward: 9,
       shop: 11,
-      incomplete_events: [],
+      incomplete_events: [
+        {
+          name: "find_stairs",
+          storage: "incomplete_events",
+          achievementId: null,
+          closer: "At last you see why you climbed alllll of those steps. The forest floor is far below now and there's a whole village up here in the canopy. The map tells you that this is Ardua. A sign at the start of the bridge invites you to visit the shop: Roselly's Wares."
+        }
+      ],
       hidden_events: [],
       completed_events: []
     }, {
@@ -189,7 +270,14 @@ function StartGame( { selectedCharacter, selectedSaveFile } ) {
       src: "assets/shop.jpeg",
       name: 'shop',
       exit: 10,
-      incomplete_events: [],
+      incomplete_events: [
+        {
+          name: "shop",
+          storage: "incomplete_events",
+          achievementId: null,
+          closer: "A fire crackles on your left, warming the room. A shopkeeper calls out from upstairs that she'll be down soon."
+        }
+      ],
       hidden_events: [],
       completed_events: []
     }
@@ -415,13 +503,13 @@ function StartGame( { selectedCharacter, selectedSaveFile } ) {
     <>
       <div className="row"> {/* make this add to 12 */}
         <div className="col-6">
+          <img className="location-image" src={locations[currentLocationIndex].src} alt="location"/>
           {canProgress && locations[currentLocationIndex].left ? <button onClick={left}>Left</button> : <></>}
           {canProgress && locations[currentLocationIndex].forward ? <button onClick={forward}>Forward</button> : <></>}
           {canProgress && locations[currentLocationIndex].backward !== undefined ? <button onClick={backward}>Backward</button> : <></>}
           {canProgress && locations[currentLocationIndex].right ? <button onClick={right}>Right</button> : <></>}
           {canProgress && locations[currentLocationIndex].shop ? <button onClick={enter_shop}>Enter Shop</button> : <></>}
           {canProgress && locations[currentLocationIndex].exit ? <button onClick={exit}>Exit</button> : <></>}
-          <img className="location-image" src={locations[currentLocationIndex].src} alt="location"/>
         </div>
         <div className="col-6">
           {renderCharacters()}
