@@ -15,6 +15,8 @@ function StartGame( { selectedCharacter, selectedSaveFile, setSelectedSaveFile }
   const [showPortal, setShowPortal] = useState(false)
   const [oldManIsThere, setOldManIsThere] = useState(true)
   const [aryaIsThere, setAryaIsThere] = useState(true)
+  const [zoomIn, setZoomIn] = useState(false)
+  const [zoomedImage, setZoomedImage] = useState(<img class="map-image" src="assets/map.jpg" alt="Map of Gil'Warren Forest."/>)
   const [finished, setFinished] = useState(false)
   const [locations, setLocations] = useState([   //  !!!!  each event must have a storage property to function !!!!
     {
@@ -531,10 +533,17 @@ function StartGame( { selectedCharacter, selectedSaveFile, setSelectedSaveFile }
     setCurrentLocationIndex(1)
     setFinished(true)
   }
-  
+
+  function handleZoom(e) {
+    setZoomIn(!zoomIn)
+    setZoomedImage(e.target)
+  }
+
+
   return (
     <>
       <div className="row"> {/* make this add to 12 */}
+      {zoomIn ? <img className="map-big" src={zoomedImage.src} alt={zoomedImage.alt}/> :<></>}
         <div className="col-6 location-div">
           <img className="location-image" src={locations[currentLocationIndex].src} alt="location"/>
           {currentLocationIndex === 3 && oldManIsThere? <img className="character-image man" src="assets/wizard.jpg" alt="friendly old man"/> : <></>}
@@ -549,6 +558,7 @@ function StartGame( { selectedCharacter, selectedSaveFile, setSelectedSaveFile }
           {choices && choices[2] ? <><br/><button onClick={() => handleSelection(choices[2])}>C</button><span> {choices[2].selection}</span></> : <></>}
           {choices && choices[3] ? <><br/><button onClick={() => handleSelection(choices[3])}>D</button><span> {choices[3].selection}</span></> : <></>}
           {choices && choices[4] ? <><br/><button onClick={() => handleSelection(choices[4])}>E</button><span> {choices[4].selection}</span></> : <></>}
+          <div>
           {showContinueButton && !finished ? <button onClick={completeCurrentEvent}>Continue</button> : <></>}
           {canProgress && locations[currentLocationIndex].left ? <button onClick={left}>Left</button> : <></>}
           {canProgress && locations[currentLocationIndex].forward !== undefined ? <button onClick={forward}>Forward</button> : <></>}
@@ -560,11 +570,19 @@ function StartGame( { selectedCharacter, selectedSaveFile, setSelectedSaveFile }
           {canProgress && showNecklace && currentLocationIndex === 7? <button onClick={give}>Give Necklace to Arya</button> : <></>}
           {canProgress && showPortal && currentLocationIndex === 2? <button onClick={goHome}>Enter the Portal</button> : <></>}
           {/* {showContinueButton && finished ? <button onClick={endGame}>Continue</button> : <></>} */}
+          </div>
         </div>
         <div className="col-12 inventory">
-          <h4>Inventory</h4>
-          {hasMap ? <p>map goes here</p> : <></>}
-          {showNecklace? <img className="map-image" src="assets/fantasy_necklace_by_artarina_ddm785r-pre.jpg" alt="Leather necklace with a blue-green stone ornamented with copper wire."/> : <></>}
+          <h3>Inventory</h3>
+          {showNecklace? <div className="inventory-item">
+            <img onClick={(e) => handleZoom(e)} className="necklace-image" src="assets/fantasy_necklace_by_artarina_ddm785r-pre.jpg" alt="Leather necklace with a blue-green stone ornamented with copper wire."/>
+          </div> : <></>}
+          {hasMap? <div className="inventory-item">
+            {/* <input type="checkbox" name="checkbox" id="zoom_img" onChange={(e) => handleZoom(e)}/> */}
+            {/* <label htmlFor="zoom_img"> */}
+            <img onClick={(e) => handleZoom(e)} className="map-image" src="assets/map.jpg" alt="Map of Gil'Warren Forest."/>
+            {/* </label> */}
+          </div> : <></>}
         </div>
       </div>
     </>
