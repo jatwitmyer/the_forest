@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
 import CharacterCard from "./CharacterCard";
+import { SaveFileContext } from "./App.js"
 
-function StartGame( { selectedCharacter, selectedSaveFile, setSelectedSaveFile } ) {
+export default function StartGame( { selectedCharacter, setSelectedSaveFile } ) {
+  // console.log(selectedCharacter)
+  const selectedSaveFile = React.useContext(SaveFileContext)
   console.log(selectedSaveFile)
-  console.log(selectedCharacter)
   
   const [canProgress, setCanProgress] = useState(true)
   const [showContinueButton, setShowContinueButton] = useState(false)
@@ -591,5 +593,3 @@ function StartGame( { selectedCharacter, selectedSaveFile, setSelectedSaveFile }
     </>
   )
 }
-
-export default StartGame
