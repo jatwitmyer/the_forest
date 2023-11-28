@@ -1,12 +1,10 @@
 import React, { useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import Button from "../styles/Button";
-import Error from "../styles/Error";
 
 function Login( { onLogin } ) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [errors, setErrors] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate()
 
@@ -27,7 +25,10 @@ function Login( { onLogin } ) {
           navigate('/')
         });
       } else {
-        r.json().then((err) => setErrors(err.errors));
+        alert('Login failed. Try again.')
+        onLogin(null)
+        setUsername('')
+        setPassword('')
       }
     });
   }
@@ -61,10 +62,6 @@ function Login( { onLogin } ) {
             <Button variant="fill" color="primary" type="submit">
               {isLoading ? "Loading..." : "Login"}
             </Button>
-            <br/>
-            {errors.map((err) => (
-              <Error key={err}>{err}</Error>
-            ))}
             <br/>
             <NavLink to="/signup">Sign Up</NavLink>
           </form>

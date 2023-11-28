@@ -3,6 +3,8 @@ from sqlalchemy.ext.associationproxy import association_proxy
 from sqlalchemy.ext.hybrid import hybrid_property
 from sqlalchemy_serializer import SerializerMixin
 from config import bcrypt, db
+from sqlalchemy import UniqueConstraint
+from sqlalchemy.exc import IntegrityError
 
 class User(db.Model, SerializerMixin):
   __tablename__ = 'users'
@@ -10,6 +12,7 @@ class User(db.Model, SerializerMixin):
 
   id = db.Column(db.Integer, primary_key=True)
 
+  # username = db.Column(db.String)
   username = db.Column(db.String, unique=True)
   _password_hash = db.Column(db.String)
 
@@ -34,9 +37,12 @@ class User(db.Model, SerializerMixin):
     return bcrypt.check_password_hash(self._password_hash, password.encode('utf-8'))
 
   @validates('username')
-  def validates_username(self, key, username):
-    if username:
-      return username
+  def validates_username(self, key, value):
+    # usernames = [user.username for user in User.query.all()]
+    # if value in usernames:
+    #   raise ValueError("Username not available")
+    if value:
+      return value
     else:
       raise ValueError('User must be given a username.')
     

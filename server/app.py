@@ -4,6 +4,8 @@ from flask_restful import Resource
 from sqlalchemy.exc import IntegrityError
 from models import User, UserAchievement, Achievement, SaveFile, Character
 import datetime
+from sqlalchemy import UniqueConstraint
+from sqlalchemy.exc import IntegrityError
 
 # @app.route('/')
 # def index():
@@ -37,7 +39,11 @@ class Signup(Resource):
             db.session.commit()
             session['user_id'] = new_user.id
             return new_user.to_dict(), 201
-        except IntegrityError:
+        except IntegrityError as e:
+            # print(e)
+            # err_msg = str(e.orig).split(':')[-1].replace('\n', '').strip()
+            if "UNIQUE constraint failed" in str(e):
+                return {'error': 'Username must be unique'}, 409
             return {'error': '422 Unprocessable Entity'}, 422
         
 class CheckSession(Resource):
@@ -51,13 +57,13 @@ class CheckSession(Resource):
 class Login(Resource):
     def post(self):
         form_data = request.get_json()
-        username = form_data.get('username')
-        password = form_data.get('password')
+        username = form_data['username']
+        password = form_data['password']
         user = User.query.filter(User.username == username).first()
         if user:
             if user.authenticate(password):
                 session['user_id'] = user.id
-                print(session)
+                # print(session)
                 return user.to_dict(), 200
         return {'error': '401 Unauthorized'}, 401
 

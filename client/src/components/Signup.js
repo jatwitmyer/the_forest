@@ -21,12 +21,19 @@ function Signup( {setUser} ) {
     }).then((r) => {
       setIsLoading(false);
       if (r.ok) {
-        r.json().then((user) => {
-          setUser(null)
+        r.json().then(() => {
           navigate('/login')
         });
       } else {
-        r.json().then((err) => setErrors(err.errors));
+        if (r.status === 409) {
+          alert("Username taken")
+        }
+        else{
+          alert("Sign up failed. Retry.")
+        }
+        // console.log(r)
+        setUsername('')
+        setPassword('')
       }
     });
   }
