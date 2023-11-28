@@ -184,20 +184,6 @@ form {
   padding-top: 40px;
 }
 
-.event-div {
-  color: #7474A3;
-  background-color: black;
-  padding: 5px;
-  padding-left: 20px;
-  padding-right: 20px;
-  font-weight: bold;
-  font-size: 20px;
-}
-
-.event-div p {
-  white-space: pre-wrap;
-}
-
 .account {
   color: #7474A3;
   background-color: black;
@@ -210,19 +196,6 @@ form {
   background-color: black;
   border: 1px;
   border-color: #7474A3;
-}
-
-.events {
-  color: #7474A3;
-  background-color: black;
-  height: 54vh;
-  width: 30%;
-  /* position: fixed; */
-  /* left: 68%; */
-  background: rgba(0, 2, 1, 0.842);
-  border: 3px solid black;
-  overflow-y:auto;
-  box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px;
 }
 
 .location-div {
@@ -289,9 +262,10 @@ form {
   box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px;
 }
 
-.inventory h3 {
+.game h3 {
+  color: #7474A3;
   text-align: center;
-  font-size: 20px;
+  font-size: 22px;
   padding: 0;
   margin: 0;
   margin-top: 10px;
@@ -335,3 +309,20 @@ input[type=checkbox] {
 /* body {
   overflow-y: hidden;
 } */
+
+
+.events p, span {
+  white-space: pre-wrap;
+  font-size: 20px;
+}
+
+.events {
+  color: #7474A3;
+  background-color: black;
+  height: 54vh;
+  width: 30%;
+  background: rgba(0, 2, 1, 0.842);
+  border: 3px solid black;
+  overflow-y:auto;
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px;
+}

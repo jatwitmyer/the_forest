@@ -26,6 +26,7 @@ export default function StartGame( { selectedCharacter, setSelectedSaveFile } ) 
   const [locations, setLocations] = useState([   //  !!!!  each event must have a storage property to function !!!!
     {
       index: 0,
+      displayName: "Starting Path",
       name: "starting_path",
       src: "assets/starting_path.JPG",
       forward: 1,
@@ -49,6 +50,7 @@ export default function StartGame( { selectedCharacter, setSelectedSaveFile } ) 
       completed_events: [],
     }, {
       index: 1,
+      displayName: "Portal",
       src: "assets/portal.jpeg",
       name: 'portal',
       forward: 2,
@@ -81,6 +83,7 @@ export default function StartGame( { selectedCharacter, setSelectedSaveFile } ) 
       completed_events: []
     }, {
       index: 2,
+      displayName: "Forest's Edge",
       src: "assets/spooky1.jpg",
       name: 'spooky1',
       forward: 3,
@@ -94,6 +97,7 @@ export default function StartGame( { selectedCharacter, setSelectedSaveFile } ) 
       completed_events: [],
     }, {
       index: 3,
+      displayName: "Rokk Path",
       src: "assets/spooky2.jpg",
       name: 'spooky2',
       backward: 2,
@@ -129,6 +133,7 @@ export default function StartGame( { selectedCharacter, setSelectedSaveFile } ) 
       completed_events: []
     }, {
       index: 4,
+      displayName: "Gil'Warren Swamp",
       src: "assets/swamp1.jpg",
       name: 'swamp1',
       backward: 3,
@@ -145,6 +150,7 @@ export default function StartGame( { selectedCharacter, setSelectedSaveFile } ) 
       completed_events: [],
     }, {
       index: 5,
+      displayName: "Rokk",
       src: "assets/swamp_village.jpg",
       name: 'swamp_village',
       backward: 4,
@@ -159,6 +165,7 @@ export default function StartGame( { selectedCharacter, setSelectedSaveFile } ) 
       completed_events: []
     }, {
       index: 6,
+      displayName: "Crossroads",
       src: "assets/fork.jpg",
       name: 'fork',
       backward: 3,
@@ -175,6 +182,7 @@ export default function StartGame( { selectedCharacter, setSelectedSaveFile } ) 
       completed_events: []
     }, {
       index: 7,
+      displayName: "Leira's Cave",
       src: "assets/cave.jpeg",
       name: 'cave',
       backward: 6,
@@ -228,6 +236,7 @@ export default function StartGame( { selectedCharacter, setSelectedSaveFile } ) 
       completed_events: []
     }, {
       index: 8,
+      displayName: "Evanthi",
       src: "assets/waterfall_village.jpg",
       name: 'waterfall_village',
       backward: 7,
@@ -243,6 +252,7 @@ export default function StartGame( { selectedCharacter, setSelectedSaveFile } ) 
       completed_events: []
     }, {
       index: 9,
+      displayName: "Stone Stairway",
       src: "assets/stairs.png",
       name: 'stairs',
       backward: 6,
@@ -259,6 +269,7 @@ export default function StartGame( { selectedCharacter, setSelectedSaveFile } ) 
       completed_events: []
     }, {
       index: 10,
+      displayName: "Ardua",
       src: "assets/tree_village.jpg",
       name: 'tree_village',
       backward: 9,
@@ -268,13 +279,14 @@ export default function StartGame( { selectedCharacter, setSelectedSaveFile } ) 
           name: "find_stairs",
           storage: "incomplete_events",
           achievementId: null,
-          closer: "At last you see why you climbed alllll of those steps. The forest floor is far below now and there's a whole village up here in the canopy. The map tells you that this is Ardua. A sign at the start of the bridge invites you to visit the shop: Roselly's Wares."
+          closer: "At last you see why you climbed alllll of those steps. The forest floor is far below now and there's a whole village up here in the canopy. The map tells you that this is Ardua. A sign at the start of the bridge invites you to visit the shop: Roselle's Wares."
         }
       ],
       hidden_events: [],
       completed_events: []
     }, {
       index: 11,
+      displayName: "Roselle's Wares",
       src: "assets/shop.jpeg",
       name: 'shop',
       exit: 10,
@@ -547,15 +559,16 @@ export default function StartGame( { selectedCharacter, setSelectedSaveFile } ) 
 
   return (
     <>
-      <div className="row"> {/* make this add to 12 */}
+      <div className="row game"> {/* make this add to 12 */}
       {zoomIn ? <img className="map-big" src={zoomedImage.src} alt={zoomedImage.alt}/> :<></>}
         <div className="col-6 location-div">
+          {hasMap? <h3>{locations[currentLocationIndex].displayName}</h3> : <></>}
           <img className="location-image" src={locations[currentLocationIndex].src} alt="location"/>
           {currentLocationIndex === 3 && oldManIsThere? <img className="character-image man" src="assets/wizard.jpg" alt="friendly old man"/> : <></>}
           {currentLocationIndex === 7 && aryaIsThere? <img className="character-image arya" src={locations[7].characters[0].src} alt="Arya"/> : <></>}
         </div>
         <div className="col-12 events">
-          <div></div>
+          <h3>Events</h3>
           {setup ? <p>{setup}</p> : <></>}
           {closer ? <p>{closer}</p>: <></>}
           {choices && choices[0] ? <><button onClick={() => handleSelection(choices[0])}>A</button><span> {choices[0].selection}</span></> : <></>}
