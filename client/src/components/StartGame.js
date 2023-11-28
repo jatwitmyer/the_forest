@@ -2,6 +2,9 @@ import React, { useEffect, useState } from "react";
 import CharacterCard from "./CharacterCard";
 
 function StartGame( { selectedCharacter, selectedSaveFile, setSelectedSaveFile } ) {
+  console.log(selectedSaveFile)
+  console.log(selectedCharacter)
+  
   const [canProgress, setCanProgress] = useState(true)
   const [showContinueButton, setShowContinueButton] = useState(false)
   const [setup, setSetup] = useState("")

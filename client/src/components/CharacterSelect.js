@@ -1,20 +1,16 @@
 import React, {useEffect, useState} from "react";
 import UserCharacterCard from "./UserCharacterCard"
-import Button from "../styles/Button"
-import Error from "../styles/Error"
 import { useNavigate } from "react-router-dom";
 
 
 function CharacterSelect( {user, characters, setCharacters, setSelectedCharacter, setInGame, setSelectedSaveFile } ) {
   const [showNewCharacterForm, setShowNewCharacterForm] = useState(false)
   const [name, setName] = useState('')
-  const [errors, setErrors] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
 
   const navigate = useNavigate()
 
   // console.log(user.characters)
-  const userCharacterCards = (user.characters.map(character => <UserCharacterCard key={character.id} character={character} setInGame={setInGame} setSelectedCharacter={setSelectedCharacter} setSelectedSaveFile={setSelectedSaveFile}/>))
+  const userCharacterCards = (characters.map(character => <UserCharacterCard key={character.id} character={character} setInGame={setInGame} setSelectedCharacter={setSelectedCharacter} setSelectedSaveFile={setSelectedSaveFile}/>))
 
   const girls_item_location_choices = ['spooky1', 'spooky2', 'swamp1', 'swamp_village', 'fork', 'waterfall_village', 'stairs', 'tree_village', 'shop']
 
@@ -24,7 +20,6 @@ function CharacterSelect( {user, characters, setCharacters, setSelectedCharacter
 
   function handleNewCharacter(e) {
     e.preventDefault();
-    setIsLoading(true);
     fetch("/characters", {
       method: "POST",
       headers: {
@@ -33,14 +28,14 @@ function CharacterSelect( {user, characters, setCharacters, setSelectedCharacter
       body: JSON.stringify({ name }),
     })
     .then((r) => {
-      setIsLoading(false);
       if (r.ok) {
+        console.log("new character post successful")
         r.json().then((new_character) => {
-          console.log(new_character.id)
+          console.log(new_character)
 
-          const new_characters = characters
-          new_characters.push(new_character)
-          setCharacters(new_characters)
+          const editing_characters = [...characters]
+          editing_characters.push(new_character)
+          setCharacters(editing_characters)
           setSelectedCharacter(new_character)
           
           fetch(`/save_files_by_character/${new_character.id}`, {
@@ -68,19 +63,26 @@ function CharacterSelect( {user, characters, setCharacters, setSelectedCharacter
           })
           .then((resp) => {
           if (resp.ok) {
-            resp.json().then((new_save) => setSelectedSaveFile(new_save))}
+            console.log("new save file post successful")
+            resp.json().then((new_save) => {
+              console.log(new_save)
+              setSelectedSaveFile(new_save)
+            })}
           else {
-              resp.json().then((err) => setErrors(err.errors));
+            console.log("new save file post NOT successful")
+            resp.json().then(console.log(resp));
             }})
 
           setShowNewCharacterForm(false)
-
           // setSelectedSaveFile(new_character.save_files[new_character.save_files.length - 1]) not yet a feature
           setInGame(true)
+          setName('')
+          console.log(e.target)
           navigate('/start')
         });
       } else {
-        r.json().then((err) => setErrors(err.errors));
+        console.log("new character post NOT successful")
+        r.json().then((data) => console.log(data));
       }
     });
     
@@ -103,13 +105,7 @@ function CharacterSelect( {user, characters, setCharacters, setSelectedCharacter
             />
           </label>
           <br/>
-          <Button variant="fill" color="primary" type="submit">
-            {isLoading ? "Loading..." : "Create"}
-          </Button>
-          <br/>
-          {errors.map((err) => (
-            <Error key={err}>{err}</Error>
-          ))}
+          <input type="submit" name="submit" value="Submit"/>
         </form>
       </div>}
     </div>

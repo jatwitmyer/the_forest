@@ -16,22 +16,45 @@ function App() {
   const [user, setUser] = useState(null);
   const [characters, setCharacters] = useState([])
   const [selectedCharacter, setSelectedCharacter] = useState({})
-  const [selectedSaveFile, setSelectedSaveFile] = useState({})
+  const [selectedSaveFile, setSelectedSaveFile] = useState({
+      location_on_save: 0,
+      has_entered_portal: "false",
+      has_map: "false",
+      met_girl: "false",
+      girls_item_location: "stairs",
+      found_girls_item: "false",
+      has_visited_store: "false",
+      gold_pieces: 0,
+      has_seeking_spell: "false",
+      mini_game_high_score: 0,
+      met_village2_trader: "false",
+      accepted_quest_village2_trader: "false",
+      met_village1_trade_target: "false",
+      negotiated_deal: "false",
+      wizard_is_home: "false"
+  })
   const [inGame, setInGame] = useState(false)
 
-  // console.log(selectedSaveFile)
+  console.log(selectedSaveFile)
 
   useEffect(() => {
     // auto-login
     fetch("/check_session").then((r) => {
       if (r.ok) {
-        r.json().then((user) => {
-          setUser(user)
-          setCharacters(user.characters)
+        r.json().then((u) => {
+          setUser(u)
         });
       }
     });
   }, []);
+
+  useEffect(() => {
+    fetch('characters')
+    .then(r => r.json())
+    .then(data => {
+      setCharacters(data)
+    })
+  }, [user])
 
   if (!user) {
     return (

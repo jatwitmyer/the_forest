@@ -1,17 +1,13 @@
 import React, { useState } from "react";
-import NavBar from "./NavBar";
 import { useNavigate } from "react-router-dom";
 
 function Signup( {setUser} ) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [errors, setErrors] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate()
 
   function handleSignup(e) {
     e.preventDefault();
-    setIsLoading(true);
     fetch("/signup", {
       method: "POST",
       headers: {
@@ -19,7 +15,6 @@ function Signup( {setUser} ) {
       },
       body: JSON.stringify({ username, password }),
     }).then((r) => {
-      setIsLoading(false);
       if (r.ok) {
         r.json().then(() => {
           navigate('/login')

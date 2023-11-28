@@ -78,7 +78,10 @@ class CharacterIndex(Resource):
         # print(session['user_id'])
         print(session)
         user = User.query.filter(User.id == session['user_id']).first()
-        return [character.to_dict() for character in user.characters], 200
+        if user:
+            return [character.to_dict() for character in user.characters], 200
+        else:
+            return {'error': 'No characters fetched'}, 404
     def post(self):
         form_data = request.get_json()
         try:
