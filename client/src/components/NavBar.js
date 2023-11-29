@@ -21,26 +21,26 @@ function NavBar( {user, setUser, inGame, setInGame} ) {
   }
 
   if (inGame) return (
-    <div className="unlogged-nav-bar">
-      <button to="/" className="nav-button-logout" onClick={logout}>Logout</button>
+    <div className="nav-bar">
+      <button to="/" onClick={logout}>Logout</button>
     </div>
   )
 
   return (
-    <div className="unlogged-nav-bar">
+    <div className="nav-bar">
       {/* <NavLink to="/settings" className="nav-icon settings"><i className="fa fa-cog" aria-hidden="true"></i></NavLink> */}
       {!user ? 
         <>
-          <NavLink to="/signup" className="nav-button-filled">Signup</NavLink> 
-          <NavLink to="/login" className="nav-button-empty">Login</NavLink>
+          <NavLink to="/signup" >Signup</NavLink> 
+          <NavLink to="/login" >Login</NavLink>
         </> :
         <>
-          <button to="/" className="nav-button-logout" onClick={logout}>Logout</button>
-          <NavLink to="/account" className="nav-button-empty">Account</NavLink>
+          <button to="/" onClick={logout}>Logout</button>
+          <NavLink to="/account" >Account</NavLink>
         </>
       }
-      <NavLink to="/about" className="nav-button-empty">About</NavLink>
-      <NavLink end to="/" className="nav-button-empty">Home</NavLink>
+      <NavLink to="/about" >About</NavLink>
+      <NavLink end to="/" >Home</NavLink>
     </div>
   )
 }

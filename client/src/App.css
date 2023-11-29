@@ -8,23 +8,26 @@ body{
 }
 
 /* Add a black background color to the top navigation */
-.unlogged-nav-bar {
+.nav-bar {
   background-color: hsl(0, 0%, 0%, 70%);
   overflow: hidden;
   border-bottom: 1px solid hsl(0, 0%, 95%, 50%);
+  position: fixed;
+  top: 0;
+  width: 100%;
 }
 
 /* Style the links inside the navigation bar */
-.unlogged-nav-bar a {
+
+.nav-bar a {
   float: right;
   color: #f2f2f2;
-  text-align: center;
   padding: 14px 20px;
   text-decoration: none;
   font-size: 17px;
 }
 
-.unlogged-nav-bar button {
+.nav-bar button {
   float: right;
   color: #f2f2f2;
   background-color: Transparent;
@@ -35,32 +38,25 @@ body{
   border-style: solid;
 }
 
-.unlogged-nav-bar a:hover {
+
+.nav-bar a:hover {
   background-color: #64CAAA;
   color: black;
-  /* border-radius: 5px;
-  box-shadow: 0 0 5px #cc03f4,
-            0 0 15px #cc03f4,
-            0 0 20px #0363f4,
-            0 0 50px #03e9f4; */
 }
 
-.unlogged-nav-bar a.active {
+.nav-bar a.active {
   background-color: #196095;
   color: white;
 }
 
-.unlogged-nav-bar button:hover {
+
+
+.nav-bar button:hover {
   background-color: #64CAAA;
   color: black;
-  /* border-radius: 5px;
-  box-shadow: 0 0 5px #cc03f4,
-            0 0 15px #cc03f4,
-            0 0 20px #0363f4,
-            0 0 50px #03e9f4; */
 }
 
-.unlogged-nav-bar button.active {
+.nav-bar button.active {
   background-color: #196095;
   color: white;
 }
@@ -76,20 +72,21 @@ body{
   padding: 100px;
   padding-left: 180px;
   padding-right: 180px;
-  width: 1400px;
+  width: 40vw;
   text-shadow: -1px 1px 0 #f2f2f2, 
   1px 1px 0 #f2f2f2, 
   1px -1px 0 #f2f2f2, 
   -1px -1px 0 #f2f2f2;
   border: 1px solid #f2f2f2;
+  color: #7474A3;
+  text-align: center;
+  font-size: 75px;
 }
 
 .title-div {
-  position: absolute;
+  position: fixed;
   top: 50%;
   left: 50%;
-  -ms-transform: translateX(-50%) translateY(-50%);
-  -webkit-transform: translate(-50%,-50%);
   transform: translate(-50%,-50%);
 }
 
@@ -159,11 +156,6 @@ html {
   font-family: "Lucida Sans", sans-serif;
 }
 
-h1 {
-  color: #7474A3;
-  text-align: center;
-  font-size: 90px;
-}
 
 .form-div {
   background-color: black;
