@@ -1,0 +1,328 @@
+body{
+  background-image: url('../public/assets/215595.gif');
+  background-size: cover;
+  
+  height: 100vh;
+  padding:0;
+  margin:0;
+}
+
+/* Add a black background color to the top navigation */
+.unlogged-nav-bar {
+  background-color: hsl(0, 0%, 0%, 70%);
+  overflow: hidden;
+  border-bottom: 1px solid hsl(0, 0%, 95%, 50%);
+}
+
+/* Style the links inside the navigation bar */
+.unlogged-nav-bar a {
+  float: right;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 14px 20px;
+  text-decoration: none;
+  font-size: 17px;
+}
+
+.unlogged-nav-bar button {
+  float: right;
+  color: #f2f2f2;
+  background-color: Transparent;
+  text-align: center;
+  padding: 14px 20px;
+  text-decoration: none;
+  font-size: 17px;
+  border-style: solid;
+}
+
+.unlogged-nav-bar a:hover {
+  background-color: #64CAAA;
+  color: black;
+  /* border-radius: 5px;
+  box-shadow: 0 0 5px #cc03f4,
+            0 0 15px #cc03f4,
+            0 0 20px #0363f4,
+            0 0 50px #03e9f4; */
+}
+
+.unlogged-nav-bar a.active {
+  background-color: #196095;
+  color: white;
+}
+
+.unlogged-nav-bar button:hover {
+  background-color: #64CAAA;
+  color: black;
+  /* border-radius: 5px;
+  box-shadow: 0 0 5px #cc03f4,
+            0 0 15px #cc03f4,
+            0 0 20px #0363f4,
+            0 0 50px #03e9f4; */
+}
+
+.unlogged-nav-bar button.active {
+  background-color: #196095;
+  color: white;
+}
+
+/* Style the title & start nav link */
+.title-div a {
+  text-decoration: none;
+  text-align: center;
+}
+
+.title-div h1 {
+  background: black;
+  padding: 100px;
+  padding-left: 180px;
+  padding-right: 180px;
+  width: 1400px;
+  text-shadow: -1px 1px 0 #f2f2f2, 
+  1px 1px 0 #f2f2f2, 
+  1px -1px 0 #f2f2f2, 
+  -1px -1px 0 #f2f2f2;
+  border: 1px solid #f2f2f2;
+}
+
+.title-div {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -ms-transform: translateX(-50%) translateY(-50%);
+  -webkit-transform: translate(-50%,-50%);
+  transform: translate(-50%,-50%);
+}
+
+.start-button {
+  background-color: black;
+  padding: 20px;
+  padding-left: 40px;
+  padding-right: 40px;
+  border: 1px solid #f2f2f2;
+
+  color: #64CAAA;
+  font-weight: bold;
+  font-size: 25px;
+  /* text-shadow: -1px 1px 0 #f2f2f2, 
+                1px 1px 0 #f2f2f2, 
+                1px -1px 0 #f2f2f2, 
+                -1px -1px 0 #f2f2f2;  */
+}
+
+.start-button:hover {
+  background-color: #196095;
+  color: #f2f2f2;
+  border: 3px solid #f2f2f2;
+}
+
+/* .start-button:hover {
+  background-color: #64CAAA;
+  color: black;
+  border: 3px solid black;
+} */
+
+.start-button-container {
+  text-align: center;
+}
+
+/* testing out responsive grid view on login page */
+/* * {
+  box-sizing: border-box;
+}
+
+.col-1 {width: 8.33%;}
+.col-2 {width: 16.66%;}
+.col-3 {width: 25%;}
+.col-4 {width: 33.33%;}
+.col-5 {width: 41.66%;}
+.col-6 {width: 50%;}
+.col-7 {width: 58.33%;}
+.col-8 {width: 66.66%;}
+.col-9 {width: 75%;}
+.col-10 {width: 83.33%;}
+.col-11 {width: 91.66%;}
+.col-12 {width: 100%;}
+
+[class*="col-"] {
+  float: left;
+  padding: 15px;
+  border: 1px solid rgb(48, 163, 134);
+}
+
+.row::after {
+  content: "";
+  clear: both;
+  display: table;
+} */
+
+html {
+  font-family: "Lucida Sans", sans-serif;
+}
+
+h1 {
+  color: #7474A3;
+  text-align: center;
+  font-size: 90px;
+}
+
+.form-div {
+  background-color: black;
+}
+
+.form-div h1{
+  margin-top: 30px;
+  margin: 0px;
+  width: 400px;
+  margin: auto;
+}
+
+form {
+  margin: auto;
+  text-align: center;
+  width: 400px;
+  color: #f2f2f2;
+  padding-top: 40px;
+}
+
+.account {
+  color: #7474A3;
+  background-color: black;
+  margin: 100px;
+  padding-left: 15px;
+}
+
+.user-character-card-div {
+  color: #7474A3;
+  background-color: black;
+  border: 1px;
+  border-color: #7474A3;
+}
+
+.location-div {
+  width: fit-content;
+  width: 67%;
+  height: 92vh;
+  float: left;
+  /* border: 1px solid rgb(48, 163, 134); */
+  margin: 15px;
+  margin-top: 0px
+}
+
+.location-image {
+  object-fit: contain;
+  /* text-align: center; */
+  width: 97%;
+  max-width: 97%;
+  max-height: 93%;
+  /* max-height: 80%; */
+  /* margin-left: 10px;
+  margin-right: 10px; */
+  display: block;
+  margin: auto;
+  /* text-align: center; */
+  background: rgba(0, 2, 1, 0.842);
+  border: 3px solid black;
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px;
+}
+
+.character-image {
+  object-fit: contain;
+  width: 15%;
+  margin-left: 10px;
+  margin-right: 10px;
+  position: absolute;
+  top: 90px;
+  left: 45px;
+  border: 3px solid black;
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px;
+}
+
+.man, .map-image {
+  filter: hue-rotate(-5deg) brightness(85%) grayscale(30%);
+}
+
+.character-name {
+  color: #7474A3;
+}
+
+
+
+.inventory {
+  color: #7474A3;
+  background-color: black;
+  height: 29vh;
+  width: 30%;
+  /* position: fixed; */
+  /* top: 61vh; */
+  /* left: 68%; */
+  margin-top: 20px;;
+  background: rgba(0, 2, 1, 0.842);
+  border: 3px solid black;
+  overflow-y: auto;
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px;
+}
+
+.game h3 {
+  color: #7474A3;
+  text-align: center;
+  font-size: 22px;
+  padding: 0;
+  margin: 0;
+  margin-top: 10px;
+  margin-bottom: 5px;
+}
+
+.inventory-item {
+  padding: 10px;
+  text-align: center;
+}
+
+.inventory-item img {
+  max-height: 19vh;
+  max-width: 100%;
+  border: 3px solid black;
+}
+
+.inventory-item img:hover {
+  cursor: zoom-in
+}
+
+input[type=checkbox] {
+  display: none;
+}
+
+.map-big {
+  position: fixed;
+  height: 80vh;
+  max-height: 80vh;
+  max-width: 94vw;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  left: 50%;
+  top: 54%;
+  transform: translate(-50%, -54%);
+  border: 3px solid black;
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px;
+}
+
+/* body {
+  overflow-y: hidden;
+} */
+
+
+.events p, span {
+  white-space: pre-wrap;
+  font-size: 20px;
+}
+
+.events {
+  color: #7474A3;
+  background-color: black;
+  height: 54vh;
+  width: 30%;
+  background: rgba(0, 2, 1, 0.842);
+  border: 3px solid black;
+  overflow-y:auto;
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px;
+}
