@@ -7,7 +7,7 @@ function Account( {user, setUser} ) {
   const [achievementFks, setAchievementFks] = useState([])
   const [showEditUsernameForm, setShowEditUsernameForm] = useState(false)
   const [showEditPasswordForm, setShowEditPasswordForm] = useState(false)
-  const [newUsername, setNewUsername] = useState("")
+  const [newUsername, setNewUsername] = useState(user.username)
   const [newPassword, setNewPassword] = useState("")
   const [showDeleteVerification, setShowDeleteVerification] = useState(false)
 
@@ -79,48 +79,64 @@ function Account( {user, setUser} ) {
     setShowDeleteVerification(false)
   }
 
+  function cancelChangeUsername(e) {
+    setShowEditUsernameForm(false)
+    setNewUsername(user.username)
+  }
+
+  function cancelChangePassword() {
+    setShowEditPasswordForm(false)
+    setNewPassword("")
+  }
+
+  console.log(renderedAchievements)
+
   return (
-    <div className="account">
+    <div className="account center-card">
       <h1>Account Details</h1>
-      {showDeleteVerification? <div>
-        <h2>Are you sure you wish to delete your account?</h2>
-        <button onClick={handleDelete}>Delete My Account</button>
-        <button onClick={() => setShowDeleteVerification(false)}>Cancel</button>
-      </div> : <></>}
       <p>Username: {user.username}</p>
+      <h2>Your Achievements: </h2>
+      {renderedAchievements.length > 0 ? renderedAchievements : <p>Play to earn achievements</p>}
+      <button className='submit' onClick={() => setShowEditUsernameForm(true)}>Edit Username</button>
+      <button className='submit' onClick={() => setShowEditPasswordForm(true)}>Edit Password</button>
+      <button className='submit' onClick={() => setShowDeleteVerification(true)}>Delete Account</button>
       {showEditUsernameForm ? 
         <div>
           <form onSubmit={handleEditUsername}>
-            <label>Username</label>
-            <input
-              type="text"
-              name="newUsername"
-              defaultValue={user.username}
-              onChange={(e) => setNewUsername(e.target.value)}
-            ></input>
+            <label>New Username:
+              <input
+                type="text"
+                name="newUsername"
+                value={newUsername}
+                onChange={(e) => setNewUsername(e.target.value)}
+              ></input>
+            </label>
             <br/>
-            <input type="submit" value="Submit"/>
+            <input className='submit' type="submit" value="Submit"/>
+            <button className="submit" onClick={(e) => cancelChangeUsername(e)}>Cancel</button>
           </form>
         </div> : <></>}
       {showEditPasswordForm ? 
         <div>
           <form onSubmit={handleEditPassword}>
-            <label>Password</label>
-            <input
-              type="text"
-              name="newPassword"
-              value={newPassword}
-              onChange={(e) => setNewPassword(e.target.value)}
-            ></input>
+            <label>New Password:
+              <input
+                type="text"
+                name="newPassword"
+                value={newPassword}
+                onChange={(e) => setNewPassword(e.target.value)}
+              ></input>
+            </label>
             <br/>
-            <input type="submit" value="Submit"/>
+            <input className='submit' type="submit" value="Submit"/>
+            <button className="submit" onClick={cancelChangePassword}>Cancel</button>
           </form>
         </div> : <></>}
-      <button onClick={() => setShowEditUsernameForm(true)}>Edit Username</button>
-      <button onClick={() => setShowEditPasswordForm(true)}>Edit Password</button>
-      <button onClick={() => setShowDeleteVerification(true)}>Delete Account</button>
-      <h3>Your Achievements: </h3>
-      {renderedAchievements}
+      {showDeleteVerification? <div>
+        <h2>Are you sure you wish to delete your account?</h2>
+        <button className='submit' onClick={handleDelete}>Delete My Account</button>
+        <button className='submit' onClick={() => setShowDeleteVerification(false)}>Cancel</button>
+      </div> : <></>}
     </div>
   )
 }

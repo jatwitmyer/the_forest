@@ -35,9 +35,9 @@ function Signup( {setUser} ) {
 
   return (
     <>
-      <div className="row"> {/* make this add to 12 */}
+      <div className="row signup"> {/* make this add to 12 */}
         <div className="col-3"></div>
-        <div className="col-6 form-div">
+        <div className="col-6 form-div center-card">
           <h1>Sign Up</h1>
           <form onSubmit={handleSignup}>
             <label>Username:
@@ -58,7 +58,7 @@ function Signup( {setUser} ) {
               />
             </label>
             <br/>
-            <input type="submit" value="Sign Up"/>
+            <input className="submit" type="submit" value="Submit"/>
             <br/>
           </form>
         </div>

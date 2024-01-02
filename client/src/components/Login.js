@@ -36,12 +36,12 @@ function Login( { onLogin } ) {
   return (
     <>
       {/* <NavBar/> */}
-      <div className="row"> {/* make this add to 12 */}
+      <div className="row login"> {/* make this add to 12 */}
         <div className="col-3"></div>
-        <div className="col-6 form-div">
+        <div className="col-6 form-div center-card">
           <h1>Log In</h1>
           <form onSubmit={handleLogin}>
-            <label>Username:
+            <label>Username: 
               <input 
                 type="text"
                 name="username"
@@ -50,7 +50,7 @@ function Login( { onLogin } ) {
               />
             </label>
             <br/>
-            <label>Password:
+            <label>Password: 
               <input 
                 type="text"
                 name="password"
@@ -59,11 +59,12 @@ function Login( { onLogin } ) {
               />
             </label>
             <br/>
-            <Button variant="fill" color="primary" type="submit">
-              {isLoading ? "Loading..." : "Login"}
-            </Button>
+            <input className="submit" type="submit" value="Submit"/>
             <br/>
-            <NavLink to="/signup">Sign Up</NavLink>
+            <div className="redirect">
+              <span>Don't have a login?</span>
+              <NavLink className="submit" to="/signup">Sign Up</NavLink>  
+            </div>
           </form>
         </div>
         <div className="col-3"></div>

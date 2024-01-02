@@ -88,14 +88,19 @@ function CharacterSelect( {user, characters, setCharacters, setSelectedCharacter
     
   }
 
+  function cancelNewPlaythrough() {
+    setShowNewCharacterForm(false)
+    setName("")
+  }
+
   return (
-    <div className="account">
-      <h2>Your Playthroughs</h2>
+    <div className="account center-card">
+      <h1>Your Playthroughs</h1>
       {userCharacterCards}
-      {showNewCharacterForm === false ? <button onClick={() => setShowNewCharacterForm(true)}>New Playthrough</button> :
+      {showNewCharacterForm === false ? <button className="submit" onClick={() => setShowNewCharacterForm(true)}>New Playthrough</button> :
       <div className="new-character-form-div">
         <form className="new-character-form" onSubmit={handleNewCharacter}>
-          <h2>Choose Your New Character</h2>
+          <h2>Create A New Character</h2>
           <label>Name:
             <input 
               type="text"
@@ -105,7 +110,8 @@ function CharacterSelect( {user, characters, setCharacters, setSelectedCharacter
             />
           </label>
           <br/>
-          <input type="submit" name="submit" value="Submit"/>
+          <input className="submit" type="submit" name="submit" value="Submit"/>
+          <button className="submit" onClick={() => cancelNewPlaythrough()}>Cancel</button>
         </form>
       </div>}
     </div>

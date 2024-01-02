@@ -20,9 +20,15 @@ function NavBar( {user, setUser, inGame, setInGame} ) {
     })
   }
 
+  function saveGame() {
+    console.log("save game")
+  }
+
   if (inGame) return (
     <div className="nav-bar">
-      <button to="/" onClick={logout}>Logout</button>
+      {/* <button to="/" onClick={logout}>Logout</button> */}
+      <NavLink end to="/" onClick={() => setInGame(false)}>Save and Exit</NavLink>
+      <button onClick={saveGame}>Save Game</button>
     </div>
   )
 
@@ -39,7 +45,7 @@ function NavBar( {user, setUser, inGame, setInGame} ) {
           <NavLink to="/account" >Account</NavLink>
         </>
       }
-      <NavLink to="/about" >About</NavLink>
+      {/* <NavLink to="/about" >About</NavLink> */}
       <NavLink end to="/" >Home</NavLink>
     </div>
   )

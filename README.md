@@ -10,8 +10,8 @@ Follow these steps to get started:
 3. Navigate to .venv/lib/flask/app.py and comment out line 30 ("from werkzeug.urls import url_quote")
 4. $ export FLASK_APP=app.py
 5. $ python app.py --- to get the program started once in the shell environment
-6. Open a second terminal and cd up one directory
 
 ## Running the Client
-1. $ cd client
-2. $ npm install && npm start
+1. Open a new terminal
+2. $ cd client
+3. $ npm install && npm start

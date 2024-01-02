@@ -16,9 +16,9 @@ function UserCharacterCard( { character, setSelectedCharacter, setInGame, setSel
     // console.log(character)
     return (
       <div className="user-character-card-div">
-        <h3>Name: {character.name}</h3>
+        <p>Name: {character.name}</p>
         <p>Last Played: {character.datetime_last_played} UTC</p>
-        <button onClick={selectCharacter}>Select Character</button>
+        <button className='submit' onClick={selectCharacter}>Select Character</button>
         <p>------------------------------------------------------</p>
       </div>
     )

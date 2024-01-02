@@ -12,7 +12,7 @@ body{
   background-color: hsl(0, 0%, 0%, 70%);
   overflow: hidden;
   border-bottom: 1px solid hsl(0, 0%, 95%, 50%);
-  position: fixed;
+  /* position: fixed; */
   top: 0;
   width: 100%;
 }
@@ -27,6 +27,16 @@ body{
   font-size: 17px;
 }
 
+.nav-bar a:hover {
+  background-color: #64CAAA;
+  color: black;
+}
+
+.nav-bar a.active {
+  background-color: #196095;
+  color: white;
+}
+
 .nav-bar button {
   float: right;
   color: #f2f2f2;
@@ -38,22 +48,9 @@ body{
   border-style: solid;
 }
 
-
-.nav-bar a:hover {
-  background-color: #64CAAA;
-  color: black;
-}
-
-.nav-bar a.active {
-  background-color: #196095;
-  color: white;
-}
-
-
-
 .nav-bar button:hover {
   background-color: #64CAAA;
-  color: black;
+  cursor: pointer;
 }
 
 .nav-bar button.active {
@@ -179,8 +176,8 @@ form {
 .account {
   color: #7474A3;
   background-color: black;
-  margin: 100px;
-  padding-left: 15px;
+  /* margin: 100px; */
+  /* padding-left: 15px; */
 }
 
 .user-character-card-div {
@@ -317,4 +314,81 @@ input[type=checkbox] {
   border: 3px solid black;
   overflow-y:auto;
   box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px;
+}
+
+
+
+/* signup and login */
+
+.center-card {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  text-align: center;
+  color: #7474A3;
+  /* padding: 300px 200px; */
+  padding: clamp(30px, calc(30px + (120 - 30) * ((100vw - 1000px) / (1600 - 1000))), 120px) clamp(30px, calc(30px + (200 - 30) * ((100vw - 1000px) / (1600 - 1000))), 200px);
+}
+
+.center-card h1 {
+  font-size: clamp(12px, calc(12px + (55 - 12) * ((100vw - 300px) / (1600 - 300))), 55px);
+}
+
+h2 {
+  font-size: clamp(12px, calc(12px + (26 - 12) * ((100vw - 300px) / (1600 - 300))), 26px);
+  color:#7474A3
+}
+
+.center-card label, .center-card span, .center-card p, .center-card h3 {
+  font-size: clamp(12px, calc(12px + (21 - 12) * ((100vw - 300px) / (1600 - 300))), 21px);
+  color: white
+}
+
+.redirect {
+  margin-top: 50px;
+}
+
+label {
+  display: flex;
+  justify-content: center;
+  text-align: right;
+  /* line-height: 26px; */
+  margin-bottom: 5px;
+}
+
+input {
+  margin-left: 10px;
+}
+
+.center-card form{
+  margin-top: 5px;
+}
+
+
+
+/* button styling */
+
+.submit {
+  background-color: white;
+  text-align: center;
+  text-decoration: none;
+  padding: 14px 20px;
+  font-size: 17px;
+  border-style: solid;
+  border-radius: 50px;
+  font-size: clamp(12px, calc(12px + (15 - 12) * ((100vw - 300px) / (1600 - 300))), 15px);
+  font-weight: bold;
+  /* margin-top: 5px; */
+  margin-left: 10px;
+}
+
+.center-card a {
+  color: black;
+  border: none
+}
+
+.submit:hover {
+  background-color: #64CAAA;
+  cursor: pointer;
 }
