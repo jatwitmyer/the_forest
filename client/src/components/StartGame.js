@@ -571,22 +571,22 @@ export default function StartGame( { selectedCharacter, setSelectedSaveFile } ) 
           <h3>Events</h3>
           {setup ? <p>{setup}</p> : <></>}
           {closer ? <p>{closer}</p>: <></>}
-          {choices && choices[0] ? <><button onClick={() => handleSelection(choices[0])}>A</button><span> {choices[0].selection}</span></> : <></>}
-          {choices && choices[1] ? <><br/><button onClick={() => handleSelection(choices[1])}>B</button><span> {choices[1].selection}</span></> : <></>}
-          {choices && choices[2] ? <><br/><button onClick={() => handleSelection(choices[2])}>C</button><span> {choices[2].selection}</span></> : <></>}
-          {choices && choices[3] ? <><br/><button onClick={() => handleSelection(choices[3])}>D</button><span> {choices[3].selection}</span></> : <></>}
-          {choices && choices[4] ? <><br/><button onClick={() => handleSelection(choices[4])}>E</button><span> {choices[4].selection}</span></> : <></>}
+          {choices && choices[0] ? <><button className="letter-button" onClick={() => handleSelection(choices[0])}>A</button><span> {choices[0].selection}</span></> : <></>}
+          {choices && choices[1] ? <><br/><button className="letter-button"  onClick={() => handleSelection(choices[1])}>B</button><span> {choices[1].selection}</span></> : <></>}
+          {choices && choices[2] ? <><br/><button className="letter-button"  onClick={() => handleSelection(choices[2])}>C</button><span> {choices[2].selection}</span></> : <></>}
+          {choices && choices[3] ? <><br/><button className="letter-button"  onClick={() => handleSelection(choices[3])}>D</button><span> {choices[3].selection}</span></> : <></>}
+          {choices && choices[4] ? <><br/><button className="letter-button"  onClick={() => handleSelection(choices[4])}>E</button><span> {choices[4].selection}</span></> : <></>}
           <div>
-          {showContinueButton && !finished ? <button onClick={completeCurrentEvent}>Continue</button> : <></>}
-          {canProgress && locations[currentLocationIndex].left ? <button onClick={left}>Left</button> : <></>}
-          {canProgress && locations[currentLocationIndex].forward !== undefined ? <button onClick={forward}>Forward</button> : <></>}
-          {canProgress && locations[currentLocationIndex].backward !== undefined ? <button onClick={backward}>Backward</button> : <></>}
-          {canProgress && locations[currentLocationIndex].right ? <button onClick={right}>Right</button> : <></>}
-          {canProgress && locations[currentLocationIndex].shop ? <button onClick={enter_shop}>Enter Shop</button> : <></>}
-          {canProgress && locations[currentLocationIndex].exit ? <button onClick={exit}>Exit</button> : <></>}
-          {canProgress && locations[7].completed_events.find(event => event.name === "meet_arya") && !foundGirlsItem ? <button onClick={search}>Search</button> : <></>}
-          {canProgress && showNecklace && currentLocationIndex === 7? <button onClick={give}>Give Necklace to Arya</button> : <></>}
-          {canProgress && showPortal && currentLocationIndex === 2? <button onClick={goHome}>Enter the Portal</button> : <></>}
+          {showContinueButton && !finished ? <button className="direction-button" onClick={completeCurrentEvent}>Continue</button> : <></>}
+          {canProgress && locations[currentLocationIndex].left ? <button className="direction-button" onClick={left}>Left</button> : <></>}
+          {canProgress && locations[currentLocationIndex].forward !== undefined ? <button className="direction-button" onClick={forward}>Forward</button> : <></>}
+          {canProgress && locations[currentLocationIndex].backward !== undefined ? <button className="direction-button" onClick={backward}>Backward</button> : <></>}
+          {canProgress && locations[currentLocationIndex].right ? <button className="direction-button" onClick={right}>Right</button> : <></>}
+          {canProgress && locations[currentLocationIndex].shop ? <button className="direction-button" onClick={enter_shop}>Enter Shop</button> : <></>}
+          {canProgress && locations[currentLocationIndex].exit ? <button className="direction-button" onClick={exit}>Exit</button> : <></>}
+          {canProgress && locations[7].completed_events.find(event => event.name === "meet_arya") && !foundGirlsItem ? <button className="direction-button" onClick={search}>Search</button> : <></>}
+          {canProgress && showNecklace && currentLocationIndex === 7? <button className="direction-button" onClick={give}>Give Necklace to Arya</button> : <></>}
+          {canProgress && showPortal && currentLocationIndex === 2? <button className="direction-button" onClick={goHome}>Enter the Portal</button> : <></>}
           {/* {showContinueButton && finished ? <button onClick={endGame}>Continue</button> : <></>} */}
           </div>
         </div>

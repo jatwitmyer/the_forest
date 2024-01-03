@@ -209,26 +209,26 @@ form {
 
 .location-div {
   width: fit-content;
-  width: 67%;
+  width: 60%;
   height: 92vh;
   float: left;
-  /* border: 1px solid rgb(48, 163, 134); */
-  margin: 15px;
-  margin-top: 0px
+  margin-top: 0px;
+  margin-left: clamp(5px, calc(5px + (30 - 5) * ((100vw - 1000px) / (1600 - 1000))), 30px);
+  margin-right: clamp(5px, calc(5px + (30 - 5) * ((100vw - 1000px) / (1600 - 1000))), 30px);
+  background: rgba(0, 2, 1, 0.842);
+  padding-left: clamp(5px, calc(5px + (30 - 5) * ((100vw - 1000px) / (1600 - 1000))), 30px);
+  padding-right: clamp(5px, calc(5px + (30 - 5) * ((100vw - 1000px) / (1600 - 1000))), 30px);
+  padding-top: 10px
 }
 
 .location-image {
   object-fit: contain;
-  /* text-align: center; */
   width: 97%;
   max-width: 97%;
   max-height: 93%;
-  /* max-height: 80%; */
-  /* margin-left: 10px;
-  margin-right: 10px; */
   display: block;
   margin: auto;
-  /* text-align: center; */
+  margin-top: 15px;
   background: rgba(0, 2, 1, 0.842);
   border: 3px solid black;
   box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px;
@@ -240,8 +240,8 @@ form {
   margin-left: 10px;
   margin-right: 10px;
   position: absolute;
-  top: 90px;
-  left: 45px;
+  top: 140px;
+  left: 55px;
   border: 3px solid black;
   box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px;
 }
@@ -255,12 +255,12 @@ form {
 }
 
 
-
 .inventory {
   color: #7474A3;
   background-color: black;
   height: 29vh;
-  width: 30%;
+  width: 25%;
+  padding: 10px 60px;
   /* position: fixed; */
   /* top: 61vh; */
   /* left: 68%; */
@@ -272,7 +272,7 @@ form {
 }
 
 .game h3 {
-  color: #7474A3;
+  color:#f2f2f2;
   text-align: center;
   font-size: 22px;
   padding: 0;
@@ -302,6 +302,7 @@ input[type=checkbox] {
 
 .map-big {
   position: fixed;
+  z-index: 1;
   height: 80vh;
   max-height: 80vh;
   max-width: 94vw;
@@ -313,6 +314,7 @@ input[type=checkbox] {
   transform: translate(-50%, -54%);
   border: 3px solid black;
   box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px;
+  filter: hue-rotate(-5deg) brightness(85%) grayscale(30%);
 }
 
 /* body {
@@ -326,10 +328,11 @@ input[type=checkbox] {
 }
 
 .events {
-  color: #7474A3;
+  color: #f2f2f2;
+  padding: 10px 60px;
   background-color: black;
   height: 54vh;
-  width: 30%;
+  width: 25%;
   background: rgba(0, 2, 1, 0.842);
   border: 3px solid black;
   overflow-y:auto;
@@ -446,4 +449,29 @@ input {
 .red:hover {
   background-color: red;
   background: red;
+}
+
+.letter-button, .direction-button {
+  cursor: pointer;
+  background-color:#336656;
+  color: white;
+  box-shadow: none;
+  border: none;
+  padding: 10px;
+  font-size: 15px;
+  margin: 5px;
+}
+
+.letter-button:hover, .direction-button:hover {
+  background-color:#64CAAA;
+  /* background-color:#64CAAA; */
+  color: black;
+}
+
+.letter-button {
+  border-radius: 50%;
+}
+
+.direction-button {
+  margin-top: 15px
 }
