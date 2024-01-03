@@ -37,7 +37,7 @@ function Signup( {setUser} ) {
     <>
       <div className="row signup"> {/* make this add to 12 */}
         <div className="col-3"></div>
-        <div className="col-6 form-div center-card">
+        <div className="col-6 form-div center-card signup-page">
           <h1>Sign Up</h1>
           <form onSubmit={handleSignup}>
             <label>Username:

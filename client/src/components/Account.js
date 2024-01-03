@@ -95,11 +95,11 @@ function Account( {user, setUser} ) {
     <div className="account center-card">
       <h1>Account Details</h1>
       <p>Username: {user.username}</p>
-      <h2>Your Achievements: </h2>
-      {renderedAchievements.length > 0 ? renderedAchievements : <p>Play to earn achievements</p>}
+      {/* <h2>Your Achievements: </h2>
+      {renderedAchievements.length > 0 ? renderedAchievements : <p>Play to earn achievements</p>} */}
       <button className='submit' onClick={() => setShowEditUsernameForm(true)}>Edit Username</button>
       <button className='submit' onClick={() => setShowEditPasswordForm(true)}>Edit Password</button>
-      <button className='submit' onClick={() => setShowDeleteVerification(true)}>Delete Account</button>
+      <button className='submit red' onClick={() => setShowDeleteVerification(true)}>Delete Account</button>
       {showEditUsernameForm ? 
         <div>
           <form onSubmit={handleEditUsername}>
@@ -133,8 +133,8 @@ function Account( {user, setUser} ) {
           </form>
         </div> : <></>}
       {showDeleteVerification? <div>
-        <h2>Are you sure you wish to delete your account?</h2>
-        <button className='submit' onClick={handleDelete}>Delete My Account</button>
+        <h3>Are you sure you wish to delete your account?</h3>
+        <button className='submit red' onClick={handleDelete}>Delete My Account</button>
         <button className='submit' onClick={() => setShowDeleteVerification(false)}>Cancel</button>
       </div> : <></>}
     </div>

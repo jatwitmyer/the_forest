@@ -10,7 +10,7 @@ function CharacterSelect( {user, characters, setCharacters, setSelectedCharacter
   const navigate = useNavigate()
 
   // console.log(user.characters)
-  const userCharacterCards = (characters.map(character => <UserCharacterCard key={character.id} character={character} setInGame={setInGame} setSelectedCharacter={setSelectedCharacter} setSelectedSaveFile={setSelectedSaveFile}/>))
+  const userCharacterCards = (characters.map(character => <UserCharacterCard key={character.id} character={character} characters={characters} setCharacters={setCharacters} setInGame={setInGame} setSelectedCharacter={setSelectedCharacter} setSelectedSaveFile={setSelectedSaveFile}/>))
 
   const girls_item_location_choices = ['spooky1', 'spooky2', 'swamp1', 'swamp_village', 'fork', 'waterfall_village', 'stairs', 'tree_village', 'shop']
 
@@ -94,13 +94,13 @@ function CharacterSelect( {user, characters, setCharacters, setSelectedCharacter
   }
 
   return (
-    <div className="account center-card">
+    <div className="playthroughs center-card">
       <h1>Your Playthroughs</h1>
       {userCharacterCards}
-      {showNewCharacterForm === false ? <button className="submit" onClick={() => setShowNewCharacterForm(true)}>New Playthrough</button> :
+      {showNewCharacterForm === false ? <button className="submit new-playthrough" onClick={() => setShowNewCharacterForm(true)}>New Playthrough</button> :
       <div className="new-character-form-div">
         <form className="new-character-form" onSubmit={handleNewCharacter}>
-          <h2>Create A New Character</h2>
+          <h2>Create a New Character</h2>
           <label>Name:
             <input 
               type="text"

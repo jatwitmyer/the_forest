@@ -38,7 +38,7 @@ function Login( { onLogin } ) {
       {/* <NavBar/> */}
       <div className="row login"> {/* make this add to 12 */}
         <div className="col-3"></div>
-        <div className="col-6 form-div center-card">
+        <div className="col-6 form-div center-card login-page">
           <h1>Log In</h1>
           <form onSubmit={handleLogin}>
             <label>Username: 
